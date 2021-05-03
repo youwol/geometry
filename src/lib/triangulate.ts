@@ -7,6 +7,9 @@ import { project } from './plane'
  * Unconstrained Delaunay triangulation in 2D.
  * @param points The point coordinates as a packed array
  * @param normal The normal to project th epoint to perform the triangulation
+ * @license ISC
+ * @copyright 2017, Mapbox
+ * @github [This link](https://github.com/mapbox/delaunator)
  */
 export function triangulate(points: ASerie, normal: Vector3 = [0,0,1]): DataFrame {
     let d: Delaunator = undefined
