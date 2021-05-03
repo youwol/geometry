@@ -2,7 +2,7 @@
 
 
 ## Description
-
+Read documentation [here](https://youwol.github.io/geometry/dist/docs)
 
 ## Use 
 To install the required dependencies:
