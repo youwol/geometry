@@ -10,3 +10,4 @@ dist/index.d.ts
 dist/src/
 dist/math/
 dist/dataframe/
+dist/tests

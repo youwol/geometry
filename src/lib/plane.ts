@@ -2,9 +2,8 @@
  * Some utility functions and classes
  * @module Utils
  */
+import { ASerie, map, Serie, sub } from "@youwol/dataframe"
 import * as math from '@youwol/math'
-import { ASerie } from "@youwol/dataframe"
-import { create, dot, scale, sub } from '@youwol/math'
 
 /**
  * @brief The definition of a plane in 3D
@@ -114,7 +113,7 @@ export function fittingPlane(points: ASerie): Plane {
     let yy = 0.0, yz = 0.0, zz = 0.0
 
     for (let i=0; i<points.length; i+=3) {
-        let r = [points[i]-centroid[0], points[i+1]-centroid[1], points[i+2]-centroid[2]]
+        let r = [points.array[i]-centroid[0], points.array[i+1]-centroid[1], points.array[i+2]-centroid[2]]
         xx += r[0]**2
         xy += r[0] * r[1]
         xz += r[0] * r[2]
@@ -148,38 +147,49 @@ export function fittingPlane(points: ASerie): Plane {
 }
 
 /**
+ * @brief Get the distances from 3D points to a plane
+ * @param pt The considered 3D points or one Vector3
+ * @param plane The plane defined with a point and its normal
+ */
+export function distanceFromPointToPlane(pt: math.Vector3 | ASerie, plane: Plane): number | ASerie {
+    if (pt instanceof Serie) {
+        if (pt.itemSize !== 3) throw new Error('points must have itemSize = 3 (coordinates)')
+        return pt.map( point => _distanceFromPointToPlane_(point, plane) )
+    }
+
+    return _distanceFromPointToPlane_(pt, plane)
+}
+
+export function project(p: math.Vector3 | ASerie, plane: Plane) {
+    // Like traction vector to be projected onto a plane with normal n
+    // t - t.n n --> ts
+
+    const _project = (t: math.Vector3, n: math.Vector3) => {
+        const d = math.dot(t, n)
+        return [t[0]-d*n[0], t[1]-d*n[1]]
+    }
+
+    if (p instanceof Serie) {
+        return p.map( point => _project(point, plane.normal) )
+    }
+
+    return _project(p, plane.normal)
+}
+
+// ----------------------------------------------------------------------
+
+/**
  * @brief Get the distance from a 3D point to a plane
  * @param p The considered 3D point
  * @param plane The plane defined with a point and its normal
  */
-export function distanceFromPointToPlane(p: math.Vector3, plane: Plane): number {
-    //let sb=0, sn=0, sd=0
-
+ function _distanceFromPointToPlane_(p: math.Vector3, plane: Plane): number {
     const sn = -math.dot( plane.normal, vector(plane.point, p, true) )
     const sd = math.dot(plane.normal, plane.normal)
     const sb = sn / sd
     const B = math.add( p, math.scale(plane.normal, sb) ) as math.Vector3
     return math.norm( vector(p, B) )
 }
-
-/**
- * @brief Get the distances from 3D points to a plane
- * @param p The considered 3D points
- * @param plane The plane defined with a point and its normal
- */
-export function distanceFromPointsToPlane(points: ASerie, plane: Plane): ASerie {
-    if (points.itemSize !== 3) throw new Error('points must have itemSize = 3 (coordinates)')
-    return points.map( point => distanceFromPointToPlane(point, plane) )
-}
-
-export function project(p: math.Vector3, plane: Plane) {
-    return sub(p, scale(
-        plane.normal, 
-        dot(plane.normal, create(p, plane.point))
-    ))
-}
-
-// ----------------------------------------------------------------------
 
 function vector(p1: math.Vector3, p2: math.Vector3, normalize: boolean=false): math.Vector3 {
     if (normalize) {
