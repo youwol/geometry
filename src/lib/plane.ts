@@ -148,7 +148,7 @@ export function fittingPlane(points: ASerie): Plane {
 
 /**
  * @brief Get the distances from 3D points to a plane
- * @param pt The considered 3D points or one Vector3
+ * @param pt The considered 3D points or one point
  * @param plane The plane defined with a point and its normal
  */
 export function distanceFromPointToPlane(pt: math.Vector3 | ASerie, plane: Plane): number | ASerie {
@@ -160,6 +160,26 @@ export function distanceFromPointToPlane(pt: math.Vector3 | ASerie, plane: Plane
     return _distanceFromPointToPlane_(pt, plane)
 }
 
+/**
+ * @brief Get the vectors from 3D points to a plane
+ * @param pt The considered 3D points or one point
+ * @param plane The plane defined with a point and its normal
+ */
+export function vectorFromPointsToPlane(pt: math.Vector3 | ASerie, plane: Plane): math.Vector3 | ASerie {
+    if (pt instanceof Serie) {
+        if (pt.itemSize !== 3) throw new Error('points must have itemSize = 3 (coordinates)')
+        return pt.map( point => _vectorFromPointToPlane_(point, plane) )
+    }
+
+    return _vectorFromPointToPlane_(pt, plane)
+}
+
+/**
+ * Project a 3D vector onto the plane and get the in-plane coordinates (2D)
+ * @param p The point to project
+ * @param plane The plane
+ * @returns [x,y] coordinates
+ */
 export function project(p: math.Vector3 | ASerie, plane: Plane) {
     // Like traction vector to be projected onto a plane with normal n
     // t - t.n n --> ts
@@ -189,6 +209,14 @@ export function project(p: math.Vector3 | ASerie, plane: Plane) {
     const sb = sn / sd
     const B = math.add( p, math.scale(plane.normal, sb) ) as math.Vector3
     return math.norm( vector(p, B) )
+}
+
+function _vectorFromPointToPlane_(p: math.Vector3, plane: Plane): math.Vector3 {
+    const sn = -math.dot( plane.normal, vector(plane.point, p, true) )
+    const sd = math.dot(plane.normal, plane.normal)
+    const sb = sn / sd
+    const B = math.add( p, math.scale(plane.normal, sb) ) as math.Vector3
+    return vector(p, B)
 }
 
 function vector(p1: math.Vector3, p2: math.Vector3, normalize: boolean=false): math.Vector3 {

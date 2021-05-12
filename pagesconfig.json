@@ -1,4 +1,17 @@
 {
     "groups": [
+        {
+            "title": "Examples",
+            "pages": [
+                {
+                    "title": "Triangulate a set of 3D points",
+                    "source": "./documentation/example-triangulation.md"
+                },
+                {
+                    "title": "Generator of rectangular and elliptical surfaces",
+                    "source": "./documentation/example-generate.md"
+                }
+            ]
+        }
     ]
 }
