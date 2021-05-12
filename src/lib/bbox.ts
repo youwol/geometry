@@ -1,4 +1,4 @@
-import { Vector3, add, scale, setCoord, set, create, norm } from '@youwol/math'
+import { vec } from '@youwol/math'
 
 // See also https://github.com/vanruesc/math-ds/tree/master/src
 
@@ -9,7 +9,7 @@ export class BBox {
     private max_ = [0,0,0]
     private empty_ = false
 
-    constructor(p1?: Vector3, p2?: Vector3) {
+    constructor(p1?: vec.Vector3, p2?: vec.Vector3) {
         this.reset()
         //if (p1) this.grow(p1)
         //if (p2) this.grow(p2)
@@ -18,11 +18,11 @@ export class BBox {
                 const min = Math.min(p1[i], p2[i])
                 const Max = Math.max(p1[i], p2[i])
                 if (Math.abs(Max - min) >= BBOX_FLATNESS_THRESHOLD) {
-                    setCoord(this.min_, i, min)
-                    setCoord(this.max_, i, Max)
+                    vec.setCoord(this.min_, i, min)
+                    vec.setCoord(this.max_, i, Max)
                 } else {
-                    setCoord(this.min_, i, Max)
-                    setCoord(this.max_, i, Max)
+                    vec.setCoord(this.min_, i, Max)
+                    vec.setCoord(this.max_, i, Max)
                 }
                 /*
                 if (Math.abs(Max - min) >= BBOX_FLATNESS_THRESHOLD) {
@@ -40,31 +40,31 @@ export class BBox {
     }
     reset() {
         this.empty_ = true
-        set(this.min_,  [1e32,  1e32,  1e32])
-        set(this.max_, [-1e32, -1e32, -1e32])
+        vec.set(this.min_,  [1e32,  1e32,  1e32])
+        vec.set(this.max_, [-1e32, -1e32, -1e32])
     }
 
     get empty() {return this.empty_}
-    get min(): Vector3 {return [...this.min_] as Vector3}
-    get max(): Vector3 {return [...this.max_] as Vector3}
+    get min(): vec.Vector3 {return [...this.min_] as vec.Vector3}
+    get max(): vec.Vector3 {return [...this.max_] as vec.Vector3}
     get xLength() {return this.max_[0] - this.min_[0]}
     get yLength() {return this.max_[1] - this.min_[1]}
     get zLength() {return this.max_[2] - this.min_[2]}
     get sizes() {return [this.xLength, this.yLength, this.zLength]}
-    get center(): Vector3 {
-        let c = [...this.min_] as Vector3
-        scale( add(c, this.max_), 0.5 )
+    get center(): vec.Vector3 {
+        let c = [...this.min_] as vec.Vector3
+        vec.scale( vec.add(c, this.max_), 0.5 )
         return c
     }
     get radius(): number {
-        return norm(create(this.min_, this.max_))/2
+        return vec.norm(vec.create(this.min_, this.max_))/2
     }
 
     scale(s: number) {
-        let r1 = add( scale(create(this.center, this.min), s), this.center )
-        let r2 = add( scale(create(this.center, this.max), s), this.center )
-        set(this.min_, r1)
-        set(this.max_, r2)
+        let r1 = vec.add( vec.scale(vec.create(this.center, this.min), s), this.center )
+        let r2 = vec.add( vec.scale(vec.create(this.center, this.max), s), this.center )
+        vec.set(this.min_, r1)
+        vec.set(this.max_, r2)
     }
 
     grow(p: any) {
@@ -108,8 +108,8 @@ export class BBox {
           return new BBox()
         } 
     
-        const new_min = [0,0,0] as Vector3
-        const new_max = [0,0,0] as Vector3
+        const new_min = [0,0,0] as vec.Vector3
+        const new_max = [0,0,0] as vec.Vector3
     
         for (let i = 0; i<3; ++i) {
             if (this.min_[i] >= b.min_[i]) {

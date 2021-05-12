@@ -5,7 +5,7 @@
 */
 
 import { ASerie, copy } from "@youwol/dataframe"
-import { norm2, sub, IVector } from "@youwol/math"
+import { vec } from "@youwol/math"
 
 /**
  * From `Simplify.js`, a high-performance JS polyline simplification library.
@@ -31,10 +31,10 @@ export function simplify(points: ASerie, tolerance: number=1, highestQuality: bo
 // -------------------------------------------------------------------------------------
 
 // square distance between 2 points
-const getSquareDistance = (p1: IVector, p2: IVector) => norm2(sub(p1, p2))
+const getSquareDistance = (p1: vec.IVector, p2: vec.IVector) => vec.norm2(vec.sub(p1, p2))
 
 // square distance from a point to a segment
-function getSquareSegmentDistance(p: IVector, p1: IVector, p2: IVector) {
+function getSquareSegmentDistance(p: vec.IVector, p1: vec.IVector, p2: vec.IVector) {
     if (p.length === 2) {
         let x = p1[0],
             y = p1[1],
@@ -88,14 +88,14 @@ function getSquareSegmentDistance(p: IVector, p1: IVector, p2: IVector) {
 
 // basic distance-based simplification
 function simplifyRadialDistance(points: ASerie, sqTolerance: number): ASerie {
-    let prevPoint = points.itemAt(0) as IVector
+    let prevPoint = points.itemAt(0) as vec.IVector
     const newPoints = [...prevPoint]
-    let point: IVector = undefined
+    let point: vec.IVector = undefined
     
     const itemSize = points.itemSize
 
     for (let i = 1, len = points.count; i <len; ++i) {
-        point = points.itemAt(i) as IVector
+        point = points.itemAt(i) as vec.IVector
         if (getSquareDistance(point, prevPoint) > sqTolerance) {
             newPoints.push(...point)
             prevPoint = point
@@ -127,9 +127,9 @@ function simplifyDouglasPeucker(points: ASerie, sqTolerance: number): ASerie {
         maxSqDist = 0
         for (i = first + 1; i < last; i++) {
             sqDist = getSquareSegmentDistance(
-                points.itemAt(i) as IVector,
-                points.itemAt(first) as IVector,
-                points.itemAt(last) as IVector
+                points.itemAt(i) as vec.IVector,
+                points.itemAt(first) as vec.IVector,
+                points.itemAt(last) as vec.IVector
             )
             if (sqDist > maxSqDist) {
                 index = i

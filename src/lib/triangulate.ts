@@ -1,5 +1,5 @@
 import { ASerie, createSerie, createTyped, DataFrame, array } from '@youwol/dataframe'
-import { Vector3 } from '@youwol/math'
+import { vec } from '@youwol/math'
 import { Delaunator } from './delaunay/delaunator'
 import { project } from './plane'
 
@@ -11,13 +11,13 @@ import { project } from './plane'
  * @copyright 2017, Mapbox
  * @github [This link](https://github.com/mapbox/delaunator)
  */
-export function triangulate(positions: ASerie, normal: Vector3 = [0,0,1]): DataFrame {
+export function triangulate(positions: ASerie, normal: vec.Vector3 = [0,0,1]): DataFrame {
     let d: Delaunator = undefined
 
     if (positions.itemSize===2) {
         d  = new Delaunator(positions.array)
     } else {
-        const newPts = positions.map( p => project(p, {normal, point: [0,0,0] as Vector3}) )
+        const newPts = positions.map( p => project(p, {normal, point: [0,0,0] as vec.Vector3}) )
         d = new Delaunator( newPts.array )
     }
 

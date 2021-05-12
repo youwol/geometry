@@ -2,15 +2,15 @@
  * Some utility functions and classes
  * @module Utils
  */
-import { ASerie, map, Serie, sub } from "@youwol/dataframe"
+import { ASerie, Serie } from "@youwol/dataframe"
 import * as math from '@youwol/math'
 
 /**
  * @brief The definition of a plane in 3D
  */
 export type Plane = {
-    point : math.Vector3,
-    normal: math.Vector3
+    point : math.vec.Vector3,
+    normal: math.vec.Vector3
 }
 
 
@@ -23,28 +23,28 @@ export type Plane = {
 export class TriangleCSys {
     private mat_ = [1,0,0, 0,1,0, 0,0,1]
 
-    setBase(x: math.Vector3, y: math.Vector3, z: math.Vector3) {
+    setBase(x: math.vec.Vector3, y: math.vec.Vector3, z: math.vec.Vector3) {
         let v1 = vector(y, x, true) // see bottom for vector()
         let v2 = vector(z, x, true)
-        return this.setNormal(math.cross(v1,v2))
+        return this.setNormal(math.vec.cross(v1,v2))
     }
 
-    setNormal(n: math.Vector3) {
+    setNormal(n: math.vec.Vector3) {
         const TINY_ANGLE_ = 1e-7
-        let x3 = math.clone(n)
-        if (math.norm(x3) < TINY_ANGLE_) {
+        let x3 = math.vec.clone(n)
+        if (math.vec.norm(x3) < TINY_ANGLE_) {
             throw new Error('Cannot calculate element normal. Elt must have a very odd shape.')
         }
-        x3 = math.normalize(x3)
+        x3 = math.vec.normalize(x3)
 
-        let x2 = math.cross([0, 0, 1], x3 as math.Vector3)
-        if (math.norm(x2) < TINY_ANGLE_) {
+        let x2 = math.vec.cross([0, 0, 1], x3 as math.vec.Vector3)
+        if (math.vec.norm(x2) < TINY_ANGLE_) {
             x2 = [0, 1, 0]
         }
-        x2 = math.normalize(x2) as math.Vector3
+        x2 = math.vec.normalize(x2) as math.vec.Vector3
 
-        let x1 = math.cross(x2, x3 as math.Vector3)
-        x1 = math.normalize(x1) as math.Vector3
+        let x1 = math.vec.cross(x2, x3 as math.vec.Vector3)
+        x1 = math.vec.normalize(x1) as math.vec.Vector3
 
         this.mat_[0] = x1[0]
         this.mat_[1] = x2[0]
@@ -60,30 +60,30 @@ export class TriangleCSys {
     get matrix() {
         return this.mat_
     }
-    get dip(): math.Vector3 {
+    get dip(): math.vec.Vector3 {
         return [this.mat_[0][0], this.mat_[1][0], this.mat_[2][0]]
     }
-    get strike() : math.Vector3 {
+    get strike() : math.vec.Vector3 {
         return [this.mat_[0][1], this.mat_[1][1], this.mat_[2][1]]
     }
-    get normal(): math.Vector3 {
+    get normal(): math.vec.Vector3 {
         return [this.mat_[0][2], this.mat_[1][2], this.mat_[2][2]]
     }
 
-    toLocal(v: math.Vector3): math.Vector3 {
-        return multVec(this.mat_ as math.Vector9, v)
+    toLocal(v: math.vec.Vector3): math.vec.Vector3 {
+        return multVec(this.mat_ as math.vec.Vector9, v)
     }
 
-    toGlobal(v: math.Vector3): math.Vector3 {
-        return multTVec(this.mat_ as math.Vector9, v)
+    toGlobal(v: math.vec.Vector3): math.vec.Vector3 {
+        return multTVec(this.mat_ as math.vec.Vector9, v)
     }
 
-    shearComponent(t: math.Vector3): math.IVector {
-        return  math.scale(math.sub(t, this.normalComponent(t)), -1)
+    shearComponent(t: math.vec.Vector3): math.vec.IVector {
+        return  math.vec.scale(math.vec.sub(t, this.normalComponent(t)), -1)
     }
 
-    normalComponent(t: math.Vector3): math.IVector {
-        return math.scale(this.normal, -math.dot(t, this.normal))
+    normalComponent(t: math.vec.Vector3): math.vec.IVector {
+        return math.vec.scale(this.normal, -math.vec.dot(t, this.normal))
     }
 }
 
@@ -100,13 +100,13 @@ export function fittingPlane(points: ASerie): Plane {
         throw new Error('Not enough points to fit a plane')
     }
 
-    const sum: math.Vector3 = [0, 0, 0]
+    const sum: math.vec.Vector3 = [0, 0, 0]
     for (let i=0; i<points.array.length; i+=3) {
         sum[0] += points.array[i]
         sum[1] += points.array[i+1]
         sum[2] += points.array[i+2]
     }
-    let centroid = math.scale(sum, 1/(points.length) ) as math.Vector3
+    let centroid = math.vec.scale(sum, 1/(points.length) ) as math.vec.Vector3
 
     // Calc full 3x3 covariance matrix, excluding symmetries:
     let xx = 0.0, xy = 0.0, xz = 0.0
@@ -131,7 +131,7 @@ export function fittingPlane(points: ASerie): Plane {
     }
 
     // Pick path with best conditioning:
-    let dir: math.Vector3 = [0,0,0]
+    let dir: math.vec.Vector3 = [0,0,0]
     if (det_max == det_x) {
         dir = [det_x, xz*yz - xy*zz, xy*yz - xz*yy]
     } else if (det_max == det_y) {
@@ -142,7 +142,7 @@ export function fittingPlane(points: ASerie): Plane {
 
     return {
         point: centroid,
-        normal: math.normalize(dir) as math.Vector3
+        normal: math.vec.normalize(dir) as math.vec.Vector3
     }
 }
 
@@ -151,7 +151,7 @@ export function fittingPlane(points: ASerie): Plane {
  * @param pt The considered 3D points or one point
  * @param plane The plane defined with a point and its normal
  */
-export function distanceFromPointToPlane(pt: math.Vector3 | ASerie, plane: Plane): number | ASerie {
+export function distanceFromPointToPlane(pt: math.vec.Vector3 | ASerie, plane: Plane): number | ASerie {
     if (pt instanceof Serie) {
         if (pt.itemSize !== 3) throw new Error('points must have itemSize = 3 (coordinates)')
         return pt.map( point => _distanceFromPointToPlane_(point, plane) )
@@ -165,7 +165,7 @@ export function distanceFromPointToPlane(pt: math.Vector3 | ASerie, plane: Plane
  * @param pt The considered 3D points or one point
  * @param plane The plane defined with a point and its normal
  */
-export function vectorFromPointsToPlane(pt: math.Vector3 | ASerie, plane: Plane): math.Vector3 | ASerie {
+export function vectorFromPointsToPlane(pt: math.vec.Vector3 | ASerie, plane: Plane): math.vec.Vector3 | ASerie {
     if (pt instanceof Serie) {
         if (pt.itemSize !== 3) throw new Error('points must have itemSize = 3 (coordinates)')
         return pt.map( point => _vectorFromPointToPlane_(point, plane) )
@@ -180,12 +180,12 @@ export function vectorFromPointsToPlane(pt: math.Vector3 | ASerie, plane: Plane)
  * @param plane The plane
  * @returns [x,y] coordinates
  */
-export function project(p: math.Vector3 | ASerie, plane: Plane) {
+export function project(p: math.vec.Vector3 | ASerie, plane: Plane) {
     // Like traction vector to be projected onto a plane with normal n
     // t - t.n n --> ts
 
-    const _project = (t: math.Vector3, n: math.Vector3) => {
-        const d = math.dot(t, n)
+    const _project = (t: math.vec.Vector3, n: math.vec.Vector3) => {
+        const d = math.vec.dot(t, n)
         return [t[0]-d*n[0], t[1]-d*n[1]]
     }
 
@@ -203,23 +203,23 @@ export function project(p: math.Vector3 | ASerie, plane: Plane) {
  * @param p The considered 3D point
  * @param plane The plane defined with a point and its normal
  */
- function _distanceFromPointToPlane_(p: math.Vector3, plane: Plane): number {
-    const sn = -math.dot( plane.normal, vector(plane.point, p, true) )
-    const sd = math.dot(plane.normal, plane.normal)
+ function _distanceFromPointToPlane_(p: math.vec.Vector3, plane: Plane): number {
+    const sn = -math.vec.dot( plane.normal, vector(plane.point, p, true) )
+    const sd = math.vec.dot(plane.normal, plane.normal)
     const sb = sn / sd
-    const B = math.add( p, math.scale(plane.normal, sb) ) as math.Vector3
-    return math.norm( vector(p, B) )
+    const B = math.vec.add( p, math.vec.scale(plane.normal, sb) ) as math.vec.Vector3
+    return math.vec.norm( vector(p, B) )
 }
 
-function _vectorFromPointToPlane_(p: math.Vector3, plane: Plane): math.Vector3 {
-    const sn = -math.dot( plane.normal, vector(plane.point, p, true) )
-    const sd = math.dot(plane.normal, plane.normal)
+function _vectorFromPointToPlane_(p: math.vec.Vector3, plane: Plane): math.vec.Vector3 {
+    const sn = -math.vec.dot( plane.normal, vector(plane.point, p, true) )
+    const sd = math.vec.dot(plane.normal, plane.normal)
     const sb = sn / sd
-    const B = math.add( p, math.scale(plane.normal, sb) ) as math.Vector3
+    const B = math.vec.add( p, math.vec.scale(plane.normal, sb) ) as math.vec.Vector3
     return vector(p, B)
 }
 
-function vector(p1: math.Vector3, p2: math.Vector3, normalize: boolean=false): math.Vector3 {
+function vector(p1: math.vec.Vector3, p2: math.vec.Vector3, normalize: boolean=false): math.vec.Vector3 {
     if (normalize) {
         const x = p2[0]-p1[0]
         const y = p2[1]-p1[1]
@@ -230,7 +230,7 @@ function vector(p1: math.Vector3, p2: math.Vector3, normalize: boolean=false): m
     return [p2[0]-p1[0], p2[1]-p1[1], p2[2]-p1[2]]
 }
 
-function multVec(e: math.Vector9, v: math.Vector3): math.Vector3 {
+function multVec(e: math.vec.Vector9, v: math.vec.Vector3): math.vec.Vector3 {
     const x = v[0], y = v[1], z = v[2]
     return [
         e[ 0 ] * x + e[ 3 ] * y + e[ 6 ] * z,
@@ -238,7 +238,7 @@ function multVec(e: math.Vector9, v: math.Vector3): math.Vector3 {
         e[ 2 ] * x + e[ 5 ] * y + e[ 8 ] * z]
 }
 
-function multTVec(e: math.Vector9, v: math.Vector3): math.Vector3 {
+function multTVec(e: math.vec.Vector9, v: math.vec.Vector3): math.vec.Vector3 {
     const x = v[0], y = v[1], z = v[2]
     return [
         e[ 0 ] * x + e[ 1 ] * y + e[ 2 ] * z,
