@@ -2,7 +2,7 @@
  * Some utility functions and classes
  * @module Utils
  */
-import { ASerie, Serie } from "@youwol/dataframe"
+import { Serie } from "@youwol/dataframe"
 import * as math from '@youwol/math'
 
 /**
@@ -95,7 +95,7 @@ export class TriangleCSys {
  * @return {point: Vec3, normal: Vec3} The plane parameters fitting the points
  * in a least squares sens
  */
-export function fittingPlane(points: ASerie): Plane {
+export function fittingPlane(points: Serie): Plane {
     if (points.length < 3) {
         throw new Error('Not enough points to fit a plane')
     }
@@ -151,7 +151,7 @@ export function fittingPlane(points: ASerie): Plane {
  * @param pt The considered 3D points or one point
  * @param plane The plane defined with a point and its normal
  */
-export function distanceFromPointToPlane(pt: math.vec.Vector3 | ASerie, plane: Plane): number | ASerie {
+export function distanceFromPointToPlane(pt: math.vec.Vector3 | Serie, plane: Plane): number | Serie {
     if (pt instanceof Serie) {
         if (pt.itemSize !== 3) throw new Error('points must have itemSize = 3 (coordinates)')
         return pt.map( point => _distanceFromPointToPlane_(point, plane) )
@@ -165,7 +165,7 @@ export function distanceFromPointToPlane(pt: math.vec.Vector3 | ASerie, plane: P
  * @param pt The considered 3D points or one point
  * @param plane The plane defined with a point and its normal
  */
-export function vectorFromPointsToPlane(pt: math.vec.Vector3 | ASerie, plane: Plane): math.vec.Vector3 | ASerie {
+export function vectorFromPointsToPlane(pt: math.vec.Vector3 | Serie, plane: Plane): math.vec.Vector3 | Serie {
     if (pt instanceof Serie) {
         if (pt.itemSize !== 3) throw new Error('points must have itemSize = 3 (coordinates)')
         return pt.map( point => _vectorFromPointToPlane_(point, plane) )
@@ -180,7 +180,7 @@ export function vectorFromPointsToPlane(pt: math.vec.Vector3 | ASerie, plane: Pl
  * @param plane The plane
  * @returns [x,y] coordinates
  */
-export function project(p: math.vec.Vector3 | ASerie, plane: Plane) {
+export function project(p: math.vec.Vector3 | Serie, plane: Plane) {
     // Like traction vector to be projected onto a plane with normal n
     // t - t.n n --> ts
 

@@ -1,4 +1,4 @@
-import { createSerie, DataFrame } from "@youwol/dataframe"
+import { Serie, DataFrame } from "@youwol/dataframe"
 import { triangulate } from "./triangulate"
 
 /**
@@ -31,7 +31,7 @@ export function generateEllipse(
     }
     add(0,0)
 
-    return triangulate( createSerie({data: nodes, itemSize: 3}) )
+    return triangulate( Serie.create({array: nodes, itemSize: 3}) )
 }
 
 /**
@@ -56,5 +56,5 @@ export function generateRectangle(
         }
     }
 
-    return triangulate( createSerie({data: nodes, itemSize: 3}) )
+    return triangulate( Serie.create({array: nodes, itemSize: 3}) )
 }

@@ -4,7 +4,7 @@
  mourner.github.io/simplify-js
 */
 
-import { ASerie, copy } from "@youwol/dataframe"
+import { Serie, copy } from "@youwol/dataframe"
 import { vec } from "@youwol/math"
 
 /**
@@ -21,7 +21,7 @@ import { vec } from "@youwol/math"
  * @copyright 2013, Vladimir Agafonkin
  * @license BSD-2-Clause "Simplified" License
  */
-export function simplify(points: ASerie, tolerance: number=1, highestQuality: boolean=false) {
+export function simplify(points: Serie, tolerance: number=1, highestQuality: boolean=false) {
     const sqTolerance = tolerance !== undefined ? tolerance * tolerance : 1
     return simplifyDouglasPeucker(highestQuality ? points : simplifyRadialDistance(points, sqTolerance), sqTolerance)
 }
@@ -87,7 +87,7 @@ function getSquareSegmentDistance(p: vec.IVector, p1: vec.IVector, p2: vec.IVect
 }
 
 // basic distance-based simplification
-function simplifyRadialDistance(points: ASerie, sqTolerance: number): ASerie {
+function simplifyRadialDistance(points: Serie, sqTolerance: number): Serie {
     let prevPoint = points.itemAt(0) as vec.IVector
     const newPoints = [...prevPoint]
     let point: vec.IVector = undefined
@@ -111,7 +111,7 @@ function simplifyRadialDistance(points: ASerie, sqTolerance: number): ASerie {
 }
 
 // simplification using optimized Douglas-Peucker algorithm with recursion elimination
-function simplifyDouglasPeucker(points: ASerie, sqTolerance: number): ASerie {
+function simplifyDouglasPeucker(points: Serie, sqTolerance: number): Serie {
     let len = points.length,
         MarkerArray = typeof Uint8Array !== 'undefined' ? Uint8Array : Array,
         markers = new MarkerArray(len),
