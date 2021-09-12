@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@youwol/geometry - v0.0.3</title>
-	<meta name="description" content="Documentation for @youwol/geometry - v0.0.3">
+	<title>@youwol/geometry - v0.0.4</title>
+	<meta name="description" content="Documentation for @youwol/geometry - v0.0.4">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 	<link rel="stylesheet" href="assets/css/pages.css">
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">@youwol/geometry - v0.0.3</a>
+					<a href="index.html" class="title">@youwol/geometry - v0.0.4</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -57,7 +57,7 @@
 					<a href="modules.html">Globals</a>
 				</li>
 			</ul>
-			<h1>Project @youwol/geometry - v0.0.3</h1>
+			<h1>Project @youwol/geometry - v0.0.4</h1>
 		</div>
 	</div>
 </header>
@@ -91,10 +91,10 @@
 								<li class="tsd-kind-function"><a href="modules.html#fittingplane" class="tsd-kind-icon">fitting<wbr>Plane</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#generateellipse" class="tsd-kind-icon">generate<wbr>Ellipse</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#generaterectangle" class="tsd-kind-icon">generate<wbr>Rectangle</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#generatesphere" class="tsd-kind-icon">generate<wbr>Sphere</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#inflatebbox" class="tsd-kind-icon">inflateBBox</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#project" class="tsd-kind-icon">project</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#simplify" class="tsd-kind-icon">simplify</a></li>
-								<li class="tsd-kind-function"><a href="modules.html#sphere" class="tsd-kind-icon">sphere</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#triangulate" class="tsd-kind-icon">triangulate</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#vectorfrompointstoplane" class="tsd-kind-icon">vector<wbr>From<wbr>Points<wbr>ToPlane</a></li>
 							</ul>
@@ -314,6 +314,55 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="generatesphere" class="tsd-anchor"></a>
+					<h3>generate<wbr>Sphere</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">generate<wbr>Sphere<span class="tsd-signature-symbol">(</span>subdivision<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>indices<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">; </span>positions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol"> }</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Return two typed array for the faces and the vertices making a sphere given by a subdivision.
+									Note that all triangles are decoupled.</p>
+									<pre><code class="language-ts"><span style="color: #000000">{</span>
+<span style="color: #000000">     position: </span><span style="color: #267F99">Float32Array</span><span style="color: #000000">,</span>
+<span style="color: #000000">     indices : </span><span style="color: #267F99">Int16Array</span>
+<span style="color: #000000">}</span>
+</code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-ts"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">sphere</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@youwol/geometr</span><span style="color: #CD3131">y</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> {</span><span style="color: #0070C1">positions</span><span style="color: #000000">, </span><span style="color: #0070C1">indices</span><span style="color: #000000">} = </span><span style="color: #795E26">generateSphere</span><span style="color: #000000">(</span><span style="color: #098658">10</span><span style="color: #000000">)</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>subdivision: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The number of subdivision (&gt;0)</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>indices<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">; </span>positions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol"> }</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter">
+									<h5>indices<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>positions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span></h5>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="inflatebbox" class="tsd-anchor"></a>
 					<h3>inflateBBox</h3>
 					<ul class="tsd-signatures tsd-kind-function">
@@ -417,55 +466,6 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Serie</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IArray</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="sphere" class="tsd-anchor"></a>
-					<h3>sphere</h3>
-					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">sphere<span class="tsd-signature-symbol">(</span>subdivision<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>indices<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">; </span>positions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol"> }</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Return two typed array for the faces and the vertices making a sphere given by a subdivision.
-									Note that all triangles are decoupled.</p>
-									<pre><code class="language-ts"><span style="color: #000000">{</span>
-<span style="color: #000000">     position: </span><span style="color: #267F99">Float32Array</span><span style="color: #000000">,</span>
-<span style="color: #000000">     indices : </span><span style="color: #267F99">Int16Array</span>
-<span style="color: #000000">}</span>
-</code></pre>
-								</div>
-								<dl class="tsd-comment-tags">
-									<dt>example</dt>
-									<dd><pre><code class="language-ts"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">sphere</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@youwol/geometr</span><span style="color: #CD3131">y</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> {</span><span style="color: #0070C1">positions</span><span style="color: #000000">, </span><span style="color: #0070C1">indices</span><span style="color: #000000">} = </span><span style="color: #795E26">sphere</span><span style="color: #000000">(</span><span style="color: #098658">10</span><span style="color: #000000">)</span>
-</code></pre>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>subdivision: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The number of subdivision (&gt;0)</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>indices<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">; </span>positions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol"> }</span></h4>
-							<ul class="tsd-parameters">
-								<li class="tsd-parameter">
-									<h5>indices<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span></h5>
-								</li>
-								<li class="tsd-parameter">
-									<h5>positions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span></h5>
-								</li>
-							</ul>
 						</li>
 					</ul>
 				</section>
@@ -593,6 +593,9 @@
 						<a href="modules.html#generaterectangle" class="tsd-kind-icon">generate<wbr>Rectangle</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="modules.html#generatesphere" class="tsd-kind-icon">generate<wbr>Sphere</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="modules.html#inflatebbox" class="tsd-kind-icon">inflateBBox</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -600,9 +603,6 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#simplify" class="tsd-kind-icon">simplify</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#sphere" class="tsd-kind-icon">sphere</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#triangulate" class="tsd-kind-icon">triangulate</a>

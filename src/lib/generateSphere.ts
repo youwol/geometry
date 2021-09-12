@@ -15,11 +15,11 @@ import { createTyped } from "@youwol/dataframe"
  * @example
  * ```ts
  * import { sphere } from '@youwol/geometry
- * const {positions, indices} = sphere(10)
+ * const {positions, indices} = generateSphere(10)
  * ```
  * @param subdivision The number of subdivision (>0)
  */
- export function sphere(subdivision: number) {
+ export function generateSphere(subdivision: number) {
      if (subdivision<1) throw new Error('Subdivision must be > 0')
 
     const phi       = (1+Math.sqrt(5))/2 // golden number
@@ -40,16 +40,16 @@ import { createTyped } from "@youwol/dataframe"
         [6,10,7], [3,11,7], [11,6,7], [6,0,10], [9,1,11]
     ].map(face => face.map(i => vertices[i]))
 
-    const project = ([x,y,z]: number[]) => {
-        const R = 3
+    const R = 3
+    const proj = ([x,y,z]: number[]) => {
         const k = R/Math.sqrt(x**2 + y**2 + z**2)
         return [k*x, k*y, k*z]
     }
 
-    const interpolate = ([x0, y0, z0]: number[], [x1, y1, z1]: number[], t: number) => [
-        x0 + t * (x1 - x0),
-        y0 + t * (y1 - y0),
-        z0 + t * (z1 - z0)
+    const lerp = ([x0, y0, z0]: number[], [x1, y1, z1]: number[], t: number) => [
+        x0 + t*(x1 - x0),
+        y0 + t*(y1 - y0),
+        z0 + t*(z1 - z0)
     ]
 
     const newP = (...P: number[][]): void => 
@@ -59,28 +59,28 @@ import { createTyped } from "@youwol/dataframe"
         })
 
     for (const [f0, f1, f2] of faces) {
-        let f10, f20 = interpolate(f0, f1, 1 / subdivision)
-        let f11, f21 = interpolate(f0, f2, 1 / subdivision)
+        let f10, f20 = lerp(f0, f1, 1/subdivision)
+        let f11, f21 = lerp(f0, f2, 1/subdivision)
         newP(
-            project(f0), 
-            project(f20), 
-            project(f21)
+            proj(f0), 
+            proj(f20), 
+            proj(f21)
         )
         for (let i = 1; i < subdivision; ++i) {
-            f10 = f20, f20 = interpolate(f0, f1, (i + 1) / subdivision)
-            f11 = f21, f21 = interpolate(f0, f2, (i + 1) / subdivision)
+            f10 = f20, f20 = lerp(f0, f1, (i + 1)/subdivision)
+            f11 = f21, f21 = lerp(f0, f2, (i + 1)/subdivision)
             for (let j = 0; j <= i; ++j) {
                 newP(
-                    project(interpolate(f10, f11, j / i)),
-                    project(interpolate(f20, f21, j / (i + 1))),
-                    project(interpolate(f20, f21, (j + 1) / (i + 1)))
+                    proj(lerp(f10, f11, j / i)),
+                    proj(lerp(f20, f21, j / (i + 1))),
+                    proj(lerp(f20, f21, (j + 1) / (i + 1)))
                 )
             }
             for (let j = 0; j < i; ++j) {
                 newP(
-                    project(interpolate(f10, f11, j / i)),
-                    project(interpolate(f20, f21, (j + 1) / (i + 1))),
-                    project(interpolate(f10, f11, (j + 1) / i))
+                    proj(lerp(f10, f11, j / i)),
+                    proj(lerp(f20, f21, (j + 1) / (i + 1))),
+                    proj(lerp(f10, f11, (j + 1) / i))
                 )
             }
         }
