@@ -25,8 +25,8 @@
   "devDependencies": {
     "@types/jest": "26.0.22",
     "@types/node": "14.14.37",
-    "@youwol/dataframe": "0.x",
-    "@youwol/math": "0.0.2",
+    "@youwol/dataframe": "0.0.27",
+    "@youwol/math": "0.x",
     "eslint": "7.23.0",
     "eslint-webpack-plugin": "2.5.3",
     "jest": "26.6.3",
@@ -34,6 +34,7 @@
     "ts-jest": "26.5.4",
     "ts-lib": "0.0.5",
     "ts-loader": "8.1.0",
+    "tslib": "^2.3.1",
     "typedoc": "0.20.34",
     "typedoc-plugin-pages": "^1.1.0",
     "typescript": "4.2.3",

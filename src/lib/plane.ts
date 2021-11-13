@@ -152,9 +152,10 @@ export function fittingPlane(points: Serie): Plane {
  * @param plane The plane defined with a point and its normal
  */
 export function distanceFromPointToPlane(pt: math.vec.Vector3 | Serie, plane: Plane): number | Serie {
-    if (pt instanceof Serie) {
-        if (pt.itemSize !== 3) throw new Error('points must have itemSize = 3 (coordinates)')
-        return pt.map( point => _distanceFromPointToPlane_(point, plane) )
+    if (Serie.isSerie(pt)) {
+        const S = pt as Serie
+        if (S.itemSize !== 3) throw new Error('points must have itemSize = 3 (coordinates)')
+        return S.map( point => _distanceFromPointToPlane_(point, plane) )
     }
 
     return _distanceFromPointToPlane_(pt, plane)
@@ -166,9 +167,10 @@ export function distanceFromPointToPlane(pt: math.vec.Vector3 | Serie, plane: Pl
  * @param plane The plane defined with a point and its normal
  */
 export function vectorFromPointsToPlane(pt: math.vec.Vector3 | Serie, plane: Plane): math.vec.Vector3 | Serie {
-    if (pt instanceof Serie) {
-        if (pt.itemSize !== 3) throw new Error('points must have itemSize = 3 (coordinates)')
-        return pt.map( point => _vectorFromPointToPlane_(point, plane) )
+    if (Serie.isSerie(pt)) {
+        const S = pt as Serie
+        if (S.itemSize !== 3) throw new Error('points must have itemSize = 3 (coordinates)')
+        return S.map( point => _vectorFromPointToPlane_(point, plane) )
     }
 
     return _vectorFromPointToPlane_(pt, plane)
@@ -189,11 +191,12 @@ export function project(p: math.vec.Vector3 | Serie, plane: Plane) {
         return [t[0]-d*n[0], t[1]-d*n[1]]
     }
 
-    if (p instanceof Serie) {
-        return p.map( point => _project(point, plane.normal) )
+    if (Serie.isSerie(p)) {
+        const S = p as Serie
+        return S.map( point => _project(point, plane.normal) )
     }
 
-    return _project(p, plane.normal)
+    return _project(p as math.vec.Vector3, plane.normal)
 }
 
 // ----------------------------------------------------------------------
