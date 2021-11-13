@@ -158,7 +158,7 @@ export function distanceFromPointToPlane(pt: math.vec.Vector3 | Serie, plane: Pl
         return S.map( point => _distanceFromPointToPlane_(point, plane) )
     }
 
-    return _distanceFromPointToPlane_(pt, plane)
+    return _distanceFromPointToPlane_(pt as math.vec.Vector3, plane)
 }
 
 /**
@@ -173,7 +173,7 @@ export function vectorFromPointsToPlane(pt: math.vec.Vector3 | Serie, plane: Pla
         return S.map( point => _vectorFromPointToPlane_(point, plane) )
     }
 
-    return _vectorFromPointToPlane_(pt, plane)
+    return _vectorFromPointToPlane_(pt as math.vec.Vector3, plane)
 }
 
 /**
