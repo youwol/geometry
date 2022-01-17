@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>BBox | @youwol/geometry - v0.0.7</title>
+	<title>Halfedge | @youwol/geometry - v0.0.7</title>
 	<meta name="description" content="Documentation for @youwol/geometry - v0.0.7">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,21 +57,29 @@
 					<a href="../modules.html">Globals</a>
 				</li>
 				<li>
-					<a href="bbox.html">BBox</a>
+					<a href="halfedge.html">Halfedge</a>
 				</li>
 			</ul>
-			<h1>Class BBox</h1>
+			<h1>Class Halfedge</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>An halfedge is made of a end-point node, and support a facet or
+						none if on border.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">BBox</span>
+						<span class="target">Halfedge</span>
 					</li>
 				</ul>
 			</section>
@@ -82,33 +90,32 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="bbox.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="halfedge.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="bbox.html#center" class="tsd-kind-icon">center</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="bbox.html#empty" class="tsd-kind-icon">empty</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="bbox.html#max" class="tsd-kind-icon">max</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="bbox.html#min" class="tsd-kind-icon">min</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="bbox.html#radius" class="tsd-kind-icon">radius</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="bbox.html#sizes" class="tsd-kind-icon">sizes</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="bbox.html#xlength" class="tsd-kind-icon">x<wbr>Length</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="bbox.html#ylength" class="tsd-kind-icon">y<wbr>Length</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="bbox.html#zlength" class="tsd-kind-icon">z<wbr>Length</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="halfedge.html#facet" class="tsd-kind-icon">facet</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="halfedge.html#isborder" class="tsd-kind-icon">is<wbr>Border</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="halfedge.html#isborderedge" class="tsd-kind-icon">is<wbr>Border<wbr>Edge</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="halfedge.html#length" class="tsd-kind-icon">length</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="halfedge.html#next" class="tsd-kind-icon">next</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="halfedge.html#nextaroundnode" class="tsd-kind-icon">next<wbr>Around<wbr>Node</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="halfedge.html#node" class="tsd-kind-icon">node</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="halfedge.html#opposite" class="tsd-kind-icon">opposite</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="halfedge.html#prev" class="tsd-kind-icon">prev</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="halfedge.html#prevaroundnode" class="tsd-kind-icon">prev<wbr>Around<wbr>Node</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="bbox.html#contains" class="tsd-kind-icon">contains</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="bbox.html#getintersection" class="tsd-kind-icon">get<wbr>Intersection</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="bbox.html#grow" class="tsd-kind-icon">grow</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="bbox.html#inside" class="tsd-kind-icon">inside</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="bbox.html#intersect" class="tsd-kind-icon">intersect</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="bbox.html#reset" class="tsd-kind-icon">reset</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="bbox.html#scale" class="tsd-kind-icon">scale</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="halfedge.html#setfacet" class="tsd-kind-icon">set<wbr>Facet</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="halfedge.html#setnext" class="tsd-kind-icon">set<wbr>Next</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="halfedge.html#setnode" class="tsd-kind-icon">set<wbr>Node</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="halfedge.html#setopposite" class="tsd-kind-icon">set<wbr>Opposite</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="halfedge.html#setprev" class="tsd-kind-icon">set<wbr>Prev</a></li>
 							</ul>
 						</section>
 					</div>
@@ -120,22 +127,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new BBox<span class="tsd-signature-symbol">(</span>p1<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Vector3</span>, p2<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Vector3</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="bbox.html" class="tsd-signature-type">BBox</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Halfedge<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="halfedge.html" class="tsd-signature-type">Halfedge</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> p1: <span class="tsd-signature-type">Vector3</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> p2: <span class="tsd-signature-type">Vector3</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="bbox.html" class="tsd-signature-type">BBox</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="halfedge.html" class="tsd-signature-type">Halfedge</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -143,24 +141,24 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="center" class="tsd-anchor"></a>
-					<h3>center</h3>
+					<a name="facet" class="tsd-anchor"></a>
+					<h3>facet</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> center<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> facet<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="facet.html" class="tsd-signature-type">Facet</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Vector3</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="facet.html" class="tsd-signature-type">Facet</a></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="empty" class="tsd-anchor"></a>
-					<h3>empty</h3>
+					<a name="isborder" class="tsd-anchor"></a>
+					<h3>is<wbr>Border</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> empty<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isBorder<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -171,38 +169,24 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="max" class="tsd-anchor"></a>
-					<h3>max</h3>
+					<a name="isborderedge" class="tsd-anchor"></a>
+					<h3>is<wbr>Border<wbr>Edge</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> max<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isBorderEdge<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Vector3</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="min" class="tsd-anchor"></a>
-					<h3>min</h3>
+					<a name="length" class="tsd-anchor"></a>
+					<h3>length</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> min<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Vector3</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="radius" class="tsd-anchor"></a>
-					<h3>radius</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> radius<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> length<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -213,58 +197,86 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="sizes" class="tsd-anchor"></a>
-					<h3>sizes</h3>
+					<a name="next" class="tsd-anchor"></a>
+					<h3>next</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> sizes<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> next<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="halfedge.html" class="tsd-signature-type">Halfedge</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="halfedge.html" class="tsd-signature-type">Halfedge</a></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="xlength" class="tsd-anchor"></a>
-					<h3>x<wbr>Length</h3>
+					<a name="nextaroundnode" class="tsd-anchor"></a>
+					<h3>next<wbr>Around<wbr>Node</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> xLength<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> nextAroundNode<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="halfedge.html" class="tsd-signature-type">Halfedge</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="halfedge.html" class="tsd-signature-type">Halfedge</a></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="ylength" class="tsd-anchor"></a>
-					<h3>y<wbr>Length</h3>
+					<a name="node" class="tsd-anchor"></a>
+					<h3>node</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> yLength<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> node<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="node.html" class="tsd-signature-type">Node</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="node.html" class="tsd-signature-type">Node</a></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="zlength" class="tsd-anchor"></a>
-					<h3>z<wbr>Length</h3>
+					<a name="opposite" class="tsd-anchor"></a>
+					<h3>opposite</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> zLength<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> opposite<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="halfedge.html" class="tsd-signature-type">Halfedge</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="halfedge.html" class="tsd-signature-type">Halfedge</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="prev" class="tsd-anchor"></a>
+					<h3>prev</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> prev<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="halfedge.html" class="tsd-signature-type">Halfedge</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="halfedge.html" class="tsd-signature-type">Halfedge</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="prevaroundnode" class="tsd-anchor"></a>
+					<h3>prev<wbr>Around<wbr>Node</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> prevAroundNode<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="halfedge.html" class="tsd-signature-type">Halfedge</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="halfedge.html" class="tsd-signature-type">Halfedge</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -272,44 +284,10 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="contains" class="tsd-anchor"></a>
-					<h3>contains</h3>
+					<a name="setfacet" class="tsd-anchor"></a>
+					<h3>set<wbr>Facet</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">contains<span class="tsd-signature-symbol">(</span>param<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, tol<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Check if a bbox or a Point (Vector3) is inside this (not strict)</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>param: <span class="tsd-signature-type">any</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Either a BBox or a Vector3</p>
-									</div>
-								</li>
-								<li>
-									<h5>tol: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The tolerence for the test</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getintersection" class="tsd-anchor"></a>
-					<h3>get<wbr>Intersection</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Intersection<span class="tsd-signature-symbol">(</span>b<span class="tsd-signature-symbol">: </span><a href="bbox.html" class="tsd-signature-type">BBox</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="bbox.html" class="tsd-signature-type">BBox</a></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Facet<span class="tsd-signature-symbol">(</span>f<span class="tsd-signature-symbol">: </span><a href="facet.html" class="tsd-signature-type">Facet</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -318,27 +296,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>b: <a href="bbox.html" class="tsd-signature-type">BBox</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="bbox.html" class="tsd-signature-type">BBox</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="grow" class="tsd-anchor"></a>
-					<h3>grow</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">grow<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>p: <span class="tsd-signature-type">any</span></h5>
+									<h5>f: <a href="facet.html" class="tsd-signature-type">Facet</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -346,45 +304,10 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="inside" class="tsd-anchor"></a>
-					<h3>inside</h3>
+					<a name="setnext" class="tsd-anchor"></a>
+					<h3>set<wbr>Next</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">inside<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, tol<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>For compatibility</p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<dt>deprecated</dt>
-									<dd></dd>
-									<dt>see</dt>
-									<dd><p>contains</p>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>p: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5>tol: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="intersect" class="tsd-anchor"></a>
-					<h3>intersect</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">intersect<span class="tsd-signature-symbol">(</span>b<span class="tsd-signature-symbol">: </span><a href="bbox.html" class="tsd-signature-type">BBox</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Next<span class="tsd-signature-symbol">(</span>h<span class="tsd-signature-symbol">: </span><a href="halfedge.html" class="tsd-signature-type">Halfedge</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -393,32 +316,18 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>b: <a href="bbox.html" class="tsd-signature-type">BBox</a></h5>
+									<h5>h: <a href="halfedge.html" class="tsd-signature-type">Halfedge</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="reset" class="tsd-anchor"></a>
-					<h3>reset</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">reset<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="scale" class="tsd-anchor"></a>
-					<h3>scale</h3>
+					<a name="setnode" class="tsd-anchor"></a>
+					<h3>set<wbr>Node</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">scale<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Node<span class="tsd-signature-symbol">(</span>n<span class="tsd-signature-symbol">: </span><a href="node.html" class="tsd-signature-type">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -427,7 +336,47 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>s: <span class="tsd-signature-type">number</span></h5>
+									<h5>n: <a href="node.html" class="tsd-signature-type">Node</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="setopposite" class="tsd-anchor"></a>
+					<h3>set<wbr>Opposite</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Opposite<span class="tsd-signature-symbol">(</span>h<span class="tsd-signature-symbol">: </span><a href="halfedge.html" class="tsd-signature-type">Halfedge</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>h: <a href="halfedge.html" class="tsd-signature-type">Halfedge</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="setprev" class="tsd-anchor"></a>
+					<h3>set<wbr>Prev</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Prev<span class="tsd-signature-symbol">(</span>h<span class="tsd-signature-symbol">: </span><a href="halfedge.html" class="tsd-signature-type">Halfedge</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>h: <a href="halfedge.html" class="tsd-signature-type">Halfedge</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -461,66 +410,9 @@
 					<li class=" tsd-kind-class">
 						<a href="actionpool.html" class="tsd-kind-icon">Action<wbr>Pool</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class">
+					<li class=" tsd-kind-class">
 						<a href="bbox.html" class="tsd-kind-icon">BBox</a>
-						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="bbox.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="bbox.html#center" class="tsd-kind-icon">center</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="bbox.html#empty" class="tsd-kind-icon">empty</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="bbox.html#max" class="tsd-kind-icon">max</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="bbox.html#min" class="tsd-kind-icon">min</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="bbox.html#radius" class="tsd-kind-icon">radius</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="bbox.html#sizes" class="tsd-kind-icon">sizes</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="bbox.html#xlength" class="tsd-kind-icon">x<wbr>Length</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="bbox.html#ylength" class="tsd-kind-icon">y<wbr>Length</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="bbox.html#zlength" class="tsd-kind-icon">z<wbr>Length</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="bbox.html#contains" class="tsd-kind-icon">contains</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="bbox.html#getintersection" class="tsd-kind-icon">get<wbr>Intersection</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="bbox.html#grow" class="tsd-kind-icon">grow</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="bbox.html#inside" class="tsd-kind-icon">inside</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="bbox.html#intersect" class="tsd-kind-icon">intersect</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="bbox.html#reset" class="tsd-kind-icon">reset</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="bbox.html#scale" class="tsd-kind-icon">scale</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="facet.html" class="tsd-kind-icon">Facet</a>
 					</li>
@@ -536,9 +428,63 @@
 					<li class=" tsd-kind-class">
 						<a href="grid3dhelper.html" class="tsd-kind-icon">Grid3DHelper</a>
 					</li>
-					<li class=" tsd-kind-class">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
 						<a href="halfedge.html" class="tsd-kind-icon">Halfedge</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="halfedge.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="halfedge.html#facet" class="tsd-kind-icon">facet</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="halfedge.html#isborder" class="tsd-kind-icon">is<wbr>Border</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="halfedge.html#isborderedge" class="tsd-kind-icon">is<wbr>Border<wbr>Edge</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="halfedge.html#length" class="tsd-kind-icon">length</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="halfedge.html#next" class="tsd-kind-icon">next</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="halfedge.html#nextaroundnode" class="tsd-kind-icon">next<wbr>Around<wbr>Node</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="halfedge.html#node" class="tsd-kind-icon">node</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="halfedge.html#opposite" class="tsd-kind-icon">opposite</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="halfedge.html#prev" class="tsd-kind-icon">prev</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="halfedge.html#prevaroundnode" class="tsd-kind-icon">prev<wbr>Around<wbr>Node</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="halfedge.html#setfacet" class="tsd-kind-icon">set<wbr>Facet</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="halfedge.html#setnext" class="tsd-kind-icon">set<wbr>Next</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="halfedge.html#setnode" class="tsd-kind-icon">set<wbr>Node</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="halfedge.html#setopposite" class="tsd-kind-icon">set<wbr>Opposite</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="halfedge.html#setprev" class="tsd-kind-icon">set<wbr>Prev</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="macroaction.html" class="tsd-kind-icon">Macro<wbr>Action</a>
 					</li>

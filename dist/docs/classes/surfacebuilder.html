@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>TriangleCSys | @youwol/geometry - v0.0.7</title>
+	<title>SurfaceBuilder | @youwol/geometry - v0.0.7</title>
 	<meta name="description" content="Documentation for @youwol/geometry - v0.0.7">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,32 +57,26 @@
 					<a href="../modules.html">Globals</a>
 				</li>
 				<li>
-					<a href="trianglecsys.html">TriangleCSys</a>
+					<a href="surfacebuilder.html">SurfaceBuilder</a>
 				</li>
 			</ul>
-			<h1>Class TriangleCSys</h1>
+			<h1>Class SurfaceBuilder</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<dl class="tsd-comment-tags">
-						<dt>brief</dt>
-						<dd><p>Triangle coordinate system.
-								Allows to transform <code>math.Vector3</code> from global to triangle local coordinate system,
-							and vis versa</p>
-						</dd>
-					</dl>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">TriangleCSys</span>
+						<span class="target">SurfaceBuilder</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="surfaceeditor.html" class="tsd-signature-type">SurfaceEditor</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -93,27 +87,23 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="trianglecsys.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Accessors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="trianglecsys.html#dip" class="tsd-kind-icon">dip</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="trianglecsys.html#matrix" class="tsd-kind-icon">matrix</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="trianglecsys.html#normal" class="tsd-kind-icon">normal</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="trianglecsys.html#strike" class="tsd-kind-icon">strike</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="surfacebuilder.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="trianglecsys.html#normalcomponent" class="tsd-kind-icon">normal<wbr>Component</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="trianglecsys.html#setbase" class="tsd-kind-icon">set<wbr>Base</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="trianglecsys.html#setnormal" class="tsd-kind-icon">set<wbr>Normal</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="trianglecsys.html#shearcomponent" class="tsd-kind-icon">shear<wbr>Component</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="trianglecsys.html#toglobal" class="tsd-kind-icon">to<wbr>Global</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="trianglecsys.html#tolocal" class="tsd-kind-icon">to<wbr>Local</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="surfacebuilder.html#addnode" class="tsd-kind-icon">add<wbr>Node</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="surfacebuilder.html#addnodetofacet" class="tsd-kind-icon">add<wbr>Node<wbr>ToFacet</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="surfacebuilder.html#beginfacet" class="tsd-kind-icon">begin<wbr>Facet</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="surfacebuilder.html#beginsurface" class="tsd-kind-icon">begin<wbr>Surface</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="surfacebuilder.html#deletefacet" class="tsd-kind-icon">delete<wbr>Facet</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="surfacebuilder.html#endfacet" class="tsd-kind-icon">end<wbr>Facet</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="surfacebuilder.html#endsurface" class="tsd-kind-icon">end<wbr>Surface</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="surfacebuilder.html#registerfacetobserser" class="tsd-kind-icon">register<wbr>Facet<wbr>Obserser</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="surfacebuilder.html#reset" class="tsd-kind-icon">reset</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="surfacebuilder.html#surface" class="tsd-kind-icon">surface</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="surfacebuilder.html#unregisterfacetobserser" class="tsd-kind-icon">unregister<wbr>Facet<wbr>Obserser</a></li>
 							</ul>
 						</section>
 					</div>
@@ -125,72 +115,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>TriangleCSys<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="trianglecsys.html" class="tsd-signature-type">TriangleCSys</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Surface<wbr>Builder<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="surfacebuilder.html" class="tsd-signature-type">SurfaceBuilder</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="trianglecsys.html" class="tsd-signature-type">TriangleCSys</a></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Accessors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="dip" class="tsd-anchor"></a>
-					<h3>dip</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> dip<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Vector3</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="matrix" class="tsd-anchor"></a>
-					<h3>matrix</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> matrix<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="normal" class="tsd-anchor"></a>
-					<h3>normal</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> normal<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Vector3</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="strike" class="tsd-anchor"></a>
-					<h3>strike</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> strike<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Vector3</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="surfacebuilder.html" class="tsd-signature-type">SurfaceBuilder</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -198,10 +129,10 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="normalcomponent" class="tsd-anchor"></a>
-					<h3>normal<wbr>Component</h3>
+					<a name="addnode" class="tsd-anchor"></a>
+					<h3>add<wbr>Node</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">normal<wbr>Component<span class="tsd-signature-symbol">(</span>t<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IVector</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Node<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="node.html" class="tsd-signature-type">Node</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -210,18 +141,18 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>t: <span class="tsd-signature-type">Vector3</span></h5>
+									<h5>p: <span class="tsd-signature-type">Vector3</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IVector</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="node.html" class="tsd-signature-type">Node</a></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="setbase" class="tsd-anchor"></a>
-					<h3>set<wbr>Base</h3>
+					<a name="addnodetofacet" class="tsd-anchor"></a>
+					<h3>add<wbr>Node<wbr>ToFacet</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Base<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span>, z<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Node<wbr>ToFacet<span class="tsd-signature-symbol">(</span>i<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -230,13 +161,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>x: <span class="tsd-signature-type">Vector3</span></h5>
-								</li>
-								<li>
-									<h5>y: <span class="tsd-signature-type">Vector3</span></h5>
-								</li>
-								<li>
-									<h5>z: <span class="tsd-signature-type">Vector3</span></h5>
+									<h5>i: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -244,10 +169,24 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="setnormal" class="tsd-anchor"></a>
-					<h3>set<wbr>Normal</h3>
+					<a name="beginfacet" class="tsd-anchor"></a>
+					<h3>begin<wbr>Facet</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Normal<span class="tsd-signature-symbol">(</span>n<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">begin<wbr>Facet<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="beginsurface" class="tsd-anchor"></a>
+					<h3>begin<wbr>Surface</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">begin<wbr>Surface<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><a href="surface.html" class="tsd-signature-type">Surface</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -256,7 +195,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>n: <span class="tsd-signature-type">Vector3</span></h5>
+									<h5>s: <a href="surface.html" class="tsd-signature-type">Surface</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -264,10 +203,10 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="shearcomponent" class="tsd-anchor"></a>
-					<h3>shear<wbr>Component</h3>
+					<a name="deletefacet" class="tsd-anchor"></a>
+					<h3>delete<wbr>Facet</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">shear<wbr>Component<span class="tsd-signature-symbol">(</span>t<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IVector</span></li>
+						<li class="tsd-signature tsd-kind-icon">delete<wbr>Facet<span class="tsd-signature-symbol">(</span>f<span class="tsd-signature-symbol">: </span><a href="facet.html" class="tsd-signature-type">Facet</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -276,38 +215,46 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>t: <span class="tsd-signature-type">Vector3</span></h5>
+									<h5>f: <a href="facet.html" class="tsd-signature-type">Facet</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IVector</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="toglobal" class="tsd-anchor"></a>
-					<h3>to<wbr>Global</h3>
+					<a name="endfacet" class="tsd-anchor"></a>
+					<h3>end<wbr>Facet</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>Global<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span></li>
+						<li class="tsd-signature tsd-kind-icon">end<wbr>Facet<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="facet.html" class="tsd-signature-type">Facet</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>v: <span class="tsd-signature-type">Vector3</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Vector3</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="facet.html" class="tsd-signature-type">Facet</a></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="tolocal" class="tsd-anchor"></a>
-					<h3>to<wbr>Local</h3>
+					<a name="endsurface" class="tsd-anchor"></a>
+					<h3>end<wbr>Surface</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>Local<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Vector3</span></li>
+						<li class="tsd-signature tsd-kind-icon">end<wbr>Surface<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="registerfacetobserser" class="tsd-anchor"></a>
+					<h3>register<wbr>Facet<wbr>Obserser</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">register<wbr>Facet<wbr>Obserser<span class="tsd-signature-symbol">(</span>c<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FacetObserver</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -316,10 +263,58 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>v: <span class="tsd-signature-type">Vector3</span></h5>
+									<h5>c: <span class="tsd-signature-type">FacetObserver</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Vector3</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="reset" class="tsd-anchor"></a>
+					<h3>reset</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">reset<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="surface" class="tsd-anchor"></a>
+					<h3>surface</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">surface<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="surface.html" class="tsd-signature-type">Surface</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="surface.html" class="tsd-signature-type">Surface</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="unregisterfacetobserser" class="tsd-anchor"></a>
+					<h3>unregister<wbr>Facet<wbr>Obserser</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">unregister<wbr>Facet<wbr>Obserser<span class="tsd-signature-symbol">(</span>c<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FacetObserver</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>c: <span class="tsd-signature-type">FacetObserver</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -383,54 +378,57 @@
 					<li class=" tsd-kind-class">
 						<a href="surface.html" class="tsd-kind-icon">Surface</a>
 					</li>
-					<li class=" tsd-kind-class">
-						<a href="surfacebuilder.html" class="tsd-kind-icon">Surface<wbr>Builder</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="surfaceeditor.html" class="tsd-kind-icon">Surface<wbr>Editor</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="trianglecsys.html" class="tsd-kind-icon">TriangleCSys</a>
+						<a href="surfacebuilder.html" class="tsd-kind-icon">Surface<wbr>Builder</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="trianglecsys.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="trianglecsys.html#dip" class="tsd-kind-icon">dip</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="trianglecsys.html#matrix" class="tsd-kind-icon">matrix</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="trianglecsys.html#normal" class="tsd-kind-icon">normal</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="trianglecsys.html#strike" class="tsd-kind-icon">strike</a>
+								<a href="surfacebuilder.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="trianglecsys.html#normalcomponent" class="tsd-kind-icon">normal<wbr>Component</a>
+								<a href="surfacebuilder.html#addnode" class="tsd-kind-icon">add<wbr>Node</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="trianglecsys.html#setbase" class="tsd-kind-icon">set<wbr>Base</a>
+								<a href="surfacebuilder.html#addnodetofacet" class="tsd-kind-icon">add<wbr>Node<wbr>ToFacet</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="trianglecsys.html#setnormal" class="tsd-kind-icon">set<wbr>Normal</a>
+								<a href="surfacebuilder.html#beginfacet" class="tsd-kind-icon">begin<wbr>Facet</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="trianglecsys.html#shearcomponent" class="tsd-kind-icon">shear<wbr>Component</a>
+								<a href="surfacebuilder.html#beginsurface" class="tsd-kind-icon">begin<wbr>Surface</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="trianglecsys.html#toglobal" class="tsd-kind-icon">to<wbr>Global</a>
+								<a href="surfacebuilder.html#deletefacet" class="tsd-kind-icon">delete<wbr>Facet</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="trianglecsys.html#tolocal" class="tsd-kind-icon">to<wbr>Local</a>
+								<a href="surfacebuilder.html#endfacet" class="tsd-kind-icon">end<wbr>Facet</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="surfacebuilder.html#endsurface" class="tsd-kind-icon">end<wbr>Surface</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="surfacebuilder.html#registerfacetobserser" class="tsd-kind-icon">register<wbr>Facet<wbr>Obserser</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="surfacebuilder.html#reset" class="tsd-kind-icon">reset</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="surfacebuilder.html#surface" class="tsd-kind-icon">surface</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="surfacebuilder.html#unregisterfacetobserser" class="tsd-kind-icon">unregister<wbr>Facet<wbr>Obserser</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-class">
+						<a href="surfaceeditor.html" class="tsd-kind-icon">Surface<wbr>Editor</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="trianglecsys.html" class="tsd-kind-icon">TriangleCSys</a>
+					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="../modules.html#plane" class="tsd-kind-icon">Plane</a>
 					</li>
