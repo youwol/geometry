@@ -14,8 +14,15 @@ import { createTyped } from "@youwol/dataframe"
  * ```
  * @example
  * ```ts
- * import { sphere } from '@youwol/geometry
+ * import { generateSphere, Surface } from '@youwol/geometry
+ * 
  * const {positions, indices} = generateSphere(10)
+ * console.log('nb vertices :', positions.count)
+ * console.log('nb triangles:', indices.count)
+ * 
+ * const surface    = Surface.create(positions, indices)
+ * 
+ * // const archSrface = new arch.Surface(positions.array, indices.array)
  * ```
  * @param subdivision The number of subdivision (>0)
  */
@@ -55,7 +62,7 @@ import { createTyped } from "@youwol/dataframe"
     const newP = (...P: number[][]): void => 
         P.forEach( (p: number[]) => {
             positions.push(p[0], p[1], p[2])
-            indices.push(idx++, idx++, idx++)
+            indices.push(idx++)
         })
 
     for (const [f0, f1, f2] of faces) {
