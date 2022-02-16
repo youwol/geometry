@@ -12,4 +12,5 @@ dist/math/
 dist/dataframe/
 dist/tests/
 
-stc/tests
+src/tests
+*.gcd

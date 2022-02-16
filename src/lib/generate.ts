@@ -9,6 +9,17 @@ import { triangulate } from "./triangulate"
  * @param b The y axis length
  * @param nbRings The number of internal rings (default 8)
  * @param center The position of the ellipse center
+ * 
+ * Example:
+ * ```ts
+ * const dataframe = generateEllipse({
+ *      a: 100,
+ *      b: 200
+ * })
+ * 
+ * console.log( dataframe.series.positions )
+ * console.log( dataframe.series.indices )
+ * ```
  */
 export function generateEllipse(
     {a, b, nbRings=4, density=8, center=[0,0,0]}:
@@ -41,6 +52,20 @@ export function generateEllipse(
  * @param na The number of points along the x axis
  * @param nb The number of points along the y axis
  * @param center The position of the rectangle center
+ * 
+ * Example:
+ * ```ts
+ * const dataframe = generateRectangle({
+ *      a: 100,
+ *      b: 100,
+ *      na: 10,
+ *      nb: 10,
+ *      center: [0,0,0]
+ * })
+ * 
+ * console.log( dataframe.series.positions )
+ * console.log( dataframe.series.indices )
+ * ```
  */
 export function generateRectangle(
     {a, b, na, nb, center=[0,0,0]}:
