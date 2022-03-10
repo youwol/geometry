@@ -39,6 +39,9 @@ export function createBackgroundGrid2D(
 
 // ---------------------------------------------------------------------
 
+/**
+ * @hidden
+ */
 class BackgroundGrid2D {
     private origin_ = [0, 0]
 	private dx_ = 0

@@ -1,4 +1,6 @@
+/**
 Use the normal to the fitting plane to triangulate in 2D
+
 ```ts
 const io   = require('@youwol/io')
 const df   = require('@youwol/dataframe')
@@ -16,3 +18,5 @@ console.log( "  - nb faces   :", surface.get('indices').count )
 const buffer  = io.encodeGocadTS( surface )
 fs.writeFile('output.gcd', buffer, 'utf8', err => {})
 ```
+*/
+export namespace Example_2 {}

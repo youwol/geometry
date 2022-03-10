@@ -1,20 +1,7 @@
 import { Serie } from '@youwol/dataframe'
 import {deg2rad} from './angles'
+import { SurfaceType, TraceInfo } from './types'
 
-export type TraceInfo = {
-    id: string, // "no-name"
-    dip: number, // 30
-    dipDirection: number, // 90
-    depth: number // 0.1
-    rows: number, // 5
-
-    points: Serie
-}
-
-export type SurfaceType = {
-    positions: Serie,
-    indices: Serie
-}
 
 /**
  * Extruce a 2D/3D trace using the dip angle, dip-direction and a depth.
@@ -32,6 +19,7 @@ export type SurfaceType = {
  * const surface = extrude(trace)
  * console.log(surface.positions, surface.indices)
  * ```
+ * @category Extrude
  */
 export function extrude(trace: TraceInfo): SurfaceType {
     const t = new Trace(trace)

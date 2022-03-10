@@ -1,4 +1,6 @@
+/**
 Generate a rectangular triangulated surface
+
 ```ts
 const geom = require('@youwol/geometry')
 
@@ -28,3 +30,5 @@ const surface = geom.generateEllipse({
 console.log( "  - nb vertices:", surface.get('positions').count )
 console.log( "  - nb faces   :", surface.get('indices').count )
 ```
+*/
+export namespace Example_1 {}

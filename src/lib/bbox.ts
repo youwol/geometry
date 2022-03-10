@@ -53,7 +53,7 @@ export class BBox {
     get sizes() {return [this.xLength, this.yLength, this.zLength]}
     get center(): vec.Vector3 {
         let c = [...this.min_] as vec.Vector3
-        vec.scale( vec.add(c, this.max_), 0.5 )
+        c = vec.scale( vec.add(c, this.max_), 0.5 ) as vec.Vector3
         return c
     }
     get radius(): number {

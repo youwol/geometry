@@ -1,7 +1,7 @@
 import { biLerp, triLerp } from "@youwol/math"
 import { Manager, Serie } from "@youwol/dataframe"
 
-type V2 = [number, number]
+export type V2 = [number, number]
 
 /**
  * Represent a 2D cartesian grid (axis aligned)
