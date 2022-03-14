@@ -1,4 +1,4 @@
-import { vec} from '@youwol/math'
+import { facetArea, facetNormal } from './helpers'
 
 /**
  * @category Halfedge
@@ -127,20 +127,11 @@ export class Facet {
     }
 
     get area() {
-        function triangleArea(v1: number[], v2: number[], v3: number[]) {
-            return vec.norm( vec.cross(vec.create(v1,v2) as vec.Vector3, vec.create(v1,v3) as vec.Vector3 ) ) * 0.5
-        }
-        let result = 0 ;
-        let h = this.halfedge
-        const p = h.node.pos
-        h = h.next
-        
-        do {
-            result += triangleArea(p, h.node.pos, h.next.node.pos) ;
-            h = h.next
-        } while(h !== this.halfedge)
+        return facetArea(this)
+    }
 
-        return result
+    get normal() {
+        return facetNormal(this)
     }
 }
 
