@@ -12,7 +12,7 @@ dist/math/
 dist/dataframe/
 dist/tests/
 
-src/tests
+
 *.gcd
 
 cdn.zip

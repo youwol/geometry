@@ -67,7 +67,7 @@ export class BBox {
         vec.set(this.max_, r2)
     }
 
-    grow(p: any) {
+    grow(p: vec.Vector3) {
         this.empty_ = false
         for (let i = 0; i < 3; ++i) {
             if (p[i] < this.min_[i]) this.min_[i] = p[i]
@@ -80,12 +80,12 @@ export class BBox {
      * @param param Either a BBox or a Vector3
      * @param tol The tolerence for the test
      */
-    contains(param: any, tol = 0) : boolean {
+    contains(param: BBox | vec.Vector3, tol = 0) : boolean {
         if (param instanceof BBox) {
             return (this.contains(param.min, tol) === true) && (this.contains(param.max, tol) === true)
         }
 
-        const p = param.data // a Vector3
+        const p = param // a Vector3
         for (let i = 0; i < 3; ++i) {
             if (p[i] < (this.min_[i] - tol) || p[i] > (this.max_[i] + tol)) {
                 return false
@@ -99,7 +99,7 @@ export class BBox {
      * @deprecated
      * @see contains
      */
-    inside(p: any, tol = 0): boolean {
+    inside(p: BBox | vec.Vector3, tol = 0): boolean {
         return this.contains(p, tol)
     }
 

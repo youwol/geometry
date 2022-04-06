@@ -12,3 +12,7 @@ export * from './relaxMesh'
 export * from './extrude'
 export * from './ImplicitGrid'
 export * from './MarchingCubes'
+export * from './InterpolateSerieOnSurface'
+export * from './reverseNormals'
+
+export * from './streamlines'

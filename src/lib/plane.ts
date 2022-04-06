@@ -23,6 +23,10 @@ export type Plane = {
 export class TriangleCSys {
     private mat_ = [1,0,0, 0,1,0, 0,0,1]
 
+    constructor(n: math.vec.Vector3 = undefined) {
+        if (n) this.setNormal(n)
+    }
+
     setBase(x: math.vec.Vector3, y: math.vec.Vector3, z: math.vec.Vector3) {
         let v1 = vector(y, x, true) // see bottom for vector()
         let v2 = vector(z, x, true)

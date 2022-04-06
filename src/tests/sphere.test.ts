@@ -7,4 +7,7 @@ test('test sphere', () => {
 
     console.log(positions)
     console.log(indices)
+
+    // Test to be done...
+    expect(false).toBeFalsy()
 })
