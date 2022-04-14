@@ -75,6 +75,12 @@ export class BBox {
         }
     }
 
+    randPoint() {
+        return [this.min_[0] + Math.random()*this.xLength,
+                this.min_[1] + Math.random()*this.yLength,
+                this.min_[2] + Math.random()*this.zLength]
+    }
+
     /**
      * Check if a bbox or a Point (Vector3) is inside this (not strict)
      * @param param Either a BBox or a Vector3

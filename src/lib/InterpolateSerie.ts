@@ -43,7 +43,7 @@ type TypedArray =
  * })
  * ```
  */
-export class InterpolateSerieOnSurface {
+export class InterpolateSerieFromCsysOnSurface {
     surface: Surface = undefined
 
     constructor(positions: Serie | TypedArray | number[], indices: Serie | TypedArray | number[]) {
@@ -103,22 +103,25 @@ export class InterpolateSerieOnSurface {
             this.surface.forEachFace( (face: Facet, i: number) => {
                 const ids = face.nodeIds
                 let   d = serie.itemAt(i) as vec.Vector3
+
                 if (localCsys === false) {
                     const t = new TriangleCSys(face.normal)
                     d = t.toGlobal(d)
-                    for (let j=0; j<3; ++j) {
-                        for (let k=0; k<3; ++k) {
-                            values[ids[j]][k] += d[k]
-                        }
-                        weights[ids[j]]++
+                }
+
+                for (let j=0; j<3; ++j) {
+                    for (let k=0; k<3; ++k) {
+                        values[ids[j]][k] += d[k]
                     }
-                    for (let j=0; j<this.surface.nbNodes; ++j) {
-                        const w = weights[j]
-                        for (let k=0; k<3; ++k) {
-                            values[j][k] /= w
-                        }
+                    weights[ids[j]]++
+                }
+                for (let j=0; j<this.surface.nbNodes; ++j) {
+                    const w = weights[j]
+                    for (let k=0; k<3; ++k) {
+                        values[j][k] /= w
                     }
                 }
+                
             })
 
             let id = 0

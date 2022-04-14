@@ -53,7 +53,7 @@ export function streamlines(protoOptions: StreamLinesOptions) {
     options.dTest = protoOptions.dTest > 0 ? protoOptions.dTest : options.dSep * 0.5
 
     // Lookup grid helps to quickly tell if there are points nearby
-    const grid = createLookupGrid(boundingBox, options.dSep)
+    const grid = createLookupGrid(boundingBox, options.dSep, options.isOutsideFct)
 
     // Integration time step.
     options.timeStep            = protoOptions.timeStep > 0 ? protoOptions.timeStep : 0.01
@@ -65,6 +65,8 @@ export function streamlines(protoOptions: StreamLinesOptions) {
     let state = State.STATE_INIT
     const finishedStreamlineIntegrators: Array<any> = []
     let streamlineIntegrator = createStreamlineIntegrator(options.seed, grid, options)
+
+
     return {
         run: nextStep
     }

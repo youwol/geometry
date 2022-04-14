@@ -1,7 +1,10 @@
 import { DataFrame, Serie } from "@youwol/dataframe"
-import { minMax } from "@youwol/math"
+import { min, minMax } from "@youwol/math"
+import { Console } from "console"
 import { Grid2DHelper } from "../grid2DHelper"
 import { streamlines } from "./streamlines"
+import { OutsideFunction, VelocityFunction } from "./types"
+import { getDimsGrid2D } from "./utils"
 import { Vector } from "./Vector"
 
 
@@ -20,8 +23,9 @@ import { Vector } from "./Vector"
  */
 export function streamLinesExtractor(
     {
-        vectorField, 
-        positions, 
+        vectorField,
+        isOutsideFct,
+        bounds,
         seed=undefined, 
         seedArray=undefined,
         maximumPointsPerLine=undefined,
@@ -32,22 +36,19 @@ export function streamLinesExtractor(
         forwardOnly=false
     }:
     {
-        vectorField: Serie, 
-        positions: Serie, 
+        vectorField: (p: Vector) => Vector,
+        isOutsideFct?: OutsideFunction,
+        bounds: number[],
         seed?: Vector,
         seedArray?: Vector[],
         maximumPointsPerLine?: number,
         stepsPerIteration?:number,
-        max
         timeStep?:number, 
         dSep?:number, 
         dTest?:number, 
         forwardOnly?:boolean
     }): DataFrame[]
 {
-    let polylines: Polylines = []
-    let polyline : Polyline  = []
-
     function addPoint(a: Point, b: Point): boolean {
         const newPolyLine = () => {
             if (polyline.length > 1) polylines.push([...polyline])
@@ -64,19 +65,32 @@ export function streamLinesExtractor(
         return true
     }
 
-    function vectorFieldFunction(p: Vector): Vector {
-        const v = gridHelper.interpolate([p.y, p.x], vectorField) // WARNING: WE INVERTED  the x and y !
-        if (v === undefined) return undefined
-        return new Vector(v[0], v[1])
-    }
+    // function vectorFieldFunction(p: Vector): Vector {
+    //     const v = gridHelper.interpolate([p.y, p.x], vectorField) // WARNING: WE INVERTED  the x and y !
+    //     if (v === undefined) return undefined
+    //     return new Vector(v[0], v[1])
+    // }
 
     // vectorField instead of attribute
-    const {nx, ny}   = getDims(positions)
-    const b          = new Bounds( minMax(positions), 0.1 )
-    const bounds     = b.normalized()
+    // const nx     = dims[0]
+    // const ny     = dims[1]
+    // const b      = new Bounds( minMax, 0.1 )
+    // const bounds = b.normalized()
+    // console.log(b, bounds)
 
-    const gridHelper = new Grid2DHelper([bounds[0],bounds[1]], [bounds[3],bounds[4]], nx, ny, 1e-7)
+    // const gridHelper = new Grid2DHelper([bounds[0],bounds[1]], [bounds[3],bounds[4]], nx, ny, 1e-7)
 
+    // const bbox = {
+    //     width : bounds[3]-bounds[0],
+    //     height: bounds[4]-bounds[1],
+    //     left  : bounds[0],
+    //     top   : bounds[1],
+    // }
+
+    let polylines: Polylines = []
+    let polyline : Polyline  = []
+
+    // 'bounds' is now a parameter of this function
     const bbox = {
         width : bounds[3]-bounds[0],
         height: bounds[4]-bounds[1],
@@ -85,7 +99,9 @@ export function streamLinesExtractor(
     }
 
     const computer = streamlines({
-        vectorField: vectorFieldFunction,
+        // vectorField: vectorFieldFunction,
+        vectorField,
+        isOutsideFct: isOutsideFct,
         onPointAdded: addPoint,
         onStreamlineAdded: undefined,
         maxTimePerIteration: 1,
@@ -106,7 +122,7 @@ export function streamLinesExtractor(
         polylines.push([...polyline])
     }
 
-    polylines = b.denormalize(polylines)
+    // polylines = b.denormalize(polylines)
 
     return polylines.map( polyline => {
         const indices = []
@@ -162,21 +178,3 @@ class Bounds {
     }
 }
 
-// Detect the size of the 2D-grid
-const getDims = (s: Serie, eps = 1e-7) => {
-    const start = s.itemAt(0)[0]
-    let nx = 0
-    s.forEach( p => {
-        if (Math.abs(p[0]-start)<eps) nx++
-    })
-    if (nx<2) {
-        throw new Error('Seems that the grid is not regular')
-    }
-
-    const ny = s.count/nx
-    if (Number.isInteger(ny) === false) {
-        throw new Error('Seems that the grid is not regular')
-    }
-
-    return {nx, ny}
-}

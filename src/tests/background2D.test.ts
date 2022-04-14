@@ -14,7 +14,7 @@ test('test sphere', () => {
     const dataframe = generateMesh(100)
 
     const bg = createBackgroundGrid2D({
-        position: dataframe.series.positions,
+        positions: dataframe.series.positions,
         indices: dataframe.series.indices,
         dims: [50, 50]
     })

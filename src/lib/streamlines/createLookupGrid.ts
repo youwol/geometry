@@ -1,4 +1,4 @@
-import { BoundingBox, CheckCallback, LookupGrid } from "./types"
+import { BoundingBox, CheckCallback, OutsideFunction, LookupGrid } from "./types"
 import { Vector } from "./Vector"
 
 export class Cell  {
@@ -25,10 +25,13 @@ export class Cell  {
     }
 }
   
-export function createLookupGrid(bbox: BoundingBox, dSep: number): LookupGrid {
+export function createLookupGrid(bbox: BoundingBox, dSep: number, isOutsideFct?: OutsideFunction): LookupGrid {
     const bboxSize   = Math.max(bbox.width, bbox.height)
     const cellsCount = Math.ceil(bboxSize / dSep)
     const cells      = new Map()
+
+    // console.log(bbox, dSep)
+
     return {
         occupyCoordinates,
         isTaken,
@@ -36,12 +39,14 @@ export function createLookupGrid(bbox: BoundingBox, dSep: number): LookupGrid {
     }
   
     function isOutside(x: number, y: number) {
-        return x < bbox.left || x > bbox.left + bbox.width || 
-               y < bbox.top  || y > bbox.top + bbox.height
+        return isOutsideFct !== undefined ? !isOutsideFct(x,y) : x < bbox.left || x > bbox.left + bbox.width || 
+                                                                 y < bbox.top  || y > bbox.top + bbox.height
     }
   
     function occupyCoordinates(point: Vector) {
-        getCellByCoordinates(point.x, point.y).occupy(point)
+        // if (isInBounds(point.x, point.y)) {
+            getCellByCoordinates(point.x, point.y).occupy(point)
+        // }
     }
   
     function isTaken(x: number, y: number, checkCallback: CheckCallback) {
@@ -101,10 +106,20 @@ export function createLookupGrid(bbox: BoundingBox, dSep: number): LookupGrid {
     
     function assertInBounds(x: number, y: number) {
         if (bbox.left > x || bbox.left + bboxSize < x ) {
-            throw new Error('x is out of bounds');
+            throw new Error(`x (${x}) is out of bounds (${bbox.left}, ${bbox.left + bboxSize})`)
         }
         if (bbox.top > y || bbox.top + bboxSize < y ) {
-            throw new Error('y is out of bounds');
+            throw new Error(`y (${y}) is out of bounds (${bbox.top}, ${bbox.top + bboxSize})`)
         }
+    }
+
+    function isInBounds(x: number, y: number) {
+        if (bbox.left > x || bbox.left + bboxSize < x ) {
+            return false
+        }
+        if (bbox.top > y || bbox.top + bboxSize < y ) {
+            return false
+        }
+        return true
     }
 }

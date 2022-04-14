@@ -5,16 +5,16 @@ type V2 = [number, number]
 
 /**
  * Put all cells from a 2D unstructured mesh (not the points) into a background-brid
- * @returns 
+ * @see BackgroundGrid2D
  */
 export function createBackgroundGrid2D(
-	{position, indices, dims=[20, 20], eps=1e-2}:
-	{position: Serie, indices: Serie, dims?: [number, number], eps?: number})
+	{positions, indices, dims=[20, 20], eps=1e-2}:
+	{positions: Serie, indices: Serie, dims?: [number, number], eps?: number})
 {
-    const nbNodes    = position.count
+    const nbNodes    = positions.count
     const nbElements = indices.count
 
-    const minmax = minMax(position)
+    const minmax = minMax(positions)
 
 	const dx: number[] = []
     dx.push( (minmax[3] - minmax[0] + 2*eps)/dims[0] )
@@ -28,10 +28,14 @@ export function createBackgroundGrid2D(
         const xs = []
         const ys = []
         elt.forEach ( j => {
-            const p = position.itemAt(j)
+            const p = positions.itemAt(j)
             xs.push(p[0]); ys.push(p[1])
         })
-        const err = backgroundgrid.insert( new CBox([Math.min(...xs), Math.max(...xs)], [Math.min(...ys), Math.max(...ys)], i) )
+        const err = backgroundgrid.insert( new CBox(
+            [Math.min(...xs), Math.max(...xs)],
+            [Math.min(...ys), Math.max(...ys)],
+            i)
+        )
     })
 
 	return backgroundgrid
@@ -40,9 +44,9 @@ export function createBackgroundGrid2D(
 // ---------------------------------------------------------------------
 
 /**
- * @hidden
+ * @see createBackgroundGrid2D
  */
-class BackgroundGrid2D {
+export class BackgroundGrid2D {
     private origin_ = [0, 0]
 	private dx_ = 0
 	private dy_ = 0
@@ -74,6 +78,16 @@ class BackgroundGrid2D {
         }
     }
 
+    forAllPoints(cb: Function) {
+        for (let i=0; i<this.nx_; ++i) {
+            for (let j=0; j<this.ny_; ++j) {
+                const flatcellindex = this.getFlatIndex(i, j)
+                const cell = this.cells_[flatcellindex]
+                cb( cell.objects, i, j, this.getCoordinates(i,j) )
+            }
+        }
+    }
+
     insert(box: CBox<any>): boolean {
         // console.assert(this.nx_ !== 0);
 		// console.assert(this.ny_ !== 0);
@@ -99,6 +113,12 @@ class BackgroundGrid2D {
 		}
         
 		return true
+    }
+
+    candidatesFromIJ(i: number, j: number): Array<CBox<any>> {
+		const flatcellindex = this.getFlatIndex(i, j)
+        const cell = this.cells_[flatcellindex]
+        return cell.objects
     }
 
     candidates(p: V2): Array<CBox<any>> {

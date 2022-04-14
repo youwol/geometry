@@ -8,6 +8,8 @@ export type BoundingBox = {
     top   : number
 }
 
+export type OutsideFunction = (x: number, y: number) => boolean
+
 export type CheckCallback = (d: number, p: Vector) => boolean
 
 export type LookupGrid = {
@@ -20,6 +22,7 @@ export type VelocityFunction = (p: Vector) => Vector
 
 export type StreamLinesOptions = {
     vectorField         : (p: Vector) => Vector
+    isOutsideFct        : OutsideFunction
     onStreamlineAdded   : (points: Vector[], config: StreamLinesOptions) => void | undefined
     onPointAdded        : (point: Vector, otherPoint: Vector, config: StreamLinesOptions) => boolean
     boundingBox         : BoundingBox

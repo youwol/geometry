@@ -820,9 +820,9 @@
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
 "@youwol/dataframe@0.x":
-  version "0.0.28"
-  resolved "https://registry.npmjs.org/@youwol/dataframe/-/dataframe-0.0.28.tgz"
-  integrity sha512-mH4Lzi548UAdn2jnkRQwiPjfhA6kAWCsH61ZRrhNcq4BNx+yv2xXNsbxqwZcEBX8qpdW8Z5aYJxjqCDCtBGf3g==
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/@youwol/dataframe/-/dataframe-0.0.34.tgz#668ed5a75e8dd9ec85f9a56e3aff20c2078d6fd2"
+  integrity sha512-o5Bhv+C6Aza+2J/leCxNMMBHYK6AU7EWslsUOX/dBZORZ1Uiae2DgFes8rUGeB38Zk3jAbPxfl31kBPpQXFvkg==
 
 "@youwol/math@0.x":
   version "0.0.17"

@@ -2,17 +2,24 @@
 # yarn lockfile v1
 
 
-"@youwol/dataframe@^0.0.31":
-  version "0.0.31"
-  resolved "https://registry.yarnpkg.com/@youwol/dataframe/-/dataframe-0.0.31.tgz#0da3f46309a920c4d63d429411cdda45ff35ada7"
-  integrity sha512-QvKcx3r/FdXeqMl5ybZAFm3EaH3c+hnsD7DOlHxNIumx1zYXh9RkB73tNVrrJniLBdhGQXUFMu3xcKVoZXr+VA==
+"@youwol/dataframe@0.x":
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/@youwol/dataframe/-/dataframe-0.0.34.tgz#668ed5a75e8dd9ec85f9a56e3aff20c2078d6fd2"
+  integrity sha512-o5Bhv+C6Aza+2J/leCxNMMBHYK6AU7EWslsUOX/dBZORZ1Uiae2DgFes8rUGeB38Zk3jAbPxfl31kBPpQXFvkg==
 
-"@youwol/io@^0.0.20":
+"@youwol/io@0.0.20":
   version "0.0.20"
   resolved "https://registry.yarnpkg.com/@youwol/io/-/io-0.0.20.tgz#1101293674f39f3e2a9fe28124c9f0856442d8f8"
   integrity sha512-GJvQGoY0vN65gOYe+AcV79LsupaJc5tsoeXEcomwJtgsvB+FThyAzx+dane4+YBKSbK24CyURTbbkILbghC6EA==
 
-"@youwol/math@^0.0.18":
+"@youwol/io@0.x":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@youwol/io/-/io-0.0.22.tgz#6eb93ab5c1cde57191c55606fdb1931ad6c2f79b"
+  integrity sha512-1N/6ZJOHEFhurCo3XefDZiGhcfvDdF05jRx7UJmp1Lh6KW+uJzSNcK2k01Mw8660FzdWqE/43jHnLHHuSIdrMA==
+  dependencies:
+    "@youwol/io" "0.0.20"
+
+"@youwol/math@0.x":
   version "0.0.18"
   resolved "https://registry.yarnpkg.com/@youwol/math/-/math-0.0.18.tgz#dc825c664b8edec3b19a2b7170183ec816bed268"
   integrity sha512-yNFHXTM9GOK7hnl9ZbUuMojIptrbzsOou53xIUt4yl+2w15Y7KYnS7BSRrEWfmTtk8auejdd8z5ATy/HfEJo6g==

@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@youwol/dataframe": "^0.0.31",
-    "@youwol/io": "^0.0.20",
-    "@youwol/math": "^0.0.18"
+    "@youwol/dataframe": "0.x",
+    "@youwol/io": "0.x",
+    "@youwol/math": "0.x"
   }
 }

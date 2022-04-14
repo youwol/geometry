@@ -109,6 +109,7 @@ export class Grid2DHelper {
             const p1  = this.positionAt(I  , J  )
             const p2  = this.positionAt(I+1, J+1)
             const ids = this.flatIndices(p)
+            // console.log(attribute)
             const values = ids.map( v => attribute.itemAt(v))
             if (Array.isArray(values[0])) {
                 return values[0].map( (a1, i) => {

@@ -1,3 +1,5 @@
 // export { BoundingBox, VelocityFunction, StreamLinesOptions } from './types'
-// export * from './streamlines'
+export * from './utils'
 export * from './streamLinesExtractor'
+export * from './Vector'
+export * from './Normalizer'

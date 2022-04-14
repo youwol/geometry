@@ -16,7 +16,7 @@ export function createStreamlineIntegrator(start: Vector, grid: LookupGrid, conf
     let state = State.FORWARD
     let candidate: any = null
     let lastCheckedSeed = -1
-    const ownGrid = createLookupGrid(config.boundingBox, config.timeStep * 0.9)
+    const ownGrid = createLookupGrid(config.boundingBox, config.timeStep * 0.9, config.isOutsideFct)
 
     return {
         start: start,
@@ -122,6 +122,7 @@ export function createStreamlineIntegrator(start: Vector, grid: LookupGrid, conf
                 }
             }
             if (state === State.DONE) {
+                // console.log(points)
                 points.forEach(occupyPointInGrid)
                 config.onPointAdded(undefined, undefined, undefined)
                 return true
@@ -151,6 +152,7 @@ export function createStreamlineIntegrator(start: Vector, grid: LookupGrid, conf
     }
 
     function growByVelocity(pos: Vector, velocity: Vector) {
+        // console.log(pos, velocity)
         candidate = pos.add(velocity)
         if (grid.isOutside(candidate.x, candidate.y)) {
             return undefined
@@ -185,7 +187,7 @@ export function createStreamlineIntegrator(start: Vector, grid: LookupGrid, conf
             return undefined // Not defined. e.g. Math.log(-1);
         }
 
-        let l = p.x * p.x + p.y * p.y
+        let l = p.x**2 + p.y**2
         if (l === 0) return // the same, singularity
         l = Math.sqrt(l)
 
