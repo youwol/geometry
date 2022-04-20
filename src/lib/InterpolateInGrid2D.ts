@@ -55,7 +55,6 @@ export class InterpolateInGrid2D {
         }
         
         const sol = this.bg.candidates(p)
-        // console.log(p)
         if (sol && sol.length) {
             for (let k=0; k<sol.length; ++k) {
                 const s = sol[k]
@@ -64,7 +63,6 @@ export class InterpolateInGrid2D {
                 const p1   = this.positions.itemAt(cell[0])
                 const p2   = this.positions.itemAt(cell[1])
                 const p3   = this.positions.itemAt(cell[2])
-                // console.log(s)
                 if (inTriangle(p, p1, p2, p3)) {
                     const q1 = this.attribute.itemAt(cell[0])
                     const q2 = this.attribute.itemAt(cell[1])
