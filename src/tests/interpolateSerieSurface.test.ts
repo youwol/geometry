@@ -35,7 +35,7 @@ test('test from node to triangle', () => {
 
     // Test to be done...
     const sol = [(1+4+7)/3, (2+5+8)/3, (3+6+9)/3,   (1+7+10)/3, (2+8+11)/3, (3+9+12)/3]
-    console.log(sol)
-    console.log(s.array)
+    // console.log(sol)
+    // console.log(s.array)
     s.array.forEach( (v,i) => expect(v).toEqual(sol[i]) )
 })

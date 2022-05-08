@@ -20,7 +20,7 @@ test('test sphere', () => {
     })
 
     const sol = bg.candidates([0,0])
-    console.log(sol)
+    // console.log(sol)
     
     // Test to be done...
     expect(false).toBeFalsy()

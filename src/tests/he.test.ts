@@ -62,10 +62,10 @@ test('half-edge test', () => {
     })
 
     const edges = surface.borderEdges
-    edges.forEach( e => console.log(e.node.id, e.opposite.node.id))
+    // edges.forEach( e => console.log(e.node.id, e.opposite.node.id))
 
-    console.log( surface.bordersAsSerie )
-    console.log( surface.borderIdsAsSerie )
+    // console.log( surface.bordersAsSerie )
+    // console.log( surface.borderIdsAsSerie )
 
     // Test to be done...
     expect(false).toBeFalsy()

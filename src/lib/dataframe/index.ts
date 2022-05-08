@@ -1,3 +1,5 @@
 export * from './fromTriangleToNode'
 export * from './fromNodeToTriangle'
 export * from './normalsToNodeDecomposer'
+export * from './TriangleToNodeDecomposer'
+export * from './gaussianCurvature'

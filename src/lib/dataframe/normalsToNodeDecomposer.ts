@@ -22,3 +22,10 @@ export class NormalsToNodeDecomposer extends NormalsDecomposer {
         })
     }
 }
+
+/*
+
+What about writting:
+    new FromTriangleToNodeDecomposer<NormalsDecomposer>
+
+*/

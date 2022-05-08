@@ -5,8 +5,8 @@ test('test sphere', () => {
     // expect(positions.length/3).toEqual(60)
     // expect(indices.length/3).toEqual(60)
 
-    console.log(positions)
-    console.log(indices)
+    // console.log(positions)
+    // console.log(indices)
 
     // Test to be done...
     expect(false).toBeFalsy()
