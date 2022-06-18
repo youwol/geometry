@@ -15,6 +15,7 @@ export * from './reverseNormals'
 export * from './extractSurfaceBorder'
 export * from './pointInPolygon'
 export * from './InterpolateInGrid2D'
+export * from './HarmonicDiffusion'
 
 export * from './he'
 export * from './extrude'
