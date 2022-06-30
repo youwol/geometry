@@ -1,5 +1,5 @@
 import { IArray } from "@youwol/dataframe"
-import { ImplicitGrid3D } from "./implicitGrid"
+import { ImplicitGrid3D } from "./ImplicitGrid"
 
 export class MarchingCubes {
     private XYZ_ = true

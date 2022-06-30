@@ -1,4 +1,4 @@
-import { Serie } from '@youwol/dataframe'
+import { DataFrame, Serie } from '@youwol/dataframe'
 import { Node, nodesAroundNode, Surface } from './he'
 
 type Point = [number,number,number]
@@ -13,27 +13,27 @@ type Data  = Array<number>
  * ```js
  * const diff = new geom.HarmonicDiffusion(positions, indices)
  * laplace.constrainsBorders(-1)
- * laplace.addConstrainedNode([-800,-300,-800], 1)
- * laplace.addConstrainedNode([0,-300,800], 1)
- * dataframe.series['P'] = diff.solve() // Serie.itemSize = 1
+ * laplace.addConstraint([-800,-300,-800], 1)
+ * laplace.addConstraint([   0,-300, 800], 1)
+ * const dataframe = diff.solve({name='P'}) // Serie.itemSize = 1
  * ```
  * 
  * @example
  * Diffuse a vector field of size 3
  * ```js
  * const diff = new geom.HarmonicDiffusion(positions, indices, [0,0,0])
- * laplace.constrainsBorders([-1, -2, -3])
- * laplace.addConstrainedNode([-800,-300,-800], [3,2,1])
- * laplace.addConstrainedNode([0,-300,800], [1,3,5])
- * dataframe.series['P'] = diff.solve() // Serie.itemSize = 3
+ * laplace.constrainsBorders(              [-1, -2, -3])
+ * laplace.addConstraint([-800,-300,-800], [ 3,  2,  1])
+ * laplace.addConstraint([   0,-300, 800], [ 1,  3,  5])
+ * const dataframe = diff.solve({name='P', record: true}) // Serie.itemSize = 3
  * ```
  */
 export class HarmonicDiffusion {
     surface_: Surface = undefined
     map: Map<Node, Data> = new Map()
     constrainedNodes: Array<Node> = []
-    maxIter_ = 500
-    eps_     = 1e-5
+    maxIter_ = 618      // :-)
+    eps_     = 0.382e-5 // :-)
     epsilon_ = 0.5
     dataSize = 1
 
@@ -47,7 +47,7 @@ export class HarmonicDiffusion {
      * The `itemSize` of the returned Serie (after calling `solve()`) will be the length of this array,
      * or 1 if a number is passed.
      */
-    constructor(positions: Serie, indices: Serie, initValue: Data | number = 0) {
+    constructor(private positions: Serie, private indices: Serie, initValue: Data | number = 0) {
         this.surface_ = Surface.create(positions, indices)
         if (Array.isArray(initValue)) {
             this.surface_.forEachNode( n => this.map.set(n, [...initValue]) )
@@ -110,13 +110,22 @@ export class HarmonicDiffusion {
 
     /**
      * Solve the discrete laplace equation using relaxation
-     * @returns A serie of itemSize=1 and for which count = number of surface nodes
+     * @returns A DataFrame containing positions, indices series as well as the computed `"property"` as serie
      */
-    solve(): Serie {
+    solve({name="property", record=false}:{record?: boolean, name?: string}): DataFrame {
         // TODO: optimize by removing the map and creating array
         //       of active nodes and array of values
+
         let conv = 1
         let i    = 0
+        const initData = new Map(this.map)
+
+        const df = DataFrame.create({
+            series: {
+                positions: this.positions,
+                indices  : this.indices
+            }
+        })
 
         while (conv > this.eps_) {
             conv = 0
@@ -135,14 +144,11 @@ export class HarmonicDiffusion {
                     this.add( this.scale(tmp, (1-this.epsilon_)), val)
                     this.map.set(n, val)
 
-                    // console.log(this.norm2(val, tmp))
-
                     conv += this.norm2(val, this.scale(tmp, 1/(1-this.epsilon_)))
                 }
             })
 
             conv = Math.sqrt(conv)
-            // console.log(i,conv)
 
             i++
             if (i > this.maxIter_) {
@@ -153,14 +159,30 @@ export class HarmonicDiffusion {
         console.log('HarmonicDiffusion nb iter:', i)
         console.log('HarmonicDiffusion conv   :', conv)
 
-        const array = new Array(this.map.size * this.dataSize).fill(0)
-        i = 0
-        this.map.forEach( value => value.forEach( v => array[i++] = v ) )
+        // ----------------------------------
 
-        return Serie.create({
-            array,
-            itemSize: this.dataSize
-        })
+        i = 0
+        const array = new Array(this.map.size * this.dataSize).fill(0)
+        this.map.forEach( value => value.forEach( v => array[i++] = v ) )
+        df.series[name] = Serie.create( {array, itemSize: this.dataSize })
+
+        // ----------------------------------
+
+        if (record) {
+            i = 0
+            const recorder = []
+            initData.forEach( value => {
+                // console.log( value )
+                value.forEach( v => {
+                    recorder.push( array[i]-v )
+                    console.log( array[i]-v )
+                    i++
+                })
+            })
+            df.series['record'] = Serie.create( {array: recorder, itemSize: this.dataSize })
+        }
+        
+        return df
     }
 
     // -------------------------------------------------------------
