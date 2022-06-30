@@ -4,4 +4,4 @@ export * from './Vector'
 export * from './Normalizer'
 
 export * from './streamLinesExtractor'
-export * from './generateStreamlinesFromUnstructured'
+export * from './generateStreamLinesFromUnstructured'
