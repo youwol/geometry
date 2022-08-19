@@ -110,14 +110,17 @@ export class HarmonicDiffusion {
 
     /**
      * Solve the discrete laplace equation using relaxation
-     * @returns A DataFrame containing positions, indices series as well as the computed `"property"` as serie
+     * @returns A DataFrame containing positions, indices series as well as the computed `"property"` as a serie.
+     * If `record=true`, a serie will be recorded every `step`. If `step=0`, only the begining step is recorded.
      */
-    solve({name="property", record=false}:{record?: boolean, name?: string}): DataFrame {
+    solve({name="property", record=false, step=0}:{record?: boolean, step?: number, name?: string}): DataFrame {
         // TODO: optimize by removing the map and creating array
         //       of active nodes and array of values
 
         let conv = 1
-        let i    = 0
+        let idx  = 0
+        let j    = 1
+
         const initData = new Map(this.map)
 
         const df = DataFrame.create({
@@ -128,6 +131,7 @@ export class HarmonicDiffusion {
         })
 
         while (conv > this.eps_) {
+
             conv = 0
             this.surface_.forEachNode( n => {
                 if (this.constrainedNodes.includes(n) === false) {
@@ -147,39 +151,38 @@ export class HarmonicDiffusion {
                     conv += this.norm2(val, this.scale(tmp, 1/(1-this.epsilon_)))
                 }
             })
-
             conv = Math.sqrt(conv)
 
-            i++
-            if (i > this.maxIter_) {
+            if (record && step>0 && idx%step===0) {
+                let i = 0
+                const array = new Array(this.map.size * this.dataSize).fill(0)
+                this.map.forEach( value => value.forEach( v => array[i++] = v ) )
+                df.series[`${name}${j++}`] = Serie.create( {array, itemSize: this.dataSize })
+            }
+
+            idx++
+            if (idx > this.maxIter_) {
                 break
             }
         }
 
-        console.log('HarmonicDiffusion nb iter:', i)
+        console.log('HarmonicDiffusion nb iter:', idx)
         console.log('HarmonicDiffusion conv   :', conv)
 
         // ----------------------------------
 
-        i = 0
+        let i = 0
         const array = new Array(this.map.size * this.dataSize).fill(0)
         this.map.forEach( value => value.forEach( v => array[i++] = v ) )
         df.series[name] = Serie.create( {array, itemSize: this.dataSize })
 
         // ----------------------------------
 
-        if (record) {
-            i = 0
-            const recorder = []
-            initData.forEach( value => {
-                // console.log( value )
-                value.forEach( v => {
-                    recorder.push( array[i]-v )
-                    console.log( array[i]-v )
-                    i++
-                })
-            })
-            df.series['record'] = Serie.create( {array: recorder, itemSize: this.dataSize })
+        if (record && step===0) {
+            let i = 0
+            const array = new Array(this.map.size * this.dataSize).fill(0)
+            initData.forEach( value => value.forEach( v => array[i++] = v ) )
+            df.series[`${name}_init`] = Serie.create( {array, itemSize: this.dataSize })
         }
         
         return df
