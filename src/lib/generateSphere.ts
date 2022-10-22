@@ -26,7 +26,7 @@ import { createTyped } from "@youwol/dataframe"
  * ```
  * @param subdivision The number of subdivision (>0)
  */
- export function generateSphere(subdivision: number) {
+ export function generateSphere(subdivision: number, {shared=true, typed=true}:{shared?: boolean, typed?: boolean}={}) {
      if (subdivision<1) throw new Error('Subdivision must be > 0')
 
     const phi       = (1+Math.sqrt(5))/2 // golden number
@@ -93,8 +93,16 @@ import { createTyped } from "@youwol/dataframe"
         }
     }
 
-    return {
-        positions: createTyped(Float32Array, positions, true),
-        indices:   createTyped(Int16Array, indices, true)
+    if (typed) {
+        return {
+            positions: createTyped(Float32Array, positions, shared),
+            indices:   createTyped(Int16Array, indices, shared)
+        }
+    }
+    else {
+        return {
+            positions,
+            indices
+        }
     }
 }

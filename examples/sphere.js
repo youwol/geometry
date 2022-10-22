@@ -3,7 +3,7 @@ const df   = require('../../../../workspace/packages/dataframe/dist/@youwol/data
 const geom = require('../../../../workspace/packages/geometry/dist/@youwol/geometry')
 const fs   = require('fs')
 
-const {positions, indices} = geom.generateSphere(10)
+const {positions, indices} = geom.generateSphere(10, {shared: false, typed: false})
 const dataframe = df.DataFrame.create({
     series: {
         positions: df.Serie.create({array: positions, itemSize: 3}),

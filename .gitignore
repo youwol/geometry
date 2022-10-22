@@ -11,6 +11,7 @@ dist/src/
 dist/math/
 dist/dataframe/
 dist/tests/
+dist/bundle-analysis.html
 
 
 *.gcd
