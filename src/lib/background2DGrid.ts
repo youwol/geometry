@@ -26,7 +26,7 @@ export function createBackgroundGrid2D({
     const dx: number[] = []
     dx.push((minmax[3] - minmax[0] + 2 * eps) / dims[0])
     dx.push((minmax[4] - minmax[1] + 2 * eps) / dims[1])
-    let pmin = [minmax[0] - eps, minmax[1] - eps] as V2
+    const pmin = [minmax[0] - eps, minmax[1] - eps] as V2
 
     const backgroundgrid = new BackgroundGrid2D()
     backgroundgrid.set(pmin, dx[0], dx[1], dims[0], dims[1])
@@ -115,11 +115,15 @@ export class BackgroundGrid2D {
         // console.assert(this.ny_ !== 0);
 
         const o1 = this.getIJ(box.min)
-        if (!o1.ok) return false
+        if (!o1.ok) {
+            return false
+        }
         const ij0 = o1.ij
 
         const o2 = this.getIJ(box.max)
-        if (!o2.ok) return false
+        if (!o2.ok) {
+            return false
+        }
         const ij1 = o2.ij
 
         const IXmin = Math.min(ij0[0], ij1[0])
@@ -160,16 +164,24 @@ export class BackgroundGrid2D {
         // console.assert(this.dx_ != 0 && this.dy_ != 0)
 
         const lx = p[0] - this.origin_[0]
-        if (lx < 0) return FALSE
+        if (lx < 0) {
+            return FALSE
+        }
 
         const ly = p[1] - this.origin_[1]
-        if (ly < 0) return FALSE
+        if (ly < 0) {
+            return FALSE
+        }
 
         const xg = lx / this.dx_
-        if (xg > this.nx_) return FALSE
+        if (xg > this.nx_) {
+            return FALSE
+        }
 
         const yg = ly / this.dy_
-        if (yg > this.ny_) return FALSE
+        if (yg > this.ny_) {
+            return FALSE
+        }
 
         const ix = Math.floor(xg)
         const iy = Math.floor(yg)

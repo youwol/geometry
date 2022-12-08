@@ -1,6 +1,6 @@
-import { DataFrame, Serie, Manager, Decomposer } from '@youwol/dataframe'
+import { DataFrame, Serie, Manager } from '@youwol/dataframe'
 import { NormalsDecomposer } from '@youwol/math'
-import { fromTriangleToNode, TriangleToNodeDecomposer } from '../lib'
+import { TriangleToNodeDecomposer } from '../lib'
 
 // class T2N implements Decomposer {
 //     private positions: Serie
@@ -26,7 +26,7 @@ import { fromTriangleToNode, TriangleToNodeDecomposer } from '../lib'
 //     }
 // }
 
-test('test normals on AttributeManager', () => {
+test('normals on AttributeManager', () => {
     const df = DataFrame.create({
         series: {
             positions: Serie.create({
@@ -43,10 +43,10 @@ test('test normals on AttributeManager', () => {
         expect(mng.names(3)).toEqual(['n'])
 
         const ns = mng.serie(3, 'n').array
-        expect(mng.serie(3, 'n').count).toEqual(1)
-        expect(ns[0]).toEqual(0)
-        expect(ns[1]).toEqual(0)
-        expect(ns[2]).toEqual(1)
+        expect(mng.serie(3, 'n').count).toBe(1)
+        expect(ns[0]).toBe(0)
+        expect(ns[1]).toBe(0)
+        expect(ns[2]).toBe(1)
     }
 
     // --------------------------------------------
@@ -63,9 +63,9 @@ test('test normals on AttributeManager', () => {
         expect(mng.names(3)).toEqual(['n'])
 
         const ns = mng.serie(3, 'n').array
-        expect(mng.serie(3, 'n').count).toEqual(3)
-        expect(ns[0]).toEqual(0)
-        expect(ns[1]).toEqual(0)
-        expect(ns[2]).toEqual(1)
+        expect(mng.serie(3, 'n').count).toBe(3)
+        expect(ns[0]).toBe(0)
+        expect(ns[1]).toBe(0)
+        expect(ns[2]).toBe(1)
     }
 })

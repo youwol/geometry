@@ -6,10 +6,11 @@ const geom = require('../../dist/@youwol/geometry')
 
 class Normalizer {
     constructor(bounds, scaling = 1) {
-        if (bounds.length !== 6)
+        if (bounds.length !== 6) {
             throw new Error(
                 'bounds is an array of length 6 ([xmin,ymin,zmin, xmax,ymax,zmax])',
             )
+        }
         this.bounds = bounds
         this.width = (bounds[3] - bounds[0]) * scaling
         this.height = (bounds[4] - bounds[1]) * scaling

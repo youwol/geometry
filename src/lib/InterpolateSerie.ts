@@ -1,4 +1,4 @@
-import { createFrom, Serie } from '@youwol/dataframe'
+import { Serie } from '@youwol/dataframe'
 import { vec } from '@youwol/math'
 import { Facet, Surface } from './he'
 import { TriangleCSys } from './plane'

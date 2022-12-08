@@ -8,7 +8,9 @@ export const getDimsGrid2D = (positions: Serie, eps = 1e-7) => {
     const start = positions.itemAt(0)[0]
     let nx = 0
     positions.forEach((p) => {
-        if (Math.abs(p[0] - start) < eps) nx++
+        if (Math.abs(p[0] - start) < eps) {
+            nx++
+        }
     })
     if (nx < 2) {
         console.warn('Seems that the grid is not regular')

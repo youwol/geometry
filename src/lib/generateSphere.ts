@@ -30,7 +30,9 @@ export function generateSphere(
     subdivision: number,
     { shared = true, typed = true }: { shared?: boolean; typed?: boolean } = {},
 ) {
-    if (subdivision < 1) throw new Error('Subdivision must be > 0')
+    if (subdivision < 1) {
+        throw new Error('Subdivision must be > 0')
+    }
 
     const phi = (1 + Math.sqrt(5)) / 2 // golden number
     const positions = new Array<number>()

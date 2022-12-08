@@ -1,5 +1,5 @@
-import { biLerp, triLerp } from '@youwol/math'
-import { Manager, Serie } from '@youwol/dataframe'
+import { triLerp } from '@youwol/math'
+import { Serie } from '@youwol/dataframe'
 
 export type V3 = [number, number, number]
 
@@ -64,22 +64,34 @@ export class Grid3DHelper {
 
     getIJK(p: [number, number, number]): any {
         const lx = p[0] - this._origin[0]
-        if (lx < 0) return { ok: false }
+        if (lx < 0) {
+            return { ok: false }
+        }
 
         const ly = p[1] - this._origin[1]
-        if (ly < 0) return { ok: false }
+        if (ly < 0) {
+            return { ok: false }
+        }
 
         const lz = p[2] - this._origin[2]
-        if (lz < 0) return { ok: false }
+        if (lz < 0) {
+            return { ok: false }
+        }
 
         const xg = lx / this._dx
-        if (xg > this._n[0]) return { ok: false }
+        if (xg > this._n[0]) {
+            return { ok: false }
+        }
 
         const yg = ly / this._dy
-        if (yg > this._n[1]) return { ok: false }
+        if (yg > this._n[1]) {
+            return { ok: false }
+        }
 
         const zg = lz / this._dz
-        if (zg > this._n[2]) return { ok: false }
+        if (zg > this._n[2]) {
+            return { ok: false }
+        }
 
         const ix = Math.trunc(xg)
         const iy = Math.trunc(yg)
@@ -109,7 +121,9 @@ export class Grid3DHelper {
         p: [number, number, number],
     ): [number, number, number, number, number, number, number, number] {
         const c = this.candidate(p)
-        if (c === undefined) return undefined
+        if (c === undefined) {
+            return undefined
+        }
         const i11 = this.flatIndex(c[0], c[1], c[2])
         const i12 = this.flatIndex(c[0], c[1] + 1, c[2])
         const i21 = this.flatIndex(c[0], c[1], c[2] + 1)
@@ -144,7 +158,9 @@ export class Grid3DHelper {
      */
     candidate(p: [number, number, number]): [number, number, number] {
         const { ok, ij } = this.getIJK(p)
-        if (!ok) return undefined
+        if (!ok) {
+            return undefined
+        }
         return ij
     }
 

@@ -19,10 +19,10 @@ export class Cell {
             return false
         }
         for (let i = 0; i < this.children.length; ++i) {
-            var p = this.children[i]
-            var dx = p.x - x,
+            const p = this.children[i]
+            const dx = p.x - x,
                 dy = p.y - y
-            var dist = Math.sqrt(dx * dx + dy * dy)
+            const dist = Math.sqrt(dx * dx + dy * dy)
             if (checkCallback(dist, p)) {
                 return true
             }
@@ -64,7 +64,9 @@ export function createLookupGrid(
     }
 
     function isTaken(x: number, y: number, checkCallback: CheckCallback) {
-        if (!cells) return false
+        if (!cells) {
+            return false
+        }
         const cx = gridX(x)
         const cy = gridY(y)
         for (let col = -1; col < 2; ++col) {
@@ -74,7 +76,9 @@ export function createLookupGrid(
             }
 
             const cellRow = cells.get(currentCellX)
-            if (!cellRow) continue
+            if (!cellRow) {
+                continue
+            }
 
             for (let row = -1; row < 2; ++row) {
                 const currentCellY = cy + row
@@ -83,7 +87,9 @@ export function createLookupGrid(
                 }
 
                 const cellCol = cellRow.get(currentCellY)
-                if (!cellCol) continue
+                if (!cellCol) {
+                    continue
+                }
                 if (cellCol.isTaken(x, y, checkCallback)) {
                     return true
                 }

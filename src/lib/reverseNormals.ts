@@ -19,6 +19,8 @@ import { Serie } from '@youwol/dataframe'
  * @caterogy dataframe
  */
 export function reverseNormals(indices: Serie): Serie {
-    if (indices.itemSize !== 3) throw new Error('Only triangles are allowed')
+    if (indices.itemSize !== 3) {
+        throw new Error('Only triangles are allowed')
+    }
     return indices.map((i) => [i[0], i[2], i[1]])
 }

@@ -27,14 +27,14 @@ export function fromTriangleToNode({
     const size = serie.itemSize
 
     const b = serie.newInstance({ count: surface.nbNodes, itemSize: size })
-    let array = b.array
+    const array = b.array
     const weights = new Array(surface.nbNodes).fill(0)
 
     // array = array.map( _ => 0 )
 
     surface.forEachFace((face: Facet, i: number) => {
         const ids = face.nodeIds
-        let d = serie.itemAt(i)
+        const d = serie.itemAt(i)
 
         for (let j = 0; j < 3; ++j) {
             // nodes of triangle

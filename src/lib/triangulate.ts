@@ -1,4 +1,4 @@
-import { Serie, createTyped, DataFrame, array } from '@youwol/dataframe'
+import { Serie, DataFrame, array } from '@youwol/dataframe'
 import { vec } from '@youwol/math'
 import { Delaunator } from './delaunay/delaunator'
 import { project } from './plane'

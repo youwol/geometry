@@ -55,7 +55,9 @@ const gridHelper = new geom.Grid2DHelper(
 let lines = geom.streamLinesExtractor({
     vectorField: (p) => {
         const v = gridHelper.interpolate([p.y, p.x], grid.series.Joint) // WARNING: WE INVERTED  the x and y !
-        if (v === undefined) return undefined
+        if (v === undefined) {
+            return undefined
+        }
         return new geom.Vector(v[0], v[1])
     },
     dims: geom.getDimsGrid2D(grid.series.positions),

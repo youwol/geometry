@@ -25,7 +25,7 @@ export function relaxMesh(
             if (n.isOnBorder === false) {
                 let f = [0, 0, 0]
                 nodesAroundNode(n, (n1) => {
-                    let f1 = vec.create(n.pos, n1.pos) // force vector
+                    const f1 = vec.create(n.pos, n1.pos) // force vector
                     const norm = vec.norm(f1) // length force vector
                     f1[0] /= norm
                     f1[1] /= norm

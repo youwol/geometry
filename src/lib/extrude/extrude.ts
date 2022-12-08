@@ -47,11 +47,21 @@ class Trace {
         }
 
         this.info = trace
-        if (this.info.depth === undefined) this.info.depth = 0.1
-        if (this.info.dip === undefined) this.info.dip = 30
-        if (this.info.dipDirection === undefined) this.info.dipDirection = 90
-        if (this.info.rows === undefined) this.info.rows = 5
-        if (this.info.id === undefined) this.info.id = 'no-name'
+        if (this.info.depth === undefined) {
+            this.info.depth = 0.1
+        }
+        if (this.info.dip === undefined) {
+            this.info.dip = 30
+        }
+        if (this.info.dipDirection === undefined) {
+            this.info.dipDirection = 90
+        }
+        if (this.info.rows === undefined) {
+            this.info.rows = 5
+        }
+        if (this.info.id === undefined) {
+            this.info.id = 'no-name'
+        }
 
         this.perform()
     }

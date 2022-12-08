@@ -33,7 +33,9 @@ export class BBox {
                     this.max_.setCoord(i, Max);
                 }
                 */
-                if (Max < min) this.empty_ = true
+                if (Max < min) {
+                    this.empty_ = true
+                }
             }
         }
     }
@@ -74,11 +76,11 @@ export class BBox {
     }
 
     scale(s: number) {
-        let r1 = vec.add(
+        const r1 = vec.add(
             vec.scale(vec.create(this.center, this.min), s),
             this.center,
         )
-        let r2 = vec.add(
+        const r2 = vec.add(
             vec.scale(vec.create(this.center, this.max), s),
             this.center,
         )
@@ -89,8 +91,12 @@ export class BBox {
     grow(p: vec.Vector3) {
         this.empty_ = false
         for (let i = 0; i < 3; ++i) {
-            if (p[i] < this.min_[i]) this.min_[i] = p[i]
-            if (p[i] > this.max_[i]) this.max_[i] = p[i]
+            if (p[i] < this.min_[i]) {
+                this.min_[i] = p[i]
+            }
+            if (p[i] > this.max_[i]) {
+                this.max_[i] = p[i]
+            }
         }
     }
 

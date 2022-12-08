@@ -1,10 +1,6 @@
 import { DataFrame, Serie } from '@youwol/dataframe'
-import { min, minMax } from '@youwol/math'
-import { Console } from 'console'
-import { Grid2DHelper } from '../grid2DHelper'
 import { streamlines } from './streamlines'
-import { OutsideFunction, VelocityFunction } from './types'
-import { getDimsGrid2D } from './utils'
+import { OutsideFunction } from './types'
 import { Vector } from './Vector'
 
 /**
@@ -49,7 +45,9 @@ export function streamLinesExtractor({
 }): DataFrame[] {
     function addPoint(a: Point, b: Point): boolean {
         const newPolyLine = () => {
-            if (polyline.length > 1) polylines.push([...polyline])
+            if (polyline.length > 1) {
+                polylines.push([...polyline])
+            }
             polyline = []
         }
 
@@ -84,7 +82,7 @@ export function streamLinesExtractor({
     //     top   : bounds[1],
     // }
 
-    let polylines: Polylines = []
+    const polylines: Polylines = []
     let polyline: Polyline = []
 
     // 'bounds' is now a parameter of this function

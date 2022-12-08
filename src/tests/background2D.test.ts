@@ -9,7 +9,7 @@ function generateMesh(n: number): DataFrame {
     return triangulate(serie)
 }
 
-test('test sphere', () => {
+test('sphere', () => {
     const dataframe = generateMesh(100)
 
     const bg = createBackgroundGrid2D({

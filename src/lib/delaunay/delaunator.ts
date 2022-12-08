@@ -26,7 +26,7 @@ export class Delaunator {
     public hull: any
     public triangles: any
     public halfedges: any
-    public trianglesLen: number = 0
+    public trianglesLen = 0
 
     private _triangles: any
     private _halfedges: any
@@ -56,8 +56,9 @@ export class Delaunator {
 
     constructor(coords: any) {
         const n = coords.length >> 1
-        if (n > 0 && typeof coords[0] !== 'number')
+        if (n > 0 && typeof coords[0] !== 'number') {
             throw new Error('Expected coords to contain numbers.')
+        }
 
         this.coords = coords
 
@@ -99,19 +100,27 @@ export class Delaunator {
         for (let i = 0; i < n; i++) {
             const x = coords[2 * i]
             const y = coords[2 * i + 1]
-            if (x < minX) minX = x
-            if (y < minY) minY = y
-            if (x > maxX) maxX = x
-            if (y > maxY) maxY = y
+            if (x < minX) {
+                minX = x
+            }
+            if (y < minY) {
+                minY = y
+            }
+            if (x > maxX) {
+                maxX = x
+            }
+            if (y > maxY) {
+                maxY = y
+            }
             this._ids[i] = i
         }
         const cx = (minX + maxX) / 2
         const cy = (minY + maxY) / 2
 
         let minDist = Infinity
-        let i0: number = 0,
-            i1: number = 0,
-            i2: number = 0
+        let i0 = 0,
+            i1 = 0,
+            i2 = 0
 
         // pick a seed point close to the center
         for (let i = 0; i < n; i++) {
@@ -128,7 +137,9 @@ export class Delaunator {
 
         // find the point closest to the seed
         for (let i = 0; i < n; i++) {
-            if (i === i0) continue
+            if (i === i0) {
+                continue
+            }
             const d = dist(i0x, i0y, coords[2 * i], coords[2 * i + 1])
             if (d < minDist && d > 0) {
                 i1 = i
@@ -142,7 +153,9 @@ export class Delaunator {
 
         // find the third point which forms the smallest circumcircle with the first two
         for (let i = 0; i < n; i++) {
-            if (i === i0 || i === i1) continue
+            if (i === i0 || i === i1) {
+                continue
+            }
             const r = circumradius(
                 i0x,
                 i0y,
@@ -241,13 +254,16 @@ export class Delaunator {
                 k > 0 &&
                 Math.abs(x - xp) <= EPSILON &&
                 Math.abs(y - yp) <= EPSILON
-            )
+            ) {
                 continue
+            }
             xp = x
             yp = y
 
             // skip seed triangle points
-            if (i === i0 || i === i1 || i === i2) continue
+            if (i === i0 || i === i1 || i === i2) {
+                continue
+            }
 
             // find a visible edge on the convex hull using edge hash
             let start = 0
@@ -257,7 +273,9 @@ export class Delaunator {
                 j++
             ) {
                 start = hullHash[(key + j) % this._hashSize]
-                if (start !== -1 && start !== hullNext[start]) break
+                if (start !== -1 && start !== hullNext[start]) {
+                    break
+                }
             }
 
             start = hullPrev[start]
@@ -280,7 +298,9 @@ export class Delaunator {
                     break
                 }
             }
-            if (e === -1) continue // likely a near-duplicate point; skip it
+            if (e === -1) {
+                continue
+            } // likely a near-duplicate point; skip it
 
             // add the first triangle from the point
             let t = this._addTriangle(e, i, hullNext[e], -1, -1, hullTri[e])
@@ -391,7 +411,9 @@ export class Delaunator {
 
             if (b === -1) {
                 // convex hull edge
-                if (i === 0) break
+                if (i === 0) {
+                    break
+                }
                 a = EDGE_STACK[--i]
                 continue
             }
@@ -444,7 +466,9 @@ export class Delaunator {
                     EDGE_STACK[i++] = br
                 }
             } else {
-                if (i === 0) break
+                if (i === 0) {
+                    break
+                }
                 a = EDGE_STACK[--i]
             }
         }
@@ -454,7 +478,9 @@ export class Delaunator {
 
     _link(a: any, b: any) {
         this._halfedges[a] = b
-        if (b !== -1) this._halfedges[b] = a
+        if (b !== -1) {
+            this._halfedges[b] = a
+        }
     }
 
     // add a new triangle given vertex indices and adjacent half-edge ids
@@ -572,7 +598,9 @@ function quicksort(ids: any, dists: any, left: any, right: any) {
             const temp = ids[i]
             const tempDist = dists[temp]
             let j = i - 1
-            while (j >= left && dists[ids[j]] > tempDist) ids[j + 1] = ids[j--]
+            while (j >= left && dists[ids[j]] > tempDist) {
+                ids[j + 1] = ids[j--]
+            }
             ids[j + 1] = temp
         }
     } else {
@@ -580,18 +608,28 @@ function quicksort(ids: any, dists: any, left: any, right: any) {
         let i = left + 1
         let j = right
         swap(ids, median, i)
-        if (dists[ids[left]] > dists[ids[right]]) swap(ids, left, right)
-        if (dists[ids[i]] > dists[ids[right]]) swap(ids, i, right)
-        if (dists[ids[left]] > dists[ids[i]]) swap(ids, left, i)
+        if (dists[ids[left]] > dists[ids[right]]) {
+            swap(ids, left, right)
+        }
+        if (dists[ids[i]] > dists[ids[right]]) {
+            swap(ids, i, right)
+        }
+        if (dists[ids[left]] > dists[ids[i]]) {
+            swap(ids, left, i)
+        }
 
         const temp = ids[i]
         const tempDist = dists[temp]
         while (true) {
-            do i++
-            while (dists[ids[i]] < tempDist)
-            do j--
-            while (dists[ids[j]] > tempDist)
-            if (j < i) break
+            do {
+                i++
+            } while (dists[ids[i]] < tempDist)
+            do {
+                j--
+            } while (dists[ids[j]] > tempDist)
+            if (j < i) {
+                break
+            }
             swap(ids, i, j)
         }
         ids[left + 1] = ids[j]

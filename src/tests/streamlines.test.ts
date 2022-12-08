@@ -1,16 +1,4 @@
-import { Serie } from '@youwol/dataframe'
-import { minMax } from '@youwol/math'
-import {
-    generateRectangle,
-    InterpolateInGrid2D,
-    Normalizer,
-    pointInPolygon,
-    streamLinesExtractor,
-    Surface,
-    Vector,
-} from '../lib'
-
-test('test streamlines', () => {
+test('streamlines', () => {
     /*
     const dataframe = generateRectangle({a:10, b:10, na:10, nb:10, center:[0,0,0]})
 

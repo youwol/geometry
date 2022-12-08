@@ -23,12 +23,14 @@ export class TriangleCSys {
     private mat_ = [1, 0, 0, 0, 1, 0, 0, 0, 1]
 
     constructor(n: math.vec.Vector3 = undefined) {
-        if (n) this.setNormal(n)
+        if (n) {
+            this.setNormal(n)
+        }
     }
 
     setBase(x: math.vec.Vector3, y: math.vec.Vector3, z: math.vec.Vector3) {
-        let v1 = vector(y, x, true) // see bottom for vector()
-        let v2 = vector(z, x, true)
+        const v1 = vector(y, x, true) // see bottom for vector()
+        const v2 = vector(z, x, true)
         return this.setNormal(math.vec.cross(v1, v2))
     }
 
@@ -111,7 +113,7 @@ export function fittingPlane(points: Serie): Plane {
         sum[1] += points.array[i + 1]
         sum[2] += points.array[i + 2]
     }
-    let centroid = math.vec.scale(sum, 1 / points.length) as math.vec.Vector3
+    const centroid = math.vec.scale(sum, 1 / points.length) as math.vec.Vector3
 
     // Calc full 3x3 covariance matrix, excluding symmetries:
     let xx = 0.0,
@@ -122,7 +124,7 @@ export function fittingPlane(points: Serie): Plane {
         zz = 0.0
 
     for (let i = 0; i < points.length; i += 3) {
-        let r = [
+        const r = [
             points.array[i] - centroid[0],
             points.array[i + 1] - centroid[1],
             points.array[i + 2] - centroid[2],
@@ -135,10 +137,10 @@ export function fittingPlane(points: Serie): Plane {
         zz += r[2] ** 2
     }
 
-    let det_x = yy * zz - yz * yz
-    let det_y = xx * zz - xz * xz
-    let det_z = xx * yy - xy * xy
-    let det_max = Math.max(det_x, det_y, det_z)
+    const det_x = yy * zz - yz * yz
+    const det_y = xx * zz - xz * xz
+    const det_z = xx * yy - xy * xy
+    const det_max = Math.max(det_x, det_y, det_z)
     if (det_max <= 0) {
         throw new Error('determlinant is <0')
     }
@@ -170,8 +172,9 @@ export function distanceFromPointToPlane(
 ): number | Serie {
     if (Serie.isSerie(pt)) {
         const S = pt as Serie
-        if (S.itemSize !== 3)
+        if (S.itemSize !== 3) {
             throw new Error('points must have itemSize = 3 (coordinates)')
+        }
         return S.map((point) => _distanceFromPointToPlane_(point, plane))
     }
 
@@ -189,8 +192,9 @@ export function vectorFromPointsToPlane(
 ): math.vec.Vector3 | Serie {
     if (Serie.isSerie(pt)) {
         const S = pt as Serie
-        if (S.itemSize !== 3)
+        if (S.itemSize !== 3) {
             throw new Error('points must have itemSize = 3 (coordinates)')
+        }
         return S.map((point) => _vectorFromPointToPlane_(point, plane))
     }
 
@@ -255,7 +259,7 @@ function _vectorFromPointToPlane_(
 function vector(
     p1: math.vec.Vector3,
     p2: math.vec.Vector3,
-    normalize: boolean = false,
+    normalize = false,
 ): math.vec.Vector3 {
     if (normalize) {
         const x = p2[0] - p1[0]

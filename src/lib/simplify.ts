@@ -21,11 +21,7 @@ import { vec } from '@youwol/math'
  * @copyright 2013, Vladimir Agafonkin
  * @license BSD-2-Clause "Simplified" License
  */
-export function simplify(
-    points: Serie,
-    tolerance: number = 1,
-    highestQuality: boolean = false,
-) {
+export function simplify(points: Serie, tolerance = 1, highestQuality = false) {
     const sqTolerance = tolerance !== undefined ? tolerance * tolerance : 1
     return simplifyDouglasPeucker(
         highestQuality ? points : simplifyRadialDistance(points, sqTolerance),
@@ -52,7 +48,7 @@ function getSquareSegmentDistance(
             dy = p2[1] - y
 
         if (dx !== 0 || dy !== 0) {
-            var t = ((p[0] - x) * dx + (p[1] - y) * dy) / (dx * dx + dy * dy)
+            const t = ((p[0] - x) * dx + (p[1] - y) * dy) / (dx * dx + dy * dy)
             if (t > 1) {
                 x = p2[0]
                 y = p2[1]

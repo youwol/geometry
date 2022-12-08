@@ -18,7 +18,7 @@ export class LinearRegression {
         let count = 0
         let x = 0
         let y = 0
-        let values_length = xValues.length
+        const values_length = xValues.length
 
         if (values_length != yValues.length) {
             throw new Error(

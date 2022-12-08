@@ -106,7 +106,7 @@ export class HarmonicDiffusion {
         }
 
         if (Array.isArray(n)) {
-            let node = this.findNode(n)
+            const node = this.findNode(n)
             if (node && this.constrainedNodes.includes(node) === false) {
                 this.pushNode(node, value)
             }
@@ -151,7 +151,7 @@ export class HarmonicDiffusion {
             conv = 0
             this.surface_.forEachNode((n) => {
                 if (this.constrainedNodes.includes(n) === false) {
-                    let val = new Array(this.dataSize).fill(0)
+                    const val = new Array(this.dataSize).fill(0)
                     let nb = 0
                     nodesAroundNode(n, (m) => {
                         nb++
@@ -159,7 +159,7 @@ export class HarmonicDiffusion {
                     })
                     this.scale(val, 1 / nb)
 
-                    let tmp = this.map.get(n)
+                    const tmp = this.map.get(n)
                     this.scale(val, this.epsilon_)
                     this.add(this.scale(tmp, 1 - this.epsilon_), val)
                     this.map.set(n, val)

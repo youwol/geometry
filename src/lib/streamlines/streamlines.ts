@@ -94,11 +94,16 @@ export function streamlines(protoOptions: StreamLinesOptions) {
     //   processQueue()
     function nextStep() {
         while (state !== State.STATE_DONE) {
-            for (var i = 0; i < stepsPerIteration; ++i) {
-                if (state === State.STATE_INIT) initProcessing()
-                else if (state === State.STATE_STREAMLINE) continueStreamline()
-                else if (state === State.STATE_PROCESS_QUEUE) processQueue()
-                else if (state === State.STATE_SEED_STREAMLINE) seedStreamline()
+            for (let i = 0; i < stepsPerIteration; ++i) {
+                if (state === State.STATE_INIT) {
+                    initProcessing()
+                } else if (state === State.STATE_STREAMLINE) {
+                    continueStreamline()
+                } else if (state === State.STATE_PROCESS_QUEUE) {
+                    processQueue()
+                } else if (state === State.STATE_SEED_STREAMLINE) {
+                    seedStreamline()
+                }
             }
         }
     }
@@ -144,7 +149,7 @@ export function streamlines(protoOptions: StreamLinesOptions) {
     }
 
     function addStreamLineToQueue() {
-        var streamLinePoints = streamlineIntegrator.getStreamline()
+        const streamLinePoints = streamlineIntegrator.getStreamline()
         if (streamLinePoints.length > 1) {
             finishedStreamlineIntegrators.push(streamlineIntegrator)
             if (options.onStreamlineAdded) {
@@ -155,12 +160,16 @@ export function streamlines(protoOptions: StreamLinesOptions) {
 }
 
 function assertNumber(x: any, msg: string) {
-    if (typeof x !== 'number' || Number.isNaN(x)) throw new Error(msg)
+    if (typeof x !== 'number' || Number.isNaN(x)) {
+        throw new Error(msg)
+    }
 }
 
 function normalizeBoundingBox(bbox: BoundingBox) {
     const msg = 'Bounding box {left, top, width, height} is required'
-    if (!bbox) throw new Error(msg)
+    if (!bbox) {
+        throw new Error(msg)
+    }
 
     assertNumber(bbox.left, msg)
     assertNumber(bbox.top, msg)
@@ -171,6 +180,7 @@ function normalizeBoundingBox(bbox: BoundingBox) {
     assertNumber(bbox.width, msg)
     assertNumber(bbox.height, msg)
 
-    if (bbox.width <= 0 || bbox.height <= 0)
+    if (bbox.width <= 0 || bbox.height <= 0) {
         throw new Error('Bounding box cannot be empty')
+    }
 }

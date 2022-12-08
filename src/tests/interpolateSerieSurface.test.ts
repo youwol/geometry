@@ -5,7 +5,7 @@ import {
     InterpolateSerieFromCsysOnSurface,
 } from '../lib'
 
-test('test interpolate serie on surface', () => {
+test('interpolate serie on surface', () => {
     const positions = [0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0]
     const indices = [0, 1, 2, 0, 2, 3]
     const u = Serie.create({ array: [1, 3, 7, 2, 4, 9], itemSize: 3 })
@@ -17,7 +17,7 @@ test('test interpolate serie on surface', () => {
     expect(false).toBeFalsy()
 })
 
-test('test from triangle to node', () => {
+test('from triangle to node', () => {
     const positions = Serie.create({
         array: [0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0],
         itemSize: 3,
@@ -32,7 +32,7 @@ test('test from triangle to node', () => {
     s.array.forEach((v, i) => expect(v).toEqual(sol[i]))
 })
 
-test('test from node to triangle', () => {
+test('from node to triangle', () => {
     const positions = Serie.create({
         array: [0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0],
         itemSize: 3,

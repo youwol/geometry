@@ -55,7 +55,7 @@ export function generateStreamLinesFromUnstructured({
     let SEEDS = undefined
     if (seeds) {
         SEEDS = []
-        let seeds1 = Serie.create({ array: seeds, itemSize: 3 }).map((s) =>
+        const seeds1 = Serie.create({ array: seeds, itemSize: 3 }).map((s) =>
             normalizer.normalize(s),
         )
         seeds1.forEach((v) => SEEDS.push({ x: v[0], y: v[1] }))
@@ -63,7 +63,7 @@ export function generateStreamLinesFromUnstructured({
 
     // Extract the streamlines
     //
-    let lines = streamLinesExtractor({
+    const lines = streamLinesExtractor({
         vectorField: (p) => {
             const v = interpolator.interpolate([p.x, p.y])
             if (v === undefined) {

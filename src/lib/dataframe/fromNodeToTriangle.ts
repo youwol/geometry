@@ -26,7 +26,7 @@ export function fromNodeToTriangle({
     // Linear-interpolate displ from triangles to vertices
     const size = serie.itemSize
     const b = serie.newInstance({ count: surface.nbFacets, itemSize: size })
-    let array = b.array
+    const array = b.array
 
     surface.forEachFace((face: Facet, i: number) => {
         const ids = face.nodeIds

@@ -165,14 +165,30 @@ export class MarchingCubes {
 
                     let cubeindex = 0
 
-                    if (value0 < isoValue) cubeindex |= 1
-                    if (value1 < isoValue) cubeindex |= 2
-                    if (value2 < isoValue) cubeindex |= 8
-                    if (value3 < isoValue) cubeindex |= 4
-                    if (value4 < isoValue) cubeindex |= 16
-                    if (value5 < isoValue) cubeindex |= 32
-                    if (value6 < isoValue) cubeindex |= 128
-                    if (value7 < isoValue) cubeindex |= 64
+                    if (value0 < isoValue) {
+                        cubeindex |= 1
+                    }
+                    if (value1 < isoValue) {
+                        cubeindex |= 2
+                    }
+                    if (value2 < isoValue) {
+                        cubeindex |= 8
+                    }
+                    if (value3 < isoValue) {
+                        cubeindex |= 4
+                    }
+                    if (value4 < isoValue) {
+                        cubeindex |= 16
+                    }
+                    if (value5 < isoValue) {
+                        cubeindex |= 32
+                    }
+                    if (value6 < isoValue) {
+                        cubeindex |= 128
+                    }
+                    if (value7 < isoValue) {
+                        cubeindex |= 64
+                    }
 
                     const bits = edgeTable[cubeindex]
 
@@ -310,11 +326,11 @@ export class MarchingCubes {
         const di = l / ny / nz
         const i = Math.trunc(di)
 
-        let m = ny * nz * (di - i)
-        let dj = m / nz
-        let j = Math.trunc(dj)
+        const m = ny * nz * (di - i)
+        const dj = m / nz
+        const j = Math.trunc(dj)
 
-        let k = nz * (dj - j)
+        const k = nz * (dj - j)
 
         return [Math.round(i), Math.round(j), Math.round(k)]
     }

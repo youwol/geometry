@@ -1,9 +1,9 @@
 import { Serie } from '@youwol/dataframe'
 import { Normalizer } from '../lib'
 
-test('test streamline normalizer points', () => {
-    let min = [-1, -1, -1]
-    let max = [3, 3, 3]
+test('streamline normalizer points', () => {
+    const min = [-1, -1, -1]
+    const max = [3, 3, 3]
     const n = new Normalizer([...min, ...max])
 
     expect(n.normalize([-1, 0])[0]).toEqual(-0.5)
@@ -13,9 +13,9 @@ test('test streamline normalizer points', () => {
     expect(n.normalize([-1, 0, -100])[1]).toEqual(-0.25)
 })
 
-test('test streamline normalizer Serie', () => {
-    let min = [-1, -1, -1]
-    let max = [3, 3, 3]
+test('streamline normalizer Serie', () => {
+    const min = [-1, -1, -1]
+    const max = [3, 3, 3]
 
     const n = new Normalizer([...min, ...max])
 

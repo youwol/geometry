@@ -1,7 +1,7 @@
 import { Serie } from '@youwol/dataframe'
 import { pointInPolygon } from '../lib'
 
-test('test pointInPolygon', () => {
+test('pointInPolygon', () => {
     const polygon = Serie.create({
         array: [1, 1, 1, 2, 2, 2, 2, 1],
         itemSize: 2,

@@ -61,7 +61,7 @@ export class Surface {
             })
         }
 
-        let m = new Surface()
+        const m = new Surface()
         m.build(pos, idx)
         return m
     }
@@ -95,7 +95,7 @@ export class Surface {
         const builder = new SurfaceBuilder()
         builder.beginSurface(this)
 
-        let b = new BBox()
+        const b = new BBox()
         positions.forEach((p) => {
             builder.addNode(p)
             b.grow(p)

@@ -23,10 +23,11 @@ export class CurvatureDecomposer implements Decomposer {
             this.geo = new Geometry(positions, indices, true)
         }
         if (names !== undefined) {
-            if (names.length !== 4)
+            if (names.length !== 4) {
                 throw new Error(
                     'curvature names length must be 4 (principal 1, principal 2, mean, gaussian)',
                 )
+            }
             this.names_ = names
         }
     }
@@ -35,8 +36,12 @@ export class CurvatureDecomposer implements Decomposer {
      * @hidden
      */
     names(df: DataFrame, itemSize: number, serie: Serie, name: string) {
-        if (itemSize !== 1) return []
-        if (this.geo === undefined) return []
+        if (itemSize !== 1) {
+            return []
+        }
+        if (this.geo === undefined) {
+            return []
+        }
         return this.names_
     }
 
@@ -44,16 +49,18 @@ export class CurvatureDecomposer implements Decomposer {
      * @hidden
      */
     serie(df: DataFrame, itemSize: number, name: string): Serie {
-        if (!this.names_.includes(name)) return undefined
+        if (!this.names_.includes(name)) {
+            return undefined
+        }
         switch (name) {
             case this.names_[0]:
-                return this.geo.k1() as Serie
+                return this.geo.k1()
             case this.names_[1]:
-                return this.geo.k2() as Serie
+                return this.geo.k2()
             case this.names_[2]:
-                return this.geo.H() as Serie
+                return this.geo.H()
             case this.names_[3]:
-                return this.geo.K() as Serie
+                return this.geo.K()
             default:
                 return undefined
         }
@@ -166,7 +173,7 @@ class FaceVertexIterator {
                     }
                 } else {
                     this.justStarted = false
-                    let vertex = this.current.vertex
+                    const vertex = this.current.vertex
                     this.current = this.ccw
                         ? this.current.next
                         : this.current.prev
@@ -206,7 +213,7 @@ class FaceEdgeIterator {
                     }
                 } else {
                     this.justStarted = false
-                    let edge = this.current.edge
+                    const edge = this.current.edge
                     this.current = this.ccw
                         ? this.current.next
                         : this.current.prev
@@ -254,7 +261,7 @@ class FaceFaceIterator {
                     }
                 } else {
                     this.justStarted = false
-                    let face = this.current.twin.face
+                    const face = this.current.twin.face
                     this.current = this.ccw
                         ? this.current.next
                         : this.current.prev
@@ -294,7 +301,7 @@ class FaceHalfedgeIterator {
                     }
                 } else {
                     this.justStarted = false
-                    let halfedge = this.current
+                    const halfedge = this.current
                     this.current = this.ccw
                         ? this.current.next
                         : this.current.prev
@@ -337,7 +344,7 @@ class FaceCornerIterator {
                     this.current = this.ccw
                         ? this.current.next
                         : this.current.prev
-                    let corner = this.current.corner // corner will be undefined if this face is a boundary loop
+                    const corner = this.current.corner // corner will be undefined if this face is a boundary loop
                     return {
                         done: false,
                         value: corner,
@@ -361,7 +368,7 @@ class Vertex {
 
     degree() {
         let k = 0
-        for (let e of this.adjacentEdges()) {
+        for (const e of this.adjacentEdges()) {
             k++
         }
 
@@ -373,7 +380,7 @@ class Vertex {
     }
 
     onBoundary() {
-        for (let h of this.adjacentHalfedges()) {
+        for (const h of this.adjacentHalfedges()) {
             if (h.onBoundary) {
                 return true
             }
@@ -473,7 +480,7 @@ class VertexVertexIterator {
                     }
                 } else {
                     this.justStarted = false
-                    let vertex = this.current.twin.vertex
+                    const vertex = this.current.twin.vertex
                     this.current = this.ccw
                         ? this.current.twin.next
                         : this.current.prev.twin
@@ -513,7 +520,7 @@ class VertexEdgeIterator {
                     }
                 } else {
                     this.justStarted = false
-                    let edge = this.current.edge
+                    const edge = this.current.edge
                     this.current = this.ccw
                         ? this.current.twin.next
                         : this.current.prev.twin
@@ -561,7 +568,7 @@ class VertexFaceIterator {
                     }
                 } else {
                     this.justStarted = false
-                    let face = this.current.face
+                    const face = this.current.face
                     this.current = this.ccw
                         ? this.current.twin.next
                         : this.current.prev.twin
@@ -601,7 +608,7 @@ class VertexHalfedgeIterator {
                     }
                 } else {
                     this.justStarted = false
-                    let halfedge = this.current
+                    const halfedge = this.current
                     this.current = this.ccw
                         ? this.current.twin.next
                         : this.current.prev.twin
@@ -649,7 +656,7 @@ class VertexCornerIterator {
                     }
                 } else {
                     this.justStarted = false
-                    let corner = this.current.next.corner
+                    const corner = this.current.next.corner
                     this.current = this.ccw
                         ? this.current.twin.next
                         : this.current.prev.twin
@@ -736,9 +743,9 @@ class Mesh {
         this.preallocateElements(positions, indices)
 
         // create and insert vertices
-        let indexToVertex = new Map()
+        const indexToVertex = new Map()
         for (let i = 0; i < positions.count; i++) {
-            let v = new Vertex()
+            const v = new Vertex()
             v.index = i
             this.vertices[i] = v
             indexToVertex.set(i, v)
@@ -746,36 +753,36 @@ class Mesh {
 
         // create and insert halfedges, edges and non boundary loop faces
         let eIndex = 0
-        let edgeCount = new Map()
-        let existingHalfedges = new Map()
-        let hasTwinHalfedge = new Map()
+        const edgeCount = new Map()
+        const existingHalfedges = new Map()
+        const hasTwinHalfedge = new Map()
         for (let I = 0; I < indices.array.length; I += 3) {
             // create new face
-            let f = new Face()
+            const f = new Face()
             this.faces[I / 3] = f
 
             // create a halfedge for each edge of the newly created face
             for (let J = 0; J < 3; J++) {
-                let h = new Halfedge()
+                const h = new Halfedge()
                 this.halfedges[I + J] = h
             }
 
             // initialize the newly created halfedges
             for (let J = 0; J < 3; J++) {
                 // current halfedge goes from vertex i to vertex j
-                let K = (J + 1) % 3
+                const K = (J + 1) % 3
                 let i = indices.array[I + J]
                 let j = indices.array[I + K]
 
                 // set the current halfedge's attributes
-                let h = this.halfedges[I + J]
+                const h = this.halfedges[I + J]
                 h.next = this.halfedges[I + K]
                 h.prev = this.halfedges[I + ((J + 3 - 1) % 3)]
                 h.onBoundary = false
                 hasTwinHalfedge.set(h, false)
 
                 // point the new halfedge and vertex i to each other
-                let v = indexToVertex.get(i)
+                const v = indexToVertex.get(i)
                 h.vertex = v
                 v.halfedge = h
 
@@ -784,14 +791,16 @@ class Mesh {
                 f.halfedge = h
 
                 // swap if i > j
-                if (i > j) j = [i, (i = j)][0]
+                if (i > j) {
+                    j = [i, (i = j)][0]
+                }
 
-                let value = [i, j]
-                let key = value.toString()
+                const value = [i, j]
+                const key = value.toString()
                 if (existingHalfedges.has(key)) {
                     // if a halfedge between vertex i and j has been created in the past, then it
                     // is the twin halfedge of the current halfedge
-                    let twin = existingHalfedges.get(key)
+                    const twin = existingHalfedges.get(key)
                     h.twin = twin
                     twin.twin = h
                     h.edge = twin.edge
@@ -801,7 +810,7 @@ class Mesh {
                     edgeCount.set(key, edgeCount.get(key) + 1)
                 } else {
                     // create an edge and set its halfedge
-                    let e = new Edge()
+                    const e = new Edge()
                     this.edges[eIndex++] = e
                     h.edge = e
                     e.halfedge = h
@@ -826,18 +835,18 @@ class Mesh {
         for (let i = 0; i < indices.array.length; i++) {
             // if a halfedge has no twin halfedge, create a new face and
             // link it the corresponding boundary cycle
-            let h = this.halfedges[i]
+            const h = this.halfedges[i]
             if (!hasTwinHalfedge.get(h)) {
                 // create new face
-                let f = new Face()
+                const f = new Face()
                 this.boundaries.push(f)
 
                 // walk along boundary cycle
-                let boundaryCycle = []
+                const boundaryCycle = []
                 let he = h
                 do {
                     // create a new halfedge
-                    let bH = new Halfedge()
+                    const bH = new Halfedge()
                     this.halfedges[hIndex++] = bH
                     boundaryCycle.push(bH)
 
@@ -865,7 +874,7 @@ class Mesh {
                 } while (he !== h)
 
                 // link the cycle of boundary halfedges together
-                let n = boundaryCycle.length
+                const n = boundaryCycle.length
                 for (let j = 0; j < n; j++) {
                     boundaryCycle[j].next = boundaryCycle[(j + n - 1) % n] // boundary halfedges are linked in clockwise order
                     boundaryCycle[j].prev = boundaryCycle[(j + 1) % n]
@@ -876,7 +885,7 @@ class Mesh {
 
             // point the newly created corner and its halfedge to each other
             if (!h.onBoundary) {
-                let c = new Corner()
+                const c = new Corner()
                 c.halfedge = h
                 h.corner = c
 
@@ -905,19 +914,21 @@ class Mesh {
      */
     private preallocateElements(positions: Serie, indices: Serie) {
         let nBoundaryHalfedges = 0
-        let sortedEdges = new Map()
+        const sortedEdges = new Map()
 
         for (let I = 0; I < indices.array.length; I += 3) {
             for (let J = 0; J < 3; J++) {
-                let K = (J + 1) % 3
+                const K = (J + 1) % 3
                 let i = indices.array[I + J]
                 let j = indices.array[I + K]
 
                 // swap if i > j
-                if (i > j) j = [i, (i = j)][0]
+                if (i > j) {
+                    j = [i, (i = j)][0]
+                }
 
-                let value = [i, j]
-                let key = value.toString()
+                const value = [i, j]
+                const key = value.toString()
                 if (sortedEdges.has(key)) {
                     nBoundaryHalfedges--
                 } else {
@@ -927,11 +938,11 @@ class Mesh {
             }
         }
 
-        let nVertices = positions.count
-        let nEdges = sortedEdges.size
-        let nFaces = indices.count
-        let nHalfedges = 2 * nEdges
-        let nInteriorHalfedges = nHalfedges - nBoundaryHalfedges
+        const nVertices = positions.count
+        const nEdges = sortedEdges.size
+        const nFaces = indices.count
+        const nHalfedges = 2 * nEdges
+        const nInteriorHalfedges = nHalfedges - nBoundaryHalfedges
 
         // clear arrays
         this.vertices.length = 0
@@ -954,7 +965,7 @@ class Mesh {
      * Checks whether this mesh has isolated vertices.
      */
     private hasIsolatedVertices() {
-        for (let v of this.vertices) {
+        for (const v of this.vertices) {
             if (v.isIsolated()) {
                 console.warn('Mesh has isolated vertices!')
                 return true
@@ -968,10 +979,12 @@ class Mesh {
      * Checks whether this mesh has isolated faces.
      */
     private hasIsolatedFaces() {
-        for (let f of this.faces) {
+        for (const f of this.faces) {
             let boundaryEdges = 0
-            for (let h of f.adjacentHalfedges()) {
-                if (h.twin.onBoundary) boundaryEdges++
+            for (const h of f.adjacentHalfedges()) {
+                if (h.twin.onBoundary) {
+                    boundaryEdges++
+                }
             }
 
             if (boundaryEdges === 3) {
@@ -987,24 +1000,24 @@ class Mesh {
      * Checks whether this mesh has non-manifold vertices.
      */
     private hasNonManifoldVertices() {
-        let adjacentFaces = new Map()
-        for (let v of this.vertices) {
+        const adjacentFaces = new Map()
+        for (const v of this.vertices) {
             adjacentFaces.set(v, 0)
         }
 
-        for (let f of this.faces) {
-            for (let v of f.adjacentVertices()) {
+        for (const f of this.faces) {
+            for (const v of f.adjacentVertices()) {
                 adjacentFaces.set(v, adjacentFaces.get(v) + 1)
             }
         }
 
-        for (let b of this.boundaries) {
-            for (let v of b.adjacentVertices()) {
+        for (const b of this.boundaries) {
+            for (const v of b.adjacentVertices()) {
                 adjacentFaces.set(v, adjacentFaces.get(v) + 1)
             }
         }
 
-        for (let v of this.vertices) {
+        for (const v of this.vertices) {
             if (adjacentFaces.get(v) !== v.degree()) {
                 return true
             }
@@ -1018,32 +1031,32 @@ class Mesh {
      */
     private indexElements() {
         let index = 0
-        for (let v of this.vertices) {
+        for (const v of this.vertices) {
             v.index = index++
         }
 
         index = 0
-        for (let e of this.edges) {
+        for (const e of this.edges) {
             e.index = index++
         }
 
         index = 0
-        for (let f of this.faces) {
+        for (const f of this.faces) {
             f.index = index++
         }
 
         index = 0
-        for (let h of this.halfedges) {
+        for (const h of this.halfedges) {
             h.index = index++
         }
 
         index = 0
-        for (let c of this.corners) {
+        for (const c of this.corners) {
             c.index = index++
         }
 
         index = 0
-        for (let b of this.boundaries) {
+        for (const b of this.boundaries) {
             b.index = index++
         }
     }
@@ -1053,11 +1066,11 @@ class Mesh {
 
 function normalize(positions: Serie, vertices: Vertex[], rescale = true) {
     // compute center of mass
-    let N = vertices.length
-    let cm = new Vector()
+    const N = vertices.length
+    const cm = new Vector()
 
-    for (let v of vertices) {
-        let p = positions.itemAt(v.index) as number[]
+    for (const v of vertices) {
+        const p = positions.itemAt(v.index) as number[]
         cm.incrementBy(p)
     }
 
@@ -1065,16 +1078,16 @@ function normalize(positions: Serie, vertices: Vertex[], rescale = true) {
 
     // translate to origin and determine radius
     let radius = -1
-    for (let v of vertices) {
-        let p = new Vector(positions.itemAt(v.index) as number[])
+    for (const v of vertices) {
+        const p = new Vector(positions.itemAt(v.index) as number[])
         p.decrementBy(cm)
         radius = Math.max(radius, p.norm())
     }
 
     // rescale to unit radius
     if (rescale) {
-        for (let v of vertices) {
-            let p = new Vector(positions.itemAt(v.index) as number[])
+        for (const v of vertices) {
+            const p = new Vector(positions.itemAt(v.index) as number[])
             p.divideBy(radius)
         }
     }
@@ -1101,8 +1114,8 @@ class Geometry {
     }
 
     private vector(h: Halfedge) {
-        let a = this.pos(h.vertex)
-        let b = this.pos(h.next.vertex)
+        const a = this.pos(h.vertex)
+        const b = this.pos(h.next.vertex)
 
         return b.minus(a)
     }
@@ -1122,9 +1135,9 @@ class Geometry {
      * Computes the midpoint of an edge.
      */
     private midpoint(e: Edge) {
-        let h = e.halfedge
-        let a = this.pos(h.vertex)
-        let b = this.pos(h.twin.vertex)
+        const h = e.halfedge
+        const a = this.pos(h.vertex)
+        const b = this.pos(h.twin.vertex)
         return a.plus(b).over(2)
     }
 
@@ -1133,8 +1146,8 @@ class Geometry {
      */
     meanEdgeLength() {
         let sum = 0
-        let edges = this.mesh.edges
-        for (let e of edges) {
+        const edges = this.mesh.edges
+        for (const e of edges) {
             sum += this.length(e)
         }
 
@@ -1145,10 +1158,12 @@ class Geometry {
      * Computes the area of a face.
      */
     area(f: Face) {
-        if (f.isBoundaryLoop()) return 0.0
+        if (f.isBoundaryLoop()) {
+            return 0.0
+        }
 
-        let u = this.vector(f.halfedge)
-        let v = this.vector(f.halfedge.prev).negated()
+        const u = this.vector(f.halfedge)
+        const v = this.vector(f.halfedge.prev).negated()
 
         return 0.5 * u.cross(v).norm()
     }
@@ -1160,7 +1175,7 @@ class Geometry {
      */
     totalArea() {
         let sum = 0.0
-        for (let f of this.mesh.faces) {
+        for (const f of this.mesh.faces) {
             sum += this.area(f)
         }
 
@@ -1174,10 +1189,12 @@ class Geometry {
      * @returns {module:LinearAlgebra.Vector}
      */
     faceNormal(f) {
-        if (f.isBoundaryLoop()) return undefined
+        if (f.isBoundaryLoop()) {
+            return undefined
+        }
 
-        let u = this.vector(f.halfedge)
-        let v = this.vector(f.halfedge.prev).negated()
+        const u = this.vector(f.halfedge)
+        const v = this.vector(f.halfedge.prev).negated()
 
         return u.cross(v).unit()
     }
@@ -1189,12 +1206,14 @@ class Geometry {
      * @returns {module:LinearAlgebra.Vector}
      */
     centroid(f: Face) {
-        let h = f.halfedge
-        let a = this.pos(h.vertex)
-        let b = this.pos(h.next.vertex)
-        let c = this.pos(h.prev.vertex)
+        const h = f.halfedge
+        const a = this.pos(h.vertex)
+        const b = this.pos(h.next.vertex)
+        const c = this.pos(h.prev.vertex)
 
-        if (f.isBoundaryLoop()) return a.plus(b).over(2)
+        if (f.isBoundaryLoop()) {
+            return a.plus(b).over(2)
+        }
 
         return a.plus(b).plus(c).over(3)
     }
@@ -1206,20 +1225,22 @@ class Geometry {
      * @returns {module:LinearAlgebra.Vector}
      */
     circumcenter(f: Face) {
-        let h = f.halfedge
-        let a = this.pos(h.vertex)
-        let b = this.pos(h.next.vertex)
-        let c = this.pos(h.prev.vertex)
+        const h = f.halfedge
+        const a = this.pos(h.vertex)
+        const b = this.pos(h.next.vertex)
+        const c = this.pos(h.prev.vertex)
 
-        if (f.isBoundaryLoop()) return a.plus(b).over(2)
+        if (f.isBoundaryLoop()) {
+            return a.plus(b).over(2)
+        }
 
-        let ac = c.minus(a)
-        let ab = b.minus(a)
-        let w = ab.cross(ac)
+        const ac = c.minus(a)
+        const ab = b.minus(a)
+        const w = ab.cross(ac)
 
-        let u = w.cross(ab).times(ac.norm2())
-        let v = ac.cross(w).times(ab.norm2())
-        let x = u.plus(v).over(2 * w.norm2())
+        const u = w.cross(ab).times(ac.norm2())
+        const v = ac.cross(w).times(ab.norm2())
+        const x = u.plus(v).over(2 * w.norm2())
 
         return x.plus(a)
     }
@@ -1231,9 +1252,9 @@ class Geometry {
      * @returns {module:LinearAlgebra.Vector[]} An array containing two orthonormal vectors tangent to the face.
      */
     orthonormalBases(f: Face) {
-        let e1 = this.vector(f.halfedge).unit()
-        let normal = this.faceNormal(f)
-        let e2 = normal.cross(e1)
+        const e1 = this.vector(f.halfedge).unit()
+        const normal = this.faceNormal(f)
+        const e2 = normal.cross(e1)
         return [e1, e2]
     }
 
@@ -1244,8 +1265,8 @@ class Geometry {
      * @returns {number} The angle clamped between 0 and π.
      */
     angle(c: Corner) {
-        let u = this.vector(c.halfedge.prev).unit()
-        let v = this.vector(c.halfedge.next).negated().unit()
+        const u = this.vector(c.halfedge.prev).unit()
+        const v = this.vector(c.halfedge.next).negated().unit()
         return Math.acos(Math.max(-1.0, Math.min(1.0, u.dot(v))))
     }
 
@@ -1256,9 +1277,11 @@ class Geometry {
      * @returns {number}
      */
     cotan(h: Halfedge) {
-        if (h.onBoundary) return 0.0
-        let u = this.vector(h.prev)
-        let v = this.vector(h.next).negated()
+        if (h.onBoundary) {
+            return 0.0
+        }
+        const u = this.vector(h.prev)
+        const v = this.vector(h.next).negated()
         return u.dot(v) / u.cross(v).norm()
     }
 
@@ -1270,13 +1293,15 @@ class Geometry {
      * @returns {number} The dihedral angle.
      */
     dihedralAngle(h: Halfedge) {
-        if (h.onBoundary || h.twin.onBoundary) return 0.0
+        if (h.onBoundary || h.twin.onBoundary) {
+            return 0.0
+        }
 
-        let n1 = this.faceNormal(h.face)
-        let n2 = this.faceNormal(h.twin.face)
-        let w = this.vector(h).unit()
-        let cosTheta = n1.dot(n2)
-        let sinTheta = n1.cross(n2).dot(w)
+        const n1 = this.faceNormal(h.face)
+        const n2 = this.faceNormal(h.twin.face)
+        const w = this.vector(h).unit()
+        const cosTheta = n1.dot(n2)
+        const sinTheta = n1.cross(n2).dot(w)
         return Math.atan2(sinTheta, cosTheta)
     }
 
@@ -1288,7 +1313,7 @@ class Geometry {
      */
     barycentricDualArea(v: Vertex) {
         let area = 0.0
-        for (let f of v.adjacentFaces()) {
+        for (const f of v.adjacentFaces()) {
             area += this.area(f) / 3
         }
 
@@ -1304,11 +1329,11 @@ class Geometry {
      */
     circumcentricDualArea(v: Vertex) {
         let area = 0.0
-        for (let h of v.adjacentHalfedges()) {
-            let u2 = this.vector(h.prev).norm2()
-            let v2 = this.vector(h).norm2()
-            let cotAlpha = this.cotan(h.prev)
-            let cotBeta = this.cotan(h)
+        for (const h of v.adjacentHalfedges()) {
+            const u2 = this.vector(h.prev).norm2()
+            const v2 = this.vector(h).norm2()
+            const cotAlpha = this.cotan(h.prev)
+            const cotBeta = this.cotan(h)
 
             area += (u2 * cotAlpha + v2 * cotBeta) / 8
         }
@@ -1323,9 +1348,9 @@ class Geometry {
      * @returns {module:LinearAlgebra.Vector}
      */
     vertexNormalEquallyWeighted(v: Vertex) {
-        let n = new Vector()
-        for (let f of v.adjacentFaces()) {
-            let normal = this.faceNormal(f)
+        const n = new Vector()
+        for (const f of v.adjacentFaces()) {
+            const normal = this.faceNormal(f)
 
             n.incrementBy(normal)
         }
@@ -1342,10 +1367,10 @@ class Geometry {
      * @returns {module:LinearAlgebra.Vector}
      */
     vertexNormalAreaWeighted(v: Vertex) {
-        let n = new Vector()
-        for (let f of v.adjacentFaces()) {
-            let normal = this.faceNormal(f)
-            let area = this.area(f)
+        const n = new Vector()
+        for (const f of v.adjacentFaces()) {
+            const normal = this.faceNormal(f)
+            const area = this.area(f)
 
             n.incrementBy(normal.times(area))
         }
@@ -1362,10 +1387,10 @@ class Geometry {
      * @returns {module:LinearAlgebra.Vector}
      */
     vertexNormalAngleWeighted(v: Vertex) {
-        let n = new Vector()
-        for (let c of v.adjacentCorners()) {
-            let normal = this.faceNormal(c.halfedge.face)
-            let angle = this.angle(c)
+        const n = new Vector()
+        for (const c of v.adjacentCorners()) {
+            const normal = this.faceNormal(c.halfedge.face)
+            const angle = this.angle(c)
 
             n.incrementBy(normal.times(angle))
         }
@@ -1382,9 +1407,9 @@ class Geometry {
      * @returns {module:LinearAlgebra.Vector}
      */
     vertexNormalGaussCurvature(v: Vertex) {
-        let n = new Vector()
-        for (let h of v.adjacentHalfedges()) {
-            let weight = (0.5 * this.dihedralAngle(h)) / this.length(h.edge)
+        const n = new Vector()
+        for (const h of v.adjacentHalfedges()) {
+            const weight = (0.5 * this.dihedralAngle(h)) / this.length(h.edge)
 
             n.decrementBy(this.vector(h).times(weight))
         }
@@ -1401,9 +1426,9 @@ class Geometry {
      * @returns {module:LinearAlgebra.Vector}
      */
     vertexNormalMeanCurvature(v: Vertex) {
-        let n = new Vector()
-        for (let h of v.adjacentHalfedges()) {
-            let weight = 0.5 * (this.cotan(h) + this.cotan(h.twin))
+        const n = new Vector()
+        for (const h of v.adjacentHalfedges()) {
+            const weight = 0.5 * (this.cotan(h) + this.cotan(h.twin))
 
             n.decrementBy(this.vector(h).times(weight))
         }
@@ -1420,10 +1445,10 @@ class Geometry {
      * @returns {module:LinearAlgebra.Vector}
      */
     vertexNormalSphereInscribed(v: Vertex) {
-        let n = new Vector()
-        for (let c of v.adjacentCorners()) {
-            let u = this.vector(c.halfedge.prev)
-            let v = this.vector(c.halfedge.next).negated()
+        const n = new Vector()
+        for (const c of v.adjacentCorners()) {
+            const u = this.vector(c.halfedge.prev)
+            const v = this.vector(c.halfedge.next).negated()
 
             n.incrementBy(u.cross(v).over(u.norm2() * v.norm2()))
         }
@@ -1442,7 +1467,7 @@ class Geometry {
      */
     angleDefect(v: Vertex) {
         let angleSum = 0.0
-        for (let c of v.adjacentCorners()) {
+        for (const c of v.adjacentCorners()) {
             angleSum += this.angle(c)
         }
 
@@ -1456,7 +1481,7 @@ class Geometry {
      */
     totalAngleDefect() {
         let totalDefect = 0.0
-        for (let v of this.mesh.vertices) {
+        for (const v of this.mesh.vertices) {
             totalDefect += this.angleDefect(v)
         }
 
@@ -1475,7 +1500,7 @@ class Geometry {
      */
     scalarMeanCurvature(v: Vertex): number {
         let sum = 0.0
-        for (let h of v.adjacentHalfedges()) {
+        for (const h of v.adjacentHalfedges()) {
             sum += 0.5 * this.length(h.edge) * this.dihedralAngle(h)
         }
         return sum
@@ -1488,16 +1513,19 @@ class Geometry {
      * @returns {number[]} An array containing the minimum and maximum principal curvature values at a vertex.
      */
     principalCurvatures(v: Vertex): number[] {
-        let A = this.circumcentricDualArea(v)
-        let H = (this.scalarMeanCurvature(v) as number) / A
-        let K = this.angleDefect(v) / A
+        const A = this.circumcentricDualArea(v)
+        const H = this.scalarMeanCurvature(v) / A
+        const K = this.angleDefect(v) / A
 
         let discriminant = H * H - K
-        if (discriminant > 0) discriminant = Math.sqrt(discriminant)
-        else discriminant = 0
+        if (discriminant > 0) {
+            discriminant = Math.sqrt(discriminant)
+        } else {
+            discriminant = 0
+        }
 
-        let k1 = H - discriminant
-        let k2 = H + discriminant
+        const k1 = H - discriminant
+        const k2 = H + discriminant
 
         return [k1, k2]
     }
@@ -1527,7 +1555,7 @@ class Geometry {
      */
     k1(): Serie {
         const array = this.mesh.vertices.map((v, i) => {
-            const c = this.principalCurvatures(v) as number[]
+            const c = this.principalCurvatures(v)
             return c[0]
         })
         return Serie.create({ array, itemSize: 1 })
@@ -1538,7 +1566,7 @@ class Geometry {
      */
     k2(): Serie {
         const array = this.mesh.vertices.map((v, i) => {
-            const c = this.principalCurvatures(v) as number[]
+            const c = this.principalCurvatures(v)
             return c[1]
         })
         return Serie.create({ array, itemSize: 1 })
@@ -1587,7 +1615,7 @@ class Vector {
      * @method Vector#normalize
      */
     normalize() {
-        let n = this.norm()
+        const n = this.norm()
         this.x /= n
         this.y /= n
         this.z /= n
@@ -1599,10 +1627,10 @@ class Vector {
      * @returns {Vector}
      */
     unit() {
-        let n = this.norm()
-        let x = this.x / n
-        let y = this.y / n
-        let z = this.z / n
+        const n = this.norm()
+        const x = this.x / n
+        const y = this.y / n
+        const z = this.z / n
 
         return new Vector(x, y, z)
     }

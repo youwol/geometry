@@ -9,10 +9,11 @@ export class Normalizer {
     length = 0
     center = [0, 0]
     constructor(bounds: V, scaling = 1) {
-        if (bounds.length !== 6)
+        if (bounds.length !== 6) {
             throw new Error(
                 'bounds is an array of length 6 ([xmin,ymin,zmin, xmax,ymax,zmax])',
             )
+        }
         this.bounds = bounds
         this.width = (bounds[3] - bounds[0]) * scaling
         this.height = (bounds[4] - bounds[1]) * scaling

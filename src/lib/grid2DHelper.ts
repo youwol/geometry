@@ -1,5 +1,5 @@
-import { biLerp, triLerp } from '@youwol/math'
-import { Manager, Serie } from '@youwol/dataframe'
+import { biLerp } from '@youwol/math'
+import { Serie } from '@youwol/dataframe'
 
 export type V2 = [number, number]
 
@@ -81,7 +81,9 @@ export class Grid2DHelper {
      */
     flatIndices(p: [number, number]): [number, number, number, number] {
         const c = this.candidate(p)
-        if (c === undefined) return undefined
+        if (c === undefined) {
+            return undefined
+        }
         const i1 = this.flatIndex(c[0], c[1])
         const i2 = this.flatIndex(c[0], c[1] + 1)
         return [i1, i2, i1 + 1, i2 + 1]
@@ -113,7 +115,9 @@ export class Grid2DHelper {
      */
     candidate(p: [number, number]): [number, number] {
         const { ok, ij } = this.getIJ(p)
-        if (!ok) return undefined
+        if (!ok) {
+            return undefined
+        }
         return ij
     }
 

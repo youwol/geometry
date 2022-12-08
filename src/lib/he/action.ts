@@ -47,11 +47,7 @@ export class FunctionAction extends Action {
     private _do: Function = undefined
     private _undo: Function = undefined
 
-    constructor(
-        do_: Function,
-        undo_: Function,
-        name: string = 'function-action',
-    ) {
+    constructor(do_: Function, undo_: Function, name = 'function-action') {
         super(name)
         this._do = do_
         this._undo = undo_
@@ -143,11 +139,15 @@ export class ActionPool {
     }
 
     undo(n = 1) {
-        for (let i = 0; i < n; ++i) this.__undo()
+        for (let i = 0; i < n; ++i) {
+            this.__undo()
+        }
     }
 
     redo(n = 1) {
-        for (let i = 0; i < n; ++i) this.__redo()
+        for (let i = 0; i < n; ++i) {
+            this.__redo()
+        }
     }
 
     clear() {
@@ -171,7 +171,9 @@ export class ActionPool {
     }
 
     private __undo(): Action {
-        if (this._do.count === 0) return undefined
+        if (this._do.count === 0) {
+            return undefined
+        }
 
         const act = this._do.last
         this._do.pop()
@@ -186,7 +188,9 @@ export class ActionPool {
     }
 
     private __redo(): Action {
-        if (this._undo.count === 0) return undefined
+        if (this._undo.count === 0) {
+            return undefined
+        }
 
         const act = this._undo.last
         this._undo.pop()
