@@ -29,16 +29,17 @@ import { fromTriangleToNode, TriangleToNodeDecomposer } from '../lib'
 test('test normals on AttributeManager', () => {
     const df = DataFrame.create({
         series: {
-            positions: Serie.create( {array: [0,0,0, 1,0,0, 1,1,0], itemSize: 3} ),
-            indices  : Serie.create( {array: [0,1,2], itemSize: 3} )
-        }
+            positions: Serie.create({
+                array: [0, 0, 0, 1, 0, 0, 1, 1, 0],
+                itemSize: 3,
+            }),
+            indices: Serie.create({ array: [0, 1, 2], itemSize: 3 }),
+        },
     })
 
     {
-        const mng = new Manager(df, [
-            new NormalsDecomposer('n')
-        ])
-        
+        const mng = new Manager(df, [new NormalsDecomposer('n')])
+
         expect(mng.names(3)).toEqual(['n'])
 
         const ns = mng.serie(3, 'n').array
@@ -52,9 +53,9 @@ test('test normals on AttributeManager', () => {
 
     {
         const decomposer = new TriangleToNodeDecomposer({
-            positions : df.series.positions,
-            indices   : df.series.indices,
-            decomposer: new NormalsDecomposer('n')
+            positions: df.series.positions,
+            indices: df.series.indices,
+            decomposer: new NormalsDecomposer('n'),
         })
 
         const mng = new Manager(df, [decomposer])

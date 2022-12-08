@@ -1,14 +1,14 @@
-import { Serie }  from "@youwol/dataframe"
-import { minMax } from "@youwol/math"
-import { 
-    generateRectangle, 
-    InterpolateInGrid2D, 
-    Normalizer, 
-    pointInPolygon, 
-    streamLinesExtractor, 
-    Surface, 
-    Vector
-} from "../lib"
+import { Serie } from '@youwol/dataframe'
+import { minMax } from '@youwol/math'
+import {
+    generateRectangle,
+    InterpolateInGrid2D,
+    Normalizer,
+    pointInPolygon,
+    streamLinesExtractor,
+    Surface,
+    Vector,
+} from '../lib'
 
 test('test streamlines', () => {
     /*

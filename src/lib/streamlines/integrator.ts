@@ -1,28 +1,36 @@
-import { Vector } from "./Vector"
-import { createLookupGrid } from "./createLookupGrid"
-import { rk4 } from "./rk4"
-import { LookupGrid } from "./types"
-import { StreamLinesOptions } from "./types"
+import { Vector } from './Vector'
+import { createLookupGrid } from './createLookupGrid'
+import { rk4 } from './rk4'
+import { LookupGrid } from './types'
+import { StreamLinesOptions } from './types'
 
 enum State {
     FORWARD,
     BACKWARD,
-    DONE
+    DONE,
 }
 
-export function createStreamlineIntegrator(start: Vector, grid: LookupGrid, config: StreamLinesOptions) {
+export function createStreamlineIntegrator(
+    start: Vector,
+    grid: LookupGrid,
+    config: StreamLinesOptions,
+) {
     const points = [start]
     let pos = start
     let state = State.FORWARD
     let candidate: any = null
     let lastCheckedSeed = -1
-    const ownGrid = createLookupGrid(config.boundingBox, config.timeStep * 0.9, config.isOutsideFct)
+    const ownGrid = createLookupGrid(
+        config.boundingBox,
+        config.timeStep * 0.9,
+        config.isOutsideFct,
+    )
 
     return {
         start: start,
         next: next,
         getStreamline: () => points,
-        getNextValidSeed: getNextValidSeed
+        getNextValidSeed: getNextValidSeed,
     }
 
     function getNextValidSeed() {
@@ -40,7 +48,10 @@ export function createStreamlineIntegrator(start: Vector, grid: LookupGrid, conf
             let cx = p.x - v.y * config.dSep
             let cy = p.y + v.x * config.dSep
 
-            if (Array.isArray(config.seedArray) && config.seedArray.length > 0) {
+            if (
+                Array.isArray(config.seedArray) &&
+                config.seedArray.length > 0
+            ) {
                 const seed = config.seedArray.shift()
                 cx = seed.x
                 cy = seed.y
@@ -57,7 +68,8 @@ export function createStreamlineIntegrator(start: Vector, grid: LookupGrid, conf
             // Check orthogonal coordinates on the other side (o = p - n).
             const ox = p.x + v.y * config.dSep
             const oy = p.y - v.x * config.dSep
-            if (!grid.isOutside(ox, oy) && !grid.isTaken(ox, oy, checkDSep)) return new Vector(ox, oy)
+            if (!grid.isOutside(ox, oy) && !grid.isTaken(ox, oy, checkDSep))
+                return new Vector(ox, oy)
         }
     }
 
@@ -72,11 +84,14 @@ export function createStreamlineIntegrator(start: Vector, grid: LookupGrid, conf
     }
 
     function next() {
-        while(true) {
-            candidate = null;
-            if (config.maximumPointsPerLine && points.length > config.maximumPointsPerLine) {
+        while (true) {
+            candidate = null
+            if (
+                config.maximumPointsPerLine &&
+                points.length > config.maximumPointsPerLine
+            ) {
                 state = State.DONE
-            } 
+            }
             if (state === State.FORWARD) {
                 const point = growForward()
                 if (point) {
@@ -93,7 +108,7 @@ export function createStreamlineIntegrator(start: Vector, grid: LookupGrid, conf
                     }
                 } else {
                     // Reset position to start, and grow backwards:
-                    if (config.forwardOnly)  {
+                    if (config.forwardOnly) {
                         state = State.DONE
                     } else {
                         pos = start
@@ -174,25 +189,26 @@ export function createStreamlineIntegrator(start: Vector, grid: LookupGrid, conf
     function notifyPointAdded(point: Vector) {
         let shouldPause = false
         if (config.onPointAdded) {
-            const otherPoint = points[state === State.FORWARD ? points.length - 2 : 1]
+            const otherPoint =
+                points[state === State.FORWARD ? points.length - 2 : 1]
             shouldPause = config.onPointAdded(point, otherPoint, config)
-        } 
+        }
         return shouldPause
     }
 
     function normalizedVectorField(P: Vector) {
         let p = config.vectorField(P)
-        if (!p) return; // Assume singularity
+        if (!p) return // Assume singularity
         if (Number.isNaN(p.x) || Number.isNaN(p.y)) {
             return undefined // Not defined. e.g. Math.log(-1);
         }
 
-        let l = p.x**2 + p.y**2
+        let l = p.x ** 2 + p.y ** 2
         if (l === 0) return // the same, singularity
         l = Math.sqrt(l)
 
         // We need normalized field.
-        return new Vector(p.x/l, p.y/l)
+        return new Vector(p.x / l, p.y / l)
     }
 }
 

@@ -1,12 +1,11 @@
-import { DataFrame, Serie } from "@youwol/dataframe"
-import { min, minMax } from "@youwol/math"
-import { Console } from "console"
-import { Grid2DHelper } from "../grid2DHelper"
-import { streamlines } from "./streamlines"
-import { OutsideFunction, VelocityFunction } from "./types"
-import { getDimsGrid2D } from "./utils"
-import { Vector } from "./Vector"
-
+import { DataFrame, Serie } from '@youwol/dataframe'
+import { min, minMax } from '@youwol/math'
+import { Console } from 'console'
+import { Grid2DHelper } from '../grid2DHelper'
+import { streamlines } from './streamlines'
+import { OutsideFunction, VelocityFunction } from './types'
+import { getDimsGrid2D } from './utils'
+import { Vector } from './Vector'
 
 /**
  * @param seed Defines the first point where integration should start. If this is
@@ -19,49 +18,45 @@ import { Vector } from "./Vector"
  * @param dSep Separation distance between new streamlines
  * @param dTest Distance between streamlines when integration should stop
  * @param forwardOnly If set to true, lines are going to be drawn from the seed points
- * only in the direction of the vector field     
+ * only in the direction of the vector field
  */
-export function streamLinesExtractor(
-    {
-        vectorField,
-        isOutsideFct,
-        bounds,
-        seed=undefined, 
-        seedArray=undefined,
-        maximumPointsPerLine=undefined,
-        maxTimePerIteration=1000,
-        stepsPerIteration=50, 
-        timeStep=0.05, 
-        dSep=0.2, 
-        dTest=0.08, 
-        forwardOnly=false
-    }:
-    {
-        vectorField: (p: Vector) => Vector,
-        isOutsideFct?: OutsideFunction,
-        bounds: number[],
-        seed?: Vector,
-        seedArray?: Vector[],
-        maximumPointsPerLine?: number,
-        maxTimePerIteration?: number,
-        stepsPerIteration?:number,
-        timeStep?:number, 
-        dSep?:number, 
-        dTest?:number, 
-        forwardOnly?:boolean
-    }): DataFrame[]
-{
+export function streamLinesExtractor({
+    vectorField,
+    isOutsideFct,
+    bounds,
+    seed = undefined,
+    seedArray = undefined,
+    maximumPointsPerLine = undefined,
+    maxTimePerIteration = 1000,
+    stepsPerIteration = 50,
+    timeStep = 0.05,
+    dSep = 0.2,
+    dTest = 0.08,
+    forwardOnly = false,
+}: {
+    vectorField: (p: Vector) => Vector
+    isOutsideFct?: OutsideFunction
+    bounds: number[]
+    seed?: Vector
+    seedArray?: Vector[]
+    maximumPointsPerLine?: number
+    maxTimePerIteration?: number
+    stepsPerIteration?: number
+    timeStep?: number
+    dSep?: number
+    dTest?: number
+    forwardOnly?: boolean
+}): DataFrame[] {
     function addPoint(a: Point, b: Point): boolean {
         const newPolyLine = () => {
             if (polyline.length > 1) polylines.push([...polyline])
             polyline = []
         }
-    
+
         if (a === undefined) {
             newPolyLine()
             return false
-        }
-        else {
+        } else {
             polyline.push(a.x, a.y, 0, b.x, b.y, 0)
         }
         return true
@@ -90,14 +85,14 @@ export function streamLinesExtractor(
     // }
 
     let polylines: Polylines = []
-    let polyline : Polyline  = []
+    let polyline: Polyline = []
 
     // 'bounds' is now a parameter of this function
     const bbox = {
-        width : bounds[3]-bounds[0],
-        height: bounds[4]-bounds[1],
-        left  : bounds[0],
-        top   : bounds[1],
+        width: bounds[3] - bounds[0],
+        height: bounds[4] - bounds[1],
+        left: bounds[0],
+        top: bounds[1],
     }
 
     const computer = streamlines({
@@ -115,7 +110,7 @@ export function streamLinesExtractor(
         dSep,
         dTest,
         forwardOnly,
-        seedArray
+        seedArray,
     })
 
     computer.run()
@@ -126,25 +121,25 @@ export function streamLinesExtractor(
 
     // polylines = b.denormalize(polylines)
 
-    return polylines.map( polyline => {
+    return polylines.map((polyline) => {
         const indices = []
-        for (let i=0; i<polyline.length; i+=2) {
-            indices.push(i, i+1)
+        for (let i = 0; i < polyline.length; i += 2) {
+            indices.push(i, i + 1)
         }
         return DataFrame.create({
             series: {
-                positions: Serie.create({array: polyline, itemSize: 3}),
-                indices  : Serie.create({array: indices , itemSize: 2})
-            }
+                positions: Serie.create({ array: polyline, itemSize: 3 }),
+                indices: Serie.create({ array: indices, itemSize: 2 }),
+            },
         })
     })
 }
 
 // ----------------------------------------------
 
-type Polyline  = number[]
+type Polyline = number[]
 type Polylines = Polyline[]
-type Point     = {x: number, y: number}
+type Point = { x: number; y: number }
 
 class Bounds {
     private width: number
@@ -152,31 +147,31 @@ class Bounds {
     private center: [number, number]
 
     constructor(private bounds: number[], scaling = 1) {
-        this.width  = (bounds[3] - bounds[0])*scaling
-        this.height = (bounds[4] - bounds[1])*scaling
-        this.center = [(bounds[3]+bounds[0])/2, (bounds[4]+bounds[1])/2]
+        this.width = (bounds[3] - bounds[0]) * scaling
+        this.height = (bounds[4] - bounds[1]) * scaling
+        this.center = [(bounds[3] + bounds[0]) / 2, (bounds[4] + bounds[1]) / 2]
     }
 
     normalized() {
         return [
-            (this.bounds[0]-this.center[0])/this.width,
-            (this.bounds[1]-this.center[1])/this.height,
+            (this.bounds[0] - this.center[0]) / this.width,
+            (this.bounds[1] - this.center[1]) / this.height,
             this.bounds[2],
-            (this.bounds[3]-this.center[0])/this.width,
-            (this.bounds[4]-this.center[1])/this.height,
-            this.bounds[5]
+            (this.bounds[3] - this.center[0]) / this.width,
+            (this.bounds[4] - this.center[1]) / this.height,
+            this.bounds[5],
         ]
     }
 
     denormalize(polylines: Polylines) {
-        return polylines.map( (polyline: Polyline) => {
+        return polylines.map((polyline: Polyline) => {
             const p = [...polyline]
-            for (let i=0; i<polyline.length; i+=3) { // assume 3D
-                p[i  ] = polyline[i  ]*this.width  + this.center[0]
-                p[i+1] = polyline[i+1]*this.height + this.center[1]
+            for (let i = 0; i < polyline.length; i += 3) {
+                // assume 3D
+                p[i] = polyline[i] * this.width + this.center[0]
+                p[i + 1] = polyline[i + 1] * this.height + this.center[1]
             }
             return p
         })
     }
 }
-

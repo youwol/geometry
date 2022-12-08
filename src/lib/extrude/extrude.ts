@@ -1,11 +1,10 @@
 import { Serie } from '@youwol/dataframe'
-import {deg2rad} from './angles'
+import { deg2rad } from './angles'
 import { SurfaceType, TraceInfo } from './types'
-
 
 /**
  * Extruce a 2D/3D trace using the dip angle, dip-direction and a depth.
- * 
+ *
  * Example:
  * ```ts
  * const trace = {
@@ -25,7 +24,7 @@ export function extrude(trace: TraceInfo): SurfaceType {
     const t = new Trace(trace)
     return {
         positions: t.positions,
-        indices  : t.indices
+        indices: t.indices,
     }
 }
 
@@ -42,7 +41,9 @@ class Trace {
         }
 
         if (trace.points.itemSize !== 2 && trace.points.itemSize !== 3) {
-            throw new Error('points must be a Serie with itemSize equals to 2 or 3')
+            throw new Error(
+                'points must be a Serie with itemSize equals to 2 or 3',
+            )
         }
 
         this.info = trace
@@ -51,7 +52,7 @@ class Trace {
         if (this.info.dipDirection === undefined) this.info.dipDirection = 90
         if (this.info.rows === undefined) this.info.rows = 5
         if (this.info.id === undefined) this.info.id = 'no-name'
-    
+
         this.perform()
     }
 
@@ -62,39 +63,44 @@ class Trace {
     private perform() {
         const N = this.info.rows
         const n = this.info.points.count
-        const dip    = deg2rad(this.info.dip)
+        const dip = deg2rad(this.info.dip)
         const dipDir = deg2rad(this.info.dipDirection)
 
-        const dh  = this.info.depth / (N-1)
-        const T   = [dh * Math.sin(dipDir)*Math.cos(dip),
-                     dh * Math.cos(dipDir)*Math.cos(dip), 
-                     dh * Math.sin(dip)]
+        const dh = this.info.depth / (N - 1)
+        const T = [
+            dh * Math.sin(dipDir) * Math.cos(dip),
+            dh * Math.cos(dipDir) * Math.cos(dip),
+            dh * Math.sin(dip),
+        ]
 
         const positions = []
-        const indices   = []
-        
-        for (let j=0; j<N; ++j) {
-            for (let i=0; i<n; ++i) {
+        const indices = []
+
+        for (let j = 0; j < N; ++j) {
+            for (let i = 0; i < n; ++i) {
                 const p = this.pt(i)
                 if (p.length === 3) {
-                    positions.push( (p[0] + j*T[0]), (p[1] + j*T[1]), (p[2] - j*T[2]))
-                }
-                else {
-                    positions.push( (p[0] + j*T[0]), (p[1] + j*T[1]), (- j*T[2]))
+                    positions.push(
+                        p[0] + j * T[0],
+                        p[1] + j * T[1],
+                        p[2] - j * T[2],
+                    )
+                } else {
+                    positions.push(p[0] + j * T[0], p[1] + j * T[1], -j * T[2])
                 }
             }
         }
 
-        for (let j=0; j<N-1; ++j) {
-            const start = j*n
-            for (let i=0; i<n-1; ++i) { // one line of triangles
-                const id = start+i
-                indices.push(id,   1+id,   n+id, 1+id, n+1+id, n+id)
+        for (let j = 0; j < N - 1; ++j) {
+            const start = j * n
+            for (let i = 0; i < n - 1; ++i) {
+                // one line of triangles
+                const id = start + i
+                indices.push(id, 1 + id, n + id, 1 + id, n + 1 + id, n + id)
             }
         }
 
-        this.positions = Serie.create({array: positions, itemSize: 3})
-        this.indices   = Serie.create({array: indices  , itemSize: 3})
+        this.positions = Serie.create({ array: positions, itemSize: 3 })
+        this.indices = Serie.create({ array: indices, itemSize: 3 })
     }
-
 }

@@ -1,7 +1,11 @@
-import { VelocityFunction } from "./types"
-import { Vector } from "./Vector"
+import { VelocityFunction } from './types'
+import { Vector } from './Vector'
 
-export function rk4(point: Vector, timeStep: number, getVelocity: VelocityFunction) {
+export function rk4(
+    point: Vector,
+    timeStep: number,
+    getVelocity: VelocityFunction,
+) {
     const k1 = getVelocity(point)
     if (!k1) return
 
@@ -13,9 +17,10 @@ export function rk4(point: Vector, timeStep: number, getVelocity: VelocityFuncti
 
     const k4 = getVelocity(point.add(k3.mulScalar(timeStep)))
     if (!k4) return
-  
-    return k1.mulScalar(timeStep / 6)
-        .add(k2.mulScalar(timeStep/3))
-        .add(k3.mulScalar(timeStep/3))
-        .add(k4.mulScalar(timeStep/6))
+
+    return k1
+        .mulScalar(timeStep / 6)
+        .add(k2.mulScalar(timeStep / 3))
+        .add(k3.mulScalar(timeStep / 3))
+        .add(k4.mulScalar(timeStep / 6))
 }

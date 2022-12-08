@@ -1,11 +1,11 @@
 {
-  "name": "streamlines",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "dependencies": {
-    "@youwol/dataframe": "0.x",
-    "@youwol/io": "0.x",
-    "@youwol/math": "0.x"
-  }
+    "name": "streamlines",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "dependencies": {
+        "@youwol/dataframe": "0.x",
+        "@youwol/io": "0.x",
+        "@youwol/math": "0.x"
+    }
 }

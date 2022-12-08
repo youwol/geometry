@@ -3,17 +3,17 @@
  * MIT License
  */
 
-import { Vector } from "./Vector"
-import { createLookupGrid } from "./createLookupGrid"
-import { createStreamlineIntegrator } from "./integrator"
-import { BoundingBox, StreamLinesOptions } from "./types"
+import { Vector } from './Vector'
+import { createLookupGrid } from './createLookupGrid'
+import { createStreamlineIntegrator } from './integrator'
+import { BoundingBox, StreamLinesOptions } from './types'
 
 enum State {
     STATE_INIT,
     STATE_STREAMLINE,
     STATE_PROCESS_QUEUE,
     STATE_DONE,
-    STATE_SEED_STREAMLINE
+    STATE_SEED_STREAMLINE,
 }
 
 export function streamlines(protoOptions: StreamLinesOptions) {
@@ -24,51 +24,69 @@ export function streamlines(protoOptions: StreamLinesOptions) {
     }
 
     if (!protoOptions.boundingBox) {
-        throw new Error('No bounding box passed to streamline. Creating default one')
+        throw new Error(
+            'No bounding box passed to streamline. Creating default one',
+        )
     }
 
     normalizeBoundingBox(options.boundingBox)
 
     const boundingBox = options.boundingBox
 
-    if (protoOptions.seedArray !== undefined && Array.isArray(protoOptions.seedArray)) {
+    if (
+        protoOptions.seedArray !== undefined &&
+        Array.isArray(protoOptions.seedArray)
+    ) {
         const seed = protoOptions.seedArray.shift()
         options.seed = new Vector(seed.x, seed.y)
         options.seedArray = protoOptions.seedArray
     } else if (protoOptions.seed !== undefined) {
         options.seed = protoOptions.seed
-    }
-    else {
+    } else {
         options.seed = new Vector(
-            Math.random() * boundingBox.width  + boundingBox.left,
-            Math.random() * boundingBox.height + boundingBox.top
+            Math.random() * boundingBox.width + boundingBox.left,
+            Math.random() * boundingBox.height + boundingBox.top,
         )
     }
 
     // Separation between streamlines. Naming according to the paper.
-    options.dSep = protoOptions.dSep > 0 ? protoOptions.dSep
-        : 1 / Math.max(boundingBox.width, boundingBox.height)
+    options.dSep =
+        protoOptions.dSep > 0
+            ? protoOptions.dSep
+            : 1 / Math.max(boundingBox.width, boundingBox.height)
 
     // When should we stop integrating a streamline.
-    options.dTest = protoOptions.dTest > 0 ? protoOptions.dTest : options.dSep * 0.5
+    options.dTest =
+        protoOptions.dTest > 0 ? protoOptions.dTest : options.dSep * 0.5
 
     // Lookup grid helps to quickly tell if there are points nearby
-    const grid = createLookupGrid(boundingBox, options.dSep, options.isOutsideFct)
+    const grid = createLookupGrid(
+        boundingBox,
+        options.dSep,
+        options.isOutsideFct,
+    )
 
     // Integration time step.
-    options.timeStep            = protoOptions.timeStep > 0 ? protoOptions.timeStep : 0.01
-    options.stepsPerIteration   = protoOptions.stepsPerIteration > 0 ? protoOptions.stepsPerIteration : 10
-    options.maxTimePerIteration = protoOptions.maxTimePerIteration > 0 ? protoOptions.maxTimePerIteration : 1000
+    options.timeStep = protoOptions.timeStep > 0 ? protoOptions.timeStep : 0.01
+    options.stepsPerIteration =
+        protoOptions.stepsPerIteration > 0 ? protoOptions.stepsPerIteration : 10
+    options.maxTimePerIteration =
+        protoOptions.maxTimePerIteration > 0
+            ? protoOptions.maxTimePerIteration
+            : 1000
 
     const stepsPerIteration = options.stepsPerIteration
     //const resolve
     let state = State.STATE_INIT
     const finishedStreamlineIntegrators: Array<any> = []
-    let streamlineIntegrator = createStreamlineIntegrator(options.seed, grid, options)
-
+    let streamlineIntegrator = createStreamlineIntegrator(
+        options.seed,
+        grid,
+        options,
+    )
 
     return {
-        run: nextStep
+        run: nextStep,
     }
 
     // Order:
@@ -100,7 +118,7 @@ export function streamlines(protoOptions: StreamLinesOptions) {
             streamlineIntegrator = createStreamlineIntegrator(
                 validCandidate,
                 grid,
-                options
+                options,
             )
             state = State.STATE_STREAMLINE
         } else {
@@ -113,7 +131,7 @@ export function streamlines(protoOptions: StreamLinesOptions) {
         if (finishedStreamlineIntegrators.length === 0) {
             state = State.STATE_DONE
         } else {
-            state = State.STATE_SEED_STREAMLINE;
+            state = State.STATE_SEED_STREAMLINE
         }
     }
 
@@ -147,11 +165,12 @@ function normalizeBoundingBox(bbox: BoundingBox) {
     assertNumber(bbox.left, msg)
     assertNumber(bbox.top, msg)
     if (typeof bbox.size === 'number') {
-        bbox.width  = bbox.size
+        bbox.width = bbox.size
         bbox.height = bbox.size
     }
     assertNumber(bbox.width, msg)
     assertNumber(bbox.height, msg)
 
-    if (bbox.width <= 0 || bbox.height <= 0) throw new Error('Bounding box cannot be empty')
+    if (bbox.width <= 0 || bbox.height <= 0)
+        throw new Error('Bounding box cannot be empty')
 }

@@ -11,14 +11,19 @@ import { project } from './plane'
  * @copyright 2017, Mapbox
  * @github [This link](https://github.com/mapbox/delaunator)
  */
-export function triangulate(positions: Serie, normal: vec.Vector3 = [0,0,1]): DataFrame {
+export function triangulate(
+    positions: Serie,
+    normal: vec.Vector3 = [0, 0, 1],
+): DataFrame {
     let d: Delaunator = undefined
 
-    if (positions.itemSize===2) {
-        d  = new Delaunator(positions.array)
+    if (positions.itemSize === 2) {
+        d = new Delaunator(positions.array)
     } else {
-        const newPts = positions.map( p => project(p, {normal, point: [0,0,0] as vec.Vector3}) )
-        d = new Delaunator( newPts.array )
+        const newPts = positions.map((p) =>
+            project(p, { normal, point: [0, 0, 0] as vec.Vector3 }),
+        )
+        d = new Delaunator(newPts.array)
     }
 
     const max = array.max(d.triangles)
@@ -29,13 +34,13 @@ export function triangulate(positions: Serie, normal: vec.Vector3 = [0,0,1]): Da
     // else {
     //     indices = createSerie({data: createTyped(Uint16Array, d.triangles, true), itemSize: 3})
     // }
-    const indices = Serie.create({array: d.triangles, itemSize: 3})
+    const indices = Serie.create({ array: d.triangles, itemSize: 3 })
 
     const df = DataFrame.create({
-        series:{
+        series: {
             indices,
-            positions 
-        }
+            positions,
+        },
     })
 
     return df
