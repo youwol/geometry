@@ -18,3 +18,4 @@ dist/bundle-analysis.html
 
 cdn.zip
 **/.DS_Store
+*.iml
