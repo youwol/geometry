@@ -4,15 +4,10 @@ coverage/
 junit.xml
 src/auto_generated.ts
 
-dist/lib/
-dist/@youwol/
-dist/index.d.ts
-dist/src/
-dist/math/
-dist/dataframe/
-dist/tests/
-dist/bundle-analysis.html
-
+/dist/*
+!/dist/docs/
+!/dist/docs/*
+!/dist/docs/**/*
 
 *.gcd
 
