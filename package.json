@@ -27,7 +27,7 @@
         "@typescript-eslint/eslint-plugin": "^5.33.1",
         "@typescript-eslint/parser": "^5.33.1",
         "@youwol/dataframe": "0.x",
-        "@youwol/eslint-config": "^0.0.2",
+        "@youwol/eslint-config": "^0.0.4",
         "@youwol/prettier-config": "^0.0.2",
         "@youwol/math": "0.x",
         "eslint": "8.22.0",
