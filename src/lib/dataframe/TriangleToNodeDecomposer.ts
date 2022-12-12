@@ -1,5 +1,5 @@
-import { DataFrame, Decomposer, Serie } from "@youwol/dataframe"
-import { fromTriangleToNode } from "./fromTriangleToNode"
+import { DataFrame, Decomposer, Serie } from '@youwol/dataframe'
+import { fromTriangleToNode } from './fromTriangleToNode'
 
 /**
  * A decomposer which uses a decomposer and interpolate from triangles to nodes
@@ -11,7 +11,7 @@ import { fromTriangleToNode } from "./fromTriangleToNode"
  *      indices,
  *      decomposer: new NormalsDecomposer('n')
  * })
- * 
+ *
  * const mng   = new Manager(df, [decomposer])
  * const serie = mng.serie(3, 'n')
  * ```
@@ -21,13 +21,26 @@ export class TriangleToNodeDecomposer implements Decomposer {
     private indices: Serie
     private decomposer: Decomposer
 
-    constructor({positions, indices, decomposer}:{positions: Serie, indices: Serie, decomposer: Decomposer}) {
-        this.positions  = positions
-        this.indices    = indices
+    constructor({
+        positions,
+        indices,
+        decomposer,
+    }: {
+        positions: Serie
+        indices: Serie
+        decomposer: Decomposer
+    }) {
+        this.positions = positions
+        this.indices = indices
         this.decomposer = decomposer
     }
 
-    names(df: DataFrame, itemSize: number, serie: Serie, name: string): string[] {
+    names(
+        df: DataFrame,
+        itemSize: number,
+        serie: Serie,
+        name: string,
+    ): string[] {
         return this.decomposer.names(df, itemSize, serie, name)
     }
 
@@ -37,10 +50,9 @@ export class TriangleToNodeDecomposer implements Decomposer {
             return fromTriangleToNode({
                 positions: this.positions,
                 indices: this.indices,
-                serie: this.decomposer.serie(df, itemSize, name)
+                serie: this.decomposer.serie(df, itemSize, name),
             })
-        }
-        else {
+        } else {
             return undefined
         }
     }

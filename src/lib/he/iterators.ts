@@ -1,4 +1,4 @@
-import {Node, Halfedge, Facet} from './combels'
+import { Node, Halfedge } from './combels'
 
 /**
  * Loop over all nodes around a node

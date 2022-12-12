@@ -3,11 +3,10 @@ import { Node, Facet, Halfedge } from './combels'
 import { Surface } from './Surface'
 import { vec } from '@youwol/math'
 
-
 // type NodeObserver       = CombelObserver<Node>
-type FacetObserver      = CombelObserver<Facet>
+type FacetObserver = CombelObserver<Facet>
 // type HalfedgeObserver   = CombelObserver<Halfedge>
-type Star               = Map<Node, Array<Halfedge>>
+type Star = Map<Node, Array<Halfedge>>
 // type NodeObservable     = CombelObservable<Node>
 // type FacetObservable    = CombelObservable<Facet>
 // type HalfedgeObservable = CombelObservable<Halfedge>
@@ -18,17 +17,17 @@ type Star               = Map<Node, Array<Halfedge>>
  * @category Halfedge
  */
 export class SurfaceBuilder {
-    private node_observable_     = new CombelObservable<Node>()
-    private facet_observable_    = new CombelObservable<Facet>()
+    private node_observable_ = new CombelObservable<Node>()
+    private facet_observable_ = new CombelObservable<Facet>()
     private halfedge_observable_ = new CombelObservable<Halfedge>()
     protected surface_: Surface = undefined
     //star_: Star = new CombelAttribute<Node, Array<Halfedge>>()
     private facet_node_ = new Array<Node>()
     private nodes_ = new Array<Node>()
-    private current_facet_   : Facet = undefined
-    private current_node_    : Node   = undefined
+    private current_facet_: Facet = undefined
+    private current_node_: Node = undefined
     private current_halfedge_: Halfedge = undefined
-    private first_node_in_facet_    : Node = undefined
+    private first_node_in_facet_: Node = undefined
     private first_halfedge_in_facet_: Halfedge = undefined
 
     private star_ = new Map<Node, Array<Halfedge>>()
@@ -42,9 +41,8 @@ export class SurfaceBuilder {
         this.nodes_ = []
     }
 
-    reset() {
-    }
-  
+    reset() {}
+
     /**
      * @param x Either nothing, the x component or an array of size 3
      * @param y Either nothing (if x is an array) or the y component
@@ -62,22 +60,27 @@ export class SurfaceBuilder {
     endFacet() {
         const nb_vertices = this.facet_node_.length
         if (nb_vertices < 3) {
-            throw new Error("SurfaceBuilder: Facet with less than 3 vertices")
+            throw new Error('SurfaceBuilder: Facet with less than 3 vertices')
         }
-    
+
         // Detect and remove non-manifold edges by duplicating
         // the corresponding vertices.
-        for(let from = 0; from < nb_vertices; from++) {
-            const to = ((from+1) % nb_vertices)
-            if (this.findHalfedgeBetween(this.facet_node_[from], this.facet_node_[to]) !== undefined) {
-                this.facet_node_[from] = this.copyNode(this.facet_node_[from] )
-                this.facet_node_[to]   = this.copyNode(this.facet_node_[to]) ;
+        for (let from = 0; from < nb_vertices; from++) {
+            const to = (from + 1) % nb_vertices
+            if (
+                this.findHalfedgeBetween(
+                    this.facet_node_[from],
+                    this.facet_node_[to],
+                ) !== undefined
+            ) {
+                this.facet_node_[from] = this.copyNode(this.facet_node_[from])
+                this.facet_node_[to] = this.copyNode(this.facet_node_[to])
             }
         }
-    
+
         this.beginFacetInternal()
         {
-            for (let i=0; i<nb_vertices; i++) {
+            for (let i = 0; i < nb_vertices; i++) {
                 this.addNodeToFacetInternal(this.facet_node_[i])
             }
         }
@@ -86,7 +89,7 @@ export class SurfaceBuilder {
     }
 
     addNodeToFacet(i: number) {
-        if(i < 0 || i >= this.nodes_.length) {
+        if (i < 0 || i >= this.nodes_.length) {
             return
         }
         this.facet_node_.push(this.nodes_[i])
@@ -118,7 +121,7 @@ export class SurfaceBuilder {
     }
 
     // --------------------------------------------------
-  
+
     // private currentNode(): Node {
     //     return this.nodes_[this.nodes_.length - 1]
     // }
@@ -135,29 +138,29 @@ export class SurfaceBuilder {
     //
     // TODO: use functions instead of derived classes...
     //
-    
+
     // -----------------------------------------------------------
-    
+
     // private registerNodeObserser(c: NodeObserver) {
     //     this.node_observable_.registerObserver(c)
     // }
-    
+
     // private unregisterNodeObserser(c: NodeObserver) {
     //     this.node_observable_.unregisterObserver(c)
     // }
-    
+
     private notifyRemoveNode(n: Node) {
         this.node_observable_.notifyRemove(n)
     }
-    
+
     public registerFacetObserser(c: FacetObserver) {
         this.facet_observable_.registerObserver(c)
     }
-    
+
     public unregisterFacetObserser(c: FacetObserver) {
         this.facet_observable_.unregisterObserver(c)
     }
-    
+
     private notifyRemoveFacet(f: Facet) {
         this.facet_observable_.notifyRemove(f)
     }
@@ -171,31 +174,33 @@ export class SurfaceBuilder {
     // }
 
     private notifyRemoveHalfedge(h: Halfedge) {
-        this.halfedge_observable_.notifyRemove(h) ;
+        this.halfedge_observable_.notifyRemove(h)
     }
 
     // ----------------------------------------------------------
 
     protected reindexNodes() {
-        let i = 0 ;
-        this.nodes_.forEach( node => node.setId(i++))
+        let i = 0
+        this.nodes_.forEach((node) => node.setId(i++))
     }
 
     protected reindexFacets() {
-        let i = 0 ;
-        this.surface_.facets.forEach( facet => facet.setId(i++))
+        let i = 0
+        this.surface_.facets.forEach((facet) => facet.setId(i++))
     }
 
     // ----------------------------------------------------------
 
-    protected setSurface(s: Surface) {this.surface_ = s}
+    protected setSurface(s: Surface) {
+        this.surface_ = s
+    }
 
     private addNodeInternal(x?: any, y?: any, z?: any): Node {
         const new_v = this.newNode()
         if (Array.isArray(x)) {
             new_v.setPos(x[0], x[1], x[2])
         } else {
-            new_v.setPos(x, y, z!==undefined?z:0)
+            new_v.setPos(x, y, z !== undefined ? z : 0)
         }
         this.nodes_.push(new_v)
         this.insertInStar(new_v)
@@ -204,14 +209,17 @@ export class SurfaceBuilder {
 
     private beginFacetInternal() {
         this.current_facet_ = this.newFacet()
-        this.first_node_in_facet_ =undefined
+        this.first_node_in_facet_ = undefined
         this.current_node_ = undefined
         this.first_halfedge_in_facet_ = undefined
         this.current_halfedge_ = undefined
     }
 
     private endFacetInternal() {
-        const h = this.newHalfedgeBetween(this.current_node_, this.first_node_in_facet_)
+        const h = this.newHalfedgeBetween(
+            this.current_node_,
+            this.first_node_in_facet_,
+        )
         this.link(this.current_halfedge_, h, 1)
         this.link(h, this.first_halfedge_in_facet_, 1)
     }
@@ -228,14 +236,14 @@ export class SurfaceBuilder {
                 this.link(this.current_halfedge_, new_halfedge, 1)
             }
             this.current_halfedge_ = new_halfedge
-          }
-          this.current_node_ = v
+        }
+        this.current_node_ = v
     }
 
     private copyNode(from: Node): Node {
         const result = this.newNode()
-        result.setPos(from.pos[0], from.pos[1], from.pos[2]) ;
-        return result ;
+        result.setPos(from.pos[0], from.pos[1], from.pos[2])
+        return result
     }
 
     // ------------------------------------
@@ -243,36 +251,36 @@ export class SurfaceBuilder {
     // dim 1: set next of h1 to be h1, and prev of h2 to be h1
     // dim 2: set opposite of h1 to be h2, and vis-versa
     protected link(h1: Halfedge, h2: Halfedge, dim: number) {
-        switch(dim) {
-        case 1:
-            h1.setNext(h2)
-            h2.setPrev(h1)
-            break ;
-        case 2:
-            h1.setOpposite(h2) ;
-            h2.setOpposite(h1) ;
-            break ;
+        switch (dim) {
+            case 1:
+                h1.setNext(h2)
+                h2.setPrev(h1)
+                break
+            case 2:
+                h1.setOpposite(h2)
+                h2.setOpposite(h1)
+                break
         }
     }
-    
-    // for each next linked halfedge around vertex stating at h, 
+
+    // for each next linked halfedge around vertex stating at h,
     // set vertex to v
     protected setNodeOnOrbit(h: Halfedge, v: Node) {
         let it = h
         do {
             it.setNode(v)
             it = it.nextAroundNode
-        } while(it !== h)
+        } while (it !== h)
     }
 
-    // for each next linked halfedge stating at h, 
+    // for each next linked halfedge stating at h,
     // set facet to f
     protected setFacetOnOrbit(h: Halfedge, f: Facet) {
         let it = h
         do {
             it.setFacet(f)
             it = it.next
-        } while(it !== h)
+        } while (it !== h)
     }
 
     protected makeNodeKey(h: Halfedge, v?: Node) {
@@ -292,17 +300,17 @@ export class SurfaceBuilder {
             h.setFacet(f)
         }
     }
-  
+
     protected newEdge(): Halfedge {
         return this.surface_.newEdge()
     }
 
     protected newNode(rhs?: Node): Node {
-        return this.surface_.newNode(rhs) ;
+        return this.surface_.newNode(rhs)
     }
 
     protected newHalfedge(rhs?: Halfedge): Halfedge {
-        return this.surface_.newHalfedge(rhs) ;
+        return this.surface_.newHalfedge(rhs)
     }
 
     protected newFacet(rhs?: Facet): Facet {
@@ -312,7 +320,7 @@ export class SurfaceBuilder {
     protected deleteEdge(h: Halfedge) {
         this.notifyRemoveHalfedge(h)
         this.notifyRemoveHalfedge(h.opposite)
-        this.surface_.deleteEdge(h) 
+        this.surface_.deleteEdge(h)
     }
 
     protected deleteNode(v: Node) {
@@ -332,12 +340,12 @@ export class SurfaceBuilder {
         this.notifyRemoveFacet(f)
         this.surface_.deleteFacet(f)
     }
-  
+
     // Set vertex halfedge pointing to h
     protected setNodeHalfedge(v: Node, h: Halfedge) {
         v.setHalfedge(h)
     }
-    
+
     // set opposite of h1 to be h2
     protected setHalfedgeOpposite(h1: Halfedge, h2: Halfedge) {
         h1.setOpposite(h2)
@@ -352,12 +360,12 @@ export class SurfaceBuilder {
     protected setHalfedgePrev(h1: Halfedge, h2: Halfedge) {
         h1.setPrev(h2)
     }
-    
+
     // Set facet of h to be f
     protected setHalfedgeFacet(h: Halfedge, f: Facet) {
         h.setFacet(f)
     }
-    
+
     // Set vertex of h to be v
     protected setHalfedgeNode(h: Halfedge, v: Node) {
         h.setNode(v)
@@ -380,10 +388,10 @@ export class SurfaceBuilder {
         this.setHalfedgeNode(result, to)
 
         const opposite = this.findHalfedgeBetween(to, from)
-        if(opposite !== undefined) {
+        if (opposite !== undefined) {
             this.link(result, opposite, 2)
         }
-    
+
         this.getOrCreateFromStar(from).push(result)
         this.setNodeHalfedge(to, result)
         return result
@@ -392,37 +400,37 @@ export class SurfaceBuilder {
     private findHalfedgeBetween(from: Node, to: Node): Halfedge {
         const star = this.getOrCreateFromStar(from)
         let sol = undefined
-        star.forEach( (cur: any) => {
+        star.forEach((cur: any) => {
             if (cur.node == to) {
                 sol = cur
             }
         })
         return sol
     }
-    
+
     private nodeIsManifold(v: Node): boolean {
-        if(v.halfedge === undefined) {
+        if (v.halfedge === undefined) {
             console.warn(`SurfaceBuilder: Warning, isolated vertex (${v.pos})`)
             return true
-        }        
-        return (this.getOrCreateFromStar(v).length === v.degree)
+        }
+        return this.getOrCreateFromStar(v).length === v.degree
     }
 
     private splitNonManifoldNode(v: Node): boolean {
         if (this.nodeIsManifold(v)) {
             return false
         }
-        
+
         const star = new Set<Halfedge>()
-        this.getOrCreateFromStar(v).forEach( h => star.add(h) )
-        
+        this.getOrCreateFromStar(v).forEach((h) => star.add(h))
+
         // For the first wedge, reuse the vertex
         this.disconnectNode(v.halfedge.opposite, v, star)
-    
+
         // There should be other wedges (else the vertex
         // would have been manifold)
         console.assert(star.size !== 0)
-    
+
         // Create the vertices for the remaining wedges.
         while (star.size !== 0) {
             const new_v = this.copyNode(v)
@@ -431,38 +439,38 @@ export class SurfaceBuilder {
         }
         return true
     }
-    
+
     private disconnectNode(start_in: Halfedge, v: Node, star: Set<Halfedge>) {
-        let start = start_in ;  
+        let start = start_in
         this.insertInStar(v)
-  
+
         console.assert(star.has(start))
-        
+
         while (!start.isBorder) {
             start = start.prev.opposite
             if (start === start_in) {
-	            break
+                break
             }
         }
         this.setNodeHalfedge(v, start.opposite)
-  
+
         let cur = start
         this.setHalfedgeNode(cur.opposite, v)
         this.getOrCreateFromStar(v).push(cur)
         // !!!
         star.delete(cur)
-  
+
         while (!cur.opposite.isBorder) {
             cur = cur.opposite.next
-            if(cur === start) {
-	            break ;
+            if (cur === start) {
+                break
             }
             this.setHalfedgeNode(cur.opposite, v)
             // !!!
-            star.delete(cur) ;
+            star.delete(cur)
             this.getOrCreateFromStar(v).push(cur)
-        } 
-  
+        }
+
         if (start.isBorder) {
             this.link(cur.opposite, start, 1)
         }
@@ -470,15 +478,15 @@ export class SurfaceBuilder {
 
     private terminateSurface() {
         this.updateBorder(this.star_)
-    
+
         // fix non-manifold vertices
-        this.nodes_.forEach( node => {
+        this.nodes_.forEach((node) => {
             if (this.splitNonManifoldNode(node)) {
                 // output warning
             }
         })
 
-        this.nodes_.forEach( node => {
+        this.nodes_.forEach((node) => {
             this.deleteFromStarIfEmpty(node)
             // if (this.star_.get(node).length == 0) {
             //     this.deleteNode(node)
@@ -491,16 +499,16 @@ export class SurfaceBuilder {
 
     // Update the border
     // private updateBorderNoArg() {
-    //     // create the border halfedges, and setup the 'opposite' and 
+    //     // create the border halfedges, and setup the 'opposite' and
     //     // 'vertex' pointers.
     //     this.surface_.halfedges.forEach( h => {
     //         if(h.opposite === undefined) {
     //             const hh = this.newHalfedge()
     //             this.link(hh, h, 2)
-    //             this.setHalfedgeNode(hh, h.prev.node) ;	
+    //             this.setHalfedgeNode(hh, h.prev.node) ;
     //         }
     //     })
-        
+
     //     // setup the 'next' and 'prev' pointers of the border.
     //     this.surface_.halfedges.forEach( h => {
     //         if(h.facet === undefined) {
@@ -520,14 +528,14 @@ export class SurfaceBuilder {
 
     private updateBorder(star: Star) {
         const tmp_list: Array<Halfedge> = []
-        this.surface_.halfedges.forEach( h => {
-            if(h.opposite === undefined) {
+        this.surface_.halfedges.forEach((h) => {
+            if (h.opposite === undefined) {
                 tmp_list.push(h)
             }
         })
-    
+
         if (tmp_list.length !== 0) {
-            tmp_list.forEach( cur => {
+            tmp_list.forEach((cur) => {
                 const h = this.newHalfedge()
                 this.link(h, cur, 2)
                 this.setHalfedgeNode(h, cur.prev.node)
@@ -537,8 +545,8 @@ export class SurfaceBuilder {
         }
 
         // Link the border
-        this.surface_.halfedges.forEach( cur => {
-            if(cur.facet === undefined) {
+        this.surface_.halfedges.forEach((cur) => {
+            if (cur.facet === undefined) {
                 let next = cur.opposite
                 while (next.facet !== undefined) {
                     next = next.prev.opposite

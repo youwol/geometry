@@ -1,13 +1,13 @@
-import { Serie } from "@youwol/dataframe"
-import { minMax } from "@youwol/math"
-import { BBox } from "./bbox"
+import { Serie } from '@youwol/dataframe'
+import { minMax } from '@youwol/math'
+import { BBox } from './bbox'
 
 type Point2d = [number, number]
 
 /**
  * If the polygon is given by 3D points, set the flag `hasZ` to true.
  * The z component will be discarded.
- * 
+ *
  * Usage:
  * ```js
  * const polygon = [1, 1,  1, 2,  2, 2,  2, 1]
@@ -51,18 +51,24 @@ export function pointInPolygon(x: number, y: number, polyline: Serie): boolean {
         const xi = verts[shift * i]
         const yi = verts[shift * i + 1]
         const yj = verts[shift * j + 1]
-        if (((yi > y) != (yj > y)) && (x < (verts[shift * j] - xi) * (y - yi) / (yj - yi) + xi)) {
+        if (
+            yi > y != yj > y &&
+            x < ((verts[shift * j] - xi) * (y - yi)) / (yj - yi) + xi
+        ) {
             c = !c
         }
     }
     return c
 }
 
-export function generatePointInPolygon(polyline: Serie, maxThrows=100): [number, number] {
+export function generatePointInPolygon(
+    polyline: Serie,
+    maxThrows = 100,
+): [number, number] {
     const bounds = minMax(polyline)
     const bbox = new BBox(
-        [bounds[0], bounds[1], polyline.itemSize===3 ? bounds[2] : 0],
-        [bounds[3], bounds[4], polyline.itemSize===3 ? bounds[5] : 0]
+        [bounds[0], bounds[1], polyline.itemSize === 3 ? bounds[2] : 0],
+        [bounds[3], bounds[4], polyline.itemSize === 3 ? bounds[5] : 0],
     )
     let i = 0
     while (true) {
@@ -70,7 +76,7 @@ export function generatePointInPolygon(polyline: Serie, maxThrows=100): [number,
         if (pointInPolygon(p[0], p[1], polyline)) {
             return [p[0], p[1]]
         }
-        if (i>maxThrows) {
+        if (i > maxThrows) {
             return undefined
         }
         i++

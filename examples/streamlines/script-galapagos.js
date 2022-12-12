@@ -1,7 +1,7 @@
-const fs   = require('fs')
+const fs = require('fs')
 const math = require('@youwol/math')
-const df   = require('@youwol/dataframe')
-const io   = require('@youwol/io')
+const df = require('@youwol/dataframe')
+const io = require('@youwol/io')
 const geom = require('../../dist/@youwol/geometry')
 
 /*
@@ -60,20 +60,22 @@ function generateStreamLinesFromUnstructured({positions, indices, vectorField, s
 }
 */
 
-const filename = '/Users/fmaerten/data/arch/galapagos-all/model2/forward-grid-13500.ts'
-const grid     = io.merge( io.decodeGocadTS( fs.readFileSync(filename, 'utf8') ) )
+const filename =
+    '/Users/fmaerten/data/arch/galapagos-all/model2/forward-grid-13500.ts'
+const grid = io.merge(io.decodeGocadTS(fs.readFileSync(filename, 'utf8')))
 
-const seeds = [
-    675400, 9958543, -500,
-    699386, 9957051 , -500
-]
+const seeds = [675400, 9958543, -500, 699386, 9957051, -500]
 
 const lines = geom.generateStreamLinesFromUnstructured({
-    positions  : grid.series.positions,
-    indices    : grid.series.indices, 
+    positions: grid.series.positions,
+    indices: grid.series.indices,
     vectorField: grid.series.Joint,
     seeds,
     nx: 200,
-    ny: 500
+    ny: 500,
 })
-fs.writeFileSync('/Users/fmaerten/data/arch/galapagos-all/model2/out/streamlines.pl', io.encodeGocadPL(lines), 'utf8')
+fs.writeFileSync(
+    '/Users/fmaerten/data/arch/galapagos-all/model2/out/streamlines.pl',
+    io.encodeGocadPL(lines),
+    'utf8',
+)
