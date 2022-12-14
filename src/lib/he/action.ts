@@ -17,22 +17,22 @@ export abstract class Action {
     /**
      * @return An object which described what changed
      */
-    abstract do(): any
+    abstract do(): void
 
     /**
      * @return An object which described what changed
      */
-    abstract undo(): any
+    abstract undo(): void
 
     get name(): string {
         return this._name
     }
-    get valid() {
-        return this._valid
-    }
-
     set name(n: string) {
         this._name = n
+    }
+
+    get valid() {
+        return this._valid
     }
     set valid(v: boolean) {
         this._valid = v
@@ -44,10 +44,10 @@ export abstract class Action {
  * @category Actions
  */
 export class FunctionAction extends Action {
-    private _do: Function = undefined
-    private _undo: Function = undefined
+    private _do: () => void = undefined
+    private _undo: () => void = undefined
 
-    constructor(do_: Function, undo_: Function, name = 'function-action') {
+    constructor(do_: () => void, undo_: () => void, name = 'function-action') {
         super(name)
         this._do = do_
         this._undo = undo_
@@ -74,7 +74,7 @@ export class MacroAction extends Action {
         super(name)
     }
 
-    register(do_: Function, undo_: Function) {
+    register(do_: () => void, undo_: () => void) {
         if (do_ instanceof Action) {
             if (do_.valid === true) {
                 this._actions.push(do_ as Action)
@@ -113,7 +113,7 @@ export class ActionPool {
      * @param do_ Can be either a function (or lambda) or an Action
      * @param undo_ If do_ is an Action, undo_ is irrelevant.
      */
-    execute(do_: any, undo_?: Function, name?: string): boolean {
+    execute(do_: () => void, undo_?: () => void, name?: string): boolean {
         let act = undefined
         if (do_ instanceof Action) {
             if (do_.valid === false) {
@@ -163,7 +163,7 @@ export class ActionPool {
     }
 
     get undoActionNames() {
-        return this._do.map((a) => a.name).reverse()
+        return this._do.map((a: Action) => a.name).reverse()
     }
 
     get redoActionNames() {

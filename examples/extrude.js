@@ -24,9 +24,4 @@ const dataframe = df.DataFrame.create({
     },
 })
 
-fs.writeFileSync(
-    'extruded.gcd',
-    io.encodeGocadTS(dataframe),
-    'utf8',
-    (err) => {},
-)
+fs.writeFileSync('extruded.gcd', io.encodeGocadTS(dataframe), 'utf8', () => {})

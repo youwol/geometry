@@ -386,7 +386,11 @@ export class SurfaceEditor extends SurfaceBuilder {
         return first
     }
 
-    makeTriangle(p1?: any, p2?: any, p3?: any): Halfedge {
+    makeTriangle(
+        p1?: Node | number[],
+        p2?: Node | number[],
+        p3?: Node | number[],
+    ): Halfedge {
         console.assert(this.is_modified_)
         if (p1 === undefined) {
             return this.makePolygon(3)
@@ -398,8 +402,8 @@ export class SurfaceEditor extends SurfaceBuilder {
         if (Array.isArray(p1)) {
             const result = this.makeTriangle()
             result.node.setPos(p1)
-            result.next.node.setPos(p2)
-            result.next.next.node.setPos(p3)
+            result.next.node.setPos(p2 as number[])
+            result.next.next.node.setPos(p3 as number[])
             return result
         }
 

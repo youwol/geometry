@@ -141,13 +141,13 @@ export function createLookupGrid(
         }
     }
 
-    function isInBounds(x: number, y: number) {
-        if (bbox.left > x || bbox.left + bboxSize < x) {
-            return false
-        }
-        if (bbox.top > y || bbox.top + bboxSize < y) {
-            return false
-        }
-        return true
-    }
+    // function isInBounds(x: number, y: number) {
+    //     if (bbox.left > x || bbox.left + bboxSize < x) {
+    //         return false
+    //     }
+    //     if (bbox.top > y || bbox.top + bboxSize < y) {
+    //         return false
+    //     }
+    //     return true
+    // }
 }

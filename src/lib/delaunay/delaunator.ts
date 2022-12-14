@@ -1,4 +1,6 @@
-// from https://github.com/mapbox/delaunator
+/**
+ * @see https://github.com/mapbox/delaunator
+ */
 
 /*
 ISC License
@@ -17,6 +19,9 @@ OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
 THIS SOFTWARE.
 */
+
+/*eslint @typescript-eslint/no-explicit-any: off -- not our code, so disable eslint errors*/
+/*eslint no-constant-condition: off -- not our code, so disable eslint errors*/
 
 const EPSILON = Math.pow(2, -52)
 const EDGE_STACK = new Uint32Array(512)

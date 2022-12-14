@@ -2,7 +2,7 @@ import { Serie } from '@youwol/dataframe'
 import { minMax } from '@youwol/math'
 import { BBox } from './bbox'
 
-type Point2d = [number, number]
+// type Point2d = [number, number]
 
 /**
  * If the polygon is given by 3D points, set the flag `hasZ` to true.
@@ -71,6 +71,8 @@ export function generatePointInPolygon(
         [bounds[3], bounds[4], polyline.itemSize === 3 ? bounds[5] : 0],
     )
     let i = 0
+
+    /*eslint no-constant-condition: off -- stupid, so disablethis eslint error*/
     while (true) {
         const p = bbox.randPoint()
         if (pointInPolygon(p[0], p[1], polyline)) {

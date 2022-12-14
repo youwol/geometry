@@ -46,5 +46,5 @@ test('half-edge test', () => {
     // console.log( surface.borderIdsAsSerie )
 
     // Test to be done...
-    expect(false).toBeFalsy()
+    expect(edges).toBeDefined()
 })

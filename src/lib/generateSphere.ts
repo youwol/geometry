@@ -102,8 +102,10 @@ export function generateSphere(
             f21 = lerp(f0, f2, 1 / subdivision)
         newP(proj(f0), proj(f20), proj(f21))
         for (let i = 1; i < subdivision; ++i) {
-            ;(f10 = f20), (f20 = lerp(f0, f1, (i + 1) / subdivision))
-            ;(f11 = f21), (f21 = lerp(f0, f2, (i + 1) / subdivision))
+            f10 = f20
+            f20 = lerp(f0, f1, (i + 1) / subdivision)
+            f11 = f21
+            f21 = lerp(f0, f2, (i + 1) / subdivision)
             for (let j = 0; j <= i; ++j) {
                 newP(
                     proj(lerp(f10, f11, j / i)),

@@ -8,7 +8,7 @@ export class Node {
     private id_ = -1
     private he_: Halfedge = undefined
 
-    setPos(x: any, y?: number, z?: number) {
+    setPos(x: number | number[], y?: number, z?: number) {
         if (Array.isArray(x)) {
             this.pos_[0] = x[0]
             this.pos_[1] = x[1]

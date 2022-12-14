@@ -3,6 +3,9 @@ import { createLookupGrid } from './createLookupGrid'
 import { rk4 } from './rk4'
 import { LookupGrid, StreamLinesOptions } from './types'
 
+/*eslint @typescript-eslint/no-explicit-any: off -- not our code, so disable eslint errors*/
+/*eslint no-constant-condition: off -- not our code, so disable eslint errors*/
+
 enum State {
     FORWARD,
     BACKWARD,

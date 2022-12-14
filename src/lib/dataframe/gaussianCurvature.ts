@@ -35,7 +35,7 @@ export class CurvatureDecomposer implements Decomposer {
     /**
      * @hidden
      */
-    names(df: DataFrame, itemSize: number, serie: Serie, name: string) {
+    names(df: DataFrame, itemSize: number, _serie: Serie, _name: string) {
         if (itemSize !== 1) {
             return []
         }
@@ -368,7 +368,7 @@ class Vertex {
 
     degree() {
         let k = 0
-        for (const e of this.adjacentEdges()) {
+        for (const _e of this.adjacentEdges()) {
             k++
         }
 
@@ -1554,7 +1554,7 @@ class Geometry {
      * Get the first principal curvature
      */
     k1(): Serie {
-        const array = this.mesh.vertices.map((v, i) => {
+        const array = this.mesh.vertices.map((v) => {
             const c = this.principalCurvatures(v)
             return c[0]
         })
@@ -1565,7 +1565,7 @@ class Geometry {
      * Get the second principal curvature
      */
     k2(): Serie {
-        const array = this.mesh.vertices.map((v, i) => {
+        const array = this.mesh.vertices.map((v) => {
             const c = this.principalCurvatures(v)
             return c[1]
         })

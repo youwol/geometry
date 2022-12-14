@@ -14,7 +14,7 @@ export class Stack<T> {
     /**
      * Remove and return the last element
      */
-    pop(): any {
+    pop(): T {
         if (this.items.length === 0) {
             return undefined
         }
@@ -24,7 +24,7 @@ export class Stack<T> {
     /**
      * Remove and return the first element
      */
-    shift(): any {
+    shift(): T {
         if (this.items.length === 0) {
             return undefined
         }
@@ -73,11 +73,12 @@ export class Stack<T> {
         return str
     }
 
-    forEach(cb: (item: any, index: number) => any) {
-        return this.items.forEach(cb, this)
+    forEach(cb: (item: T, index: number) => void) {
+        this.items.forEach(cb, this)
     }
 
-    map(cb: (item: any, index: number) => Array<any>) {
+    /*eslint @typescript-eslint/no-explicit-any: off -- WTF*/
+    map(cb: (item: T, index: number) => any) {
         return this.items.map(cb, this)
     }
 }

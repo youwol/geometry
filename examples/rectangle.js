@@ -14,5 +14,5 @@ fs.writeFileSync(
     '/Users/fmaerten/data/mesh/rectangle.ts',
     io.encodeGocadTS(dataframe),
     'utf8',
-    (err) => {},
+    () => {},
 )

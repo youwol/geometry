@@ -23,7 +23,7 @@ export function streamLinesExtractor({
     seed = undefined,
     seedArray = undefined,
     maximumPointsPerLine = undefined,
-    maxTimePerIteration = 1000,
+    // maxTimePerIteration = 1000,
     stepsPerIteration = 50,
     timeStep = 0.05,
     dSep = 0.2,
@@ -139,6 +139,7 @@ type Polyline = number[]
 type Polylines = Polyline[]
 type Point = { x: number; y: number }
 
+/*
 class Bounds {
     private width: number
     private height: number
@@ -173,3 +174,4 @@ class Bounds {
         })
     }
 }
+*/

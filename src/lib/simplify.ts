@@ -117,17 +117,14 @@ function simplifyRadialDistance(points: Serie, sqTolerance: number): Serie {
 
 // simplification using optimized Douglas-Peucker algorithm with recursion elimination
 function simplifyDouglasPeucker(points: Serie, sqTolerance: number): Serie {
-    let len = points.length,
-        MarkerArray = typeof Uint8Array !== 'undefined' ? Uint8Array : Array,
-        markers = new MarkerArray(len),
-        first = 0,
-        last = len - 1,
-        stack = [],
-        newPoints = [],
-        i,
-        maxSqDist,
-        sqDist,
-        index
+    const len = points.length
+    const MarkerArray = typeof Uint8Array !== 'undefined' ? Uint8Array : Array
+    const markers = new MarkerArray(len)
+    const stack = []
+    const newPoints = []
+    let first = 0,
+        last = len - 1
+    let i, maxSqDist, sqDist, index
 
     markers[first] = markers[last] = 1
 

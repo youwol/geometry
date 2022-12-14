@@ -1,3 +1,5 @@
+/*eslint @typescript-eslint/no-explicit-any: off -- WTF*/
+
 import { Serie } from '@youwol/dataframe'
 import { minMax } from '@youwol/math'
 
@@ -18,8 +20,8 @@ export function createBackgroundGrid2D({
     dims?: [number, number]
     eps?: number
 }) {
-    const nbNodes = positions.count
-    const nbElements = indices.count
+    // const nbNodes = positions.count
+    // const nbElements = indices.count
 
     const minmax = minMax(positions)
 
@@ -39,7 +41,7 @@ export function createBackgroundGrid2D({
             xs.push(p[0])
             ys.push(p[1])
         })
-        const err = backgroundgrid.insert(
+        const _err = backgroundgrid.insert(
             new CBox(
                 [Math.min(...xs), Math.max(...xs)],
                 [Math.min(...ys), Math.max(...ys)],
@@ -72,7 +74,7 @@ export class BackgroundGrid2D {
         this.ny_ = ny
         this.cells_ = Array(this.nx_ * this.ny_)
             .fill(undefined)
-            .map((v) => new Cell())
+            .map(() => new Cell())
     }
 
     get nx() {
@@ -100,7 +102,7 @@ export class BackgroundGrid2D {
         }
     }
 
-    forAllPoints(cb: Function) {
+    forAllPoints(cb: (o: object, i: number, j: number, coord: object) => void) {
         for (let i = 0; i < this.nx_; ++i) {
             for (let j = 0; j < this.ny_; ++j) {
                 const flatcellindex = this.getFlatIndex(i, j)
@@ -159,7 +161,10 @@ export class BackgroundGrid2D {
         return cell.objects
     }
 
-    getIJ(p: V2): any {
+    getIJ(p: V2): {
+        ok: boolean
+        ij?: number[]
+    } {
         // console.assert(this.nx_ != 0 && this.ny_ != 0)
         // console.assert(this.dx_ != 0 && this.dy_ != 0)
 
@@ -224,5 +229,5 @@ class CBox<T> {
 }
 
 class Cell<T> {
-    public objects: Array<CBox<any>> = []
+    public objects: Array<CBox<T>> = []
 }

@@ -18,7 +18,7 @@ fs.writeFileSync(
     '/Users/fmaerten/data/mesh/surface.ts',
     io.encodeGocadTS(dataframe),
     'utf8',
-    (err) => {},
+    () => {},
 )
 
 // Relax
@@ -41,5 +41,5 @@ fs.writeFileSync(
     '/Users/fmaerten/data/mesh/surface-relax.ts',
     io.encodeGocadTS(dataframe),
     'utf8',
-    (err) => {},
+    () => {},
 )
