@@ -1,4 +1,4 @@
-import { Serie, DataFrame, array } from '@youwol/dataframe'
+import { Serie, DataFrame } from '@youwol/dataframe'
 import { vec } from '@youwol/math'
 import { Delaunator } from './delaunay/delaunator'
 import { project } from './plane'
@@ -26,7 +26,7 @@ export function triangulate(
         d = new Delaunator(newPts.array)
     }
 
-    const max = array.max(d.triangles)
+    // const max = array.max(d.triangles)
     // let indices: ASerie = undefined
     // if (max>65535) {
     //     indices = createSerie({data: createTyped(Uint32Array, d.triangles, true), itemSize: 3})

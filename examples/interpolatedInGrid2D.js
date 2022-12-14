@@ -1,5 +1,4 @@
 const io = require('../../io/dist/@youwol/io')
-const math = require('@youwol/math')
 const geom = require('../dist/@youwol/geometry')
 const fs = require('fs')
 
@@ -53,5 +52,5 @@ fs.writeFile(
     '/Users/fmaerten/data/streamlines/interpolated.xyz',
     buffer,
     'utf8',
-    (err) => {},
+    () => {},
 )

@@ -48,16 +48,16 @@ class MapToMnt {
         this.mnt.positions.forEach((p) => {
             bbox.grow(p)
         })
-        const zmin = bbox.min[2]
-        const zmax = bbox.max[2]
-        const z = (zmin + zmax) / 2
-        const z1 = z - (zmax - zmin) * 100
-        const z2 = z + (zmax - zmin) * 100
+        // const zmin = bbox.min[2]
+        // const zmax = bbox.max[2]
+        // const z = (zmin + zmax) / 2
+        // const z1 = z - (zmax - zmin) * 100
+        // const z2 = z + (zmax - zmin) * 100
 
         const series: Serie[] = []
 
         this.traces.forEach((trace) => {
-            const n = trace.points.length / 2
+            // const n = trace.points.length / 2
             //trace["newPoints"] = [] // extend the class
             const newPoints = []
 

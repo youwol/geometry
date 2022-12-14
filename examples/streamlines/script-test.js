@@ -1,9 +1,9 @@
 const fs = require('fs')
-const df = require('@youwol/dataframe')
 const math = require('@youwol/math')
 const io = require('@youwol/io')
 const geom = require('../../dist/@youwol/geometry')
 
+/*
 class Normalizer {
     constructor(bounds, scaling = 1) {
         if (bounds.length !== 6) {
@@ -45,6 +45,7 @@ class Normalizer {
         }
     }
 }
+*/
 
 const grid = geom.generateRectangle({
     a: 10,
@@ -57,9 +58,9 @@ grid.series['U'] = grid.series.positions.map((p) => [p[0] ** 2, p[1], 0])
 
 console.log(math.minMax(grid.series.positions))
 
-const normalizer = new Normalizer(math.minMax(grid.series.positions))
-let pos = normalizer.normalize(grid.series.positions)
-pos = normalizer.denormalize(pos)
+// const normalizer = new Normalizer(math.minMax(grid.series.positions))
+// let pos = normalizer.normalize(grid.series.positions)
+// pos = normalizer.denormalize(pos)
 
 const seeds = [1, 1, 0]
 

@@ -1,9 +1,9 @@
-import { Node, Halfedge } from './combels'
+import { Node, Halfedge, Facet } from './combels'
 
 /**
  * Loop over all nodes around a node
  */
-export function nodesAroundNode(node: Node, cb: Function) {
+export function nodesAroundNode(node: Node, cb: (n: Node, i: number) => void) {
     let cir = node.halfedge
     let i = 0
     do {
@@ -16,7 +16,10 @@ export function nodesAroundNode(node: Node, cb: Function) {
 /**
  * Loop over all nodes around an halfedge
  */
-export function nodesAroundHalfedge(edge: Halfedge, cb: Function) {
+export function nodesAroundHalfedge(
+    edge: Halfedge,
+    cb: (n: Node, i: number) => void,
+) {
     let cir = edge
     let i = 0
     do {
@@ -29,7 +32,10 @@ export function nodesAroundHalfedge(edge: Halfedge, cb: Function) {
 /**
  * Loop over all facets around a node
  */
-export function facetsAroundNode(node: Node, cb: Function) {
+export function facetsAroundNode(
+    node: Node,
+    cb: (n: Facet, i: number) => void,
+) {
     let cir = node.halfedge
     let i = 0
     do {

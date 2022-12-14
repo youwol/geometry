@@ -19,5 +19,5 @@ fs.writeFileSync(
     '/Users/fmaerten/data/mesh/sphere.ts',
     io.encodeGocadTS(dataframe),
     'utf8',
-    (err) => {},
+    () => {},
 )

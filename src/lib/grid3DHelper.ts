@@ -62,7 +62,10 @@ export class Grid3DHelper {
         return this._n[2] * this._dz
     }
 
-    getIJK(p: [number, number, number]): any {
+    getIJK(p: [number, number, number]): {
+        ok: boolean
+        ijk?: number[]
+    } {
         const lx = p[0] - this._origin[0]
         if (lx < 0) {
             return { ok: false }
@@ -157,14 +160,17 @@ export class Grid3DHelper {
      * ```
      */
     candidate(p: [number, number, number]): [number, number, number] {
-        const { ok, ij } = this.getIJK(p)
+        const { ok, ijk } = this.getIJK(p)
         if (!ok) {
             return undefined
         }
-        return ij
+        return ijk as [number, number, number]
     }
 
-    interpolate(p: [number, number, number], attribute: Serie): any {
+    interpolate(
+        p: [number, number, number],
+        attribute: Serie,
+    ): number | number[] {
         const ijk = this.getIJK(p)
         if (ijk.ok) {
             const I = ijk.ijk[0]
@@ -222,7 +228,17 @@ export class Grid3DHelper {
      * Iterate aver all points of the grids and call cb = Function(x, y, z, i, j, k, flat)
      * @param cb
      */
-    forEach(cb: Function) {
+    forEach(
+        cb: (
+            x: number,
+            y: number,
+            z: number,
+            i: number,
+            j: number,
+            k: number,
+            flat: number,
+        ) => void,
+    ) {
         let l = 0
         for (let i = 0; i < this._n[0]; ++i) {
             for (let j = 0; j < this._n[1]; ++j) {
@@ -239,7 +255,17 @@ export class Grid3DHelper {
      * by calling cb = Function(x, y, z, i, j, k, flat)
      * @param cb
      */
-    map(cb: Function) {
+    map(
+        cb: (
+            x: number,
+            y: number,
+            z: number,
+            i: number,
+            j: number,
+            k: number,
+            flat: number,
+        ) => number,
+    ) {
         const arr = new Array(this.count)
         let l = 0
         for (let i = 0; i < this._n[0]; ++i) {

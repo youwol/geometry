@@ -78,7 +78,12 @@ export function streamlines(protoOptions: StreamLinesOptions) {
     const stepsPerIteration = options.stepsPerIteration
     //const resolve
     let state = State.STATE_INIT
-    const finishedStreamlineIntegrators: Array<any> = []
+    const finishedStreamlineIntegrators: Array<{
+        start: Vector
+        next: () => boolean
+        getStreamline: () => Vector[]
+        getNextValidSeed: () => Vector
+    }> = []
     let streamlineIntegrator = createStreamlineIntegrator(
         options.seed,
         grid,
@@ -159,7 +164,7 @@ export function streamlines(protoOptions: StreamLinesOptions) {
     }
 }
 
-function assertNumber(x: any, msg: string) {
+function assertNumber(x: object | number, msg: string) {
     if (typeof x !== 'number' || Number.isNaN(x)) {
         throw new Error(msg)
     }

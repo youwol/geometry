@@ -41,7 +41,9 @@ export class SurfaceBuilder {
         this.nodes_ = []
     }
 
-    reset() {}
+    reset() {
+        /* nothing to do */
+    }
 
     /**
      * @param x Either nothing, the x component or an array of size 3
@@ -195,7 +197,11 @@ export class SurfaceBuilder {
         this.surface_ = s
     }
 
-    private addNodeInternal(x?: any, y?: any, z?: any): Node {
+    private addNodeInternal(
+        x?: number | number[],
+        y?: number,
+        z?: number,
+    ): Node {
         const new_v = this.newNode()
         if (Array.isArray(x)) {
             new_v.setPos(x[0], x[1], x[2])
@@ -400,7 +406,7 @@ export class SurfaceBuilder {
     private findHalfedgeBetween(from: Node, to: Node): Halfedge {
         const star = this.getOrCreateFromStar(from)
         let sol = undefined
-        star.forEach((cur: any) => {
+        star.forEach((cur: Halfedge) => {
             if (cur.node == to) {
                 sol = cur
             }

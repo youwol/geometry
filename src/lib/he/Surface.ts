@@ -35,7 +35,9 @@ export class Surface {
         this.list_f_ = []
     }
 
-    endDescription() {}
+    endDescription() {
+        /* nothing to do */
+    }
 
     static create(
         positions: Serie | TypedArray | number[],
@@ -131,7 +133,7 @@ export class Surface {
         return this.list_n_[i]
     }
 
-    forEachNode(cb: Function) {
+    forEachNode(cb: (v: Node, i: number) => void) {
         const fs = this.list_n_
         for (let i = 0; i < fs.length; ++i) {
             cb(fs[i], i)
@@ -150,7 +152,7 @@ export class Surface {
         return this.list_e_[i]
     }
 
-    forEachHalfedge(cb: Function) {
+    forEachHalfedge(cb: (v: Halfedge, i: number) => void) {
         const fs = this.list_e_
         for (let i = 0; i < fs.length; ++i) {
             cb(fs[i], i)
@@ -169,7 +171,7 @@ export class Surface {
         return this.list_f_[i]
     }
 
-    forEachFace(cb: Function) {
+    forEachFace(cb: (v: Facet, i: number) => void) {
         const fs = this.list_f_
         for (let i = 0; i < fs.length; ++i) {
             cb(fs[i], i)
@@ -255,7 +257,7 @@ export class Surface {
     deleteFacet(f: Facet) {
         this.list_f_ = this.list_f_.filter((value) => value === f)
     }
-    newHalfedge(rhs?: Halfedge): Halfedge {
+    newHalfedge(_rhs?: Halfedge): Halfedge {
         const result = new Halfedge()
         this.addNewHalfedge(result)
         return result
@@ -274,7 +276,7 @@ export class Surface {
     addNewNode(n: Node) {
         this.list_n_.push(n)
     }
-    newFacet(rhs?: Facet): Facet {
+    newFacet(_rhs?: Facet): Facet {
         const result = new Facet()
         this.addNewFacet(result)
         return result

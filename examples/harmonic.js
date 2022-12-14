@@ -1,6 +1,5 @@
 const io = require('../../../../workspace/packages/io/dist/@youwol/io')
 const geom = require('../../../../workspace/packages/geometry/dist/@youwol/geometry')
-const math = require('../../../../workspace/packages/math/dist/@youwol/math')
 const fs = require('fs')
 
 // let dataframe = io.decodeGocadTS( fs.readFileSync('/Users/fmaerten/data/mesh/S1.ts', 'utf8') )[0]
@@ -26,5 +25,5 @@ fs.writeFileSync(
     '/Users/fmaerten/data/mesh/laplace.ts',
     io.encodeGocadTS(dataframe),
     'utf8',
-    (err) => {},
+    () => {},
 )

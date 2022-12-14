@@ -44,7 +44,7 @@ export class Grid2DHelper {
         return this._n[1] * this._dy
     }
 
-    getIJ(p: [number, number]): any {
+    getIJ(p: [number, number]): { ok: boolean; ij?: number[] } {
         const lx = p[0] - this._origin[0]
         const xg = lx / this._dx
         if (lx < 0 || xg > this._n[0]) {
@@ -118,7 +118,7 @@ export class Grid2DHelper {
         if (!ok) {
             return undefined
         }
-        return ij
+        return ij as [number, number]
     }
 
     interpolate(p: [number, number], attribute: Serie) {
@@ -161,7 +161,9 @@ export class Grid2DHelper {
      * Iterate aver all points of the grids and call cb = Function(x, y, i, j, flat)
      * @param cb
      */
-    forEach(cb: Function) {
+    forEach(
+        cb: (x: number, y: number, i: number, j: number, flat: number) => void,
+    ) {
         let k = 0
         for (let i = 0; i < this._n[0]; ++i) {
             for (let j = 0; j < this._n[1]; ++j) {
@@ -176,7 +178,15 @@ export class Grid2DHelper {
      * by calling cb = Function(x, y, i, j, flat)
      * @param cb
      */
-    map(cb: Function) {
+    map(
+        cb: (
+            x: number,
+            y: number,
+            i: number,
+            j: number,
+            flat: number,
+        ) => number,
+    ) {
         const arr = new Array(this.count)
         let k = 0
         for (let i = 0; i < this._n[0]; ++i) {

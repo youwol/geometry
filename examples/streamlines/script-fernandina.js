@@ -1,6 +1,5 @@
 const fs = require('fs')
 const math = require('@youwol/math')
-const df = require('@youwol/dataframe')
 const io = require('@youwol/io')
 const geom = require('../../dist/@youwol/geometry')
 

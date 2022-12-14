@@ -78,10 +78,10 @@ export class MarchingCubes {
         const vlist = new Array(12)
         const positions = []
         const indices = []
-        const nx = this.grid.sizes[0]
-        const ny = this.grid.sizes[1]
-        const nz = this.grid.sizes[2]
-        const nxy = nx * ny
+        // const nx = this.grid.sizes[0]
+        // const ny = this.grid.sizes[1]
+        // const nz = this.grid.sizes[2]
+        // const nxy = nx * ny
         let ni: number, nj: number, nk: number
 
         if (this.XYZ_ === false) {
@@ -95,7 +95,6 @@ export class MarchingCubes {
         }
         const nn = nj * nk
         let vertexIndex = 0
-        let id = 1
 
         for (let ii = 0; ii < ni - 1; ii++) {
             for (let jj = 0; jj < nj - 1; jj++) {
@@ -137,8 +136,6 @@ export class MarchingCubes {
                         pyz = py + nn
                         pxyz = pxy + nn
                     }
-
-                    id++
 
                     const value0 = this.values[p]
                     const value1 = this.values[px]

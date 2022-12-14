@@ -21,7 +21,7 @@ export function relaxMesh(
     const meanEdge = Math.sqrt((4 * meanArea) / Math.sqrt(3))
 
     for (let i = 0; i < iterations; ++i) {
-        surface.forEachNode((n, i) => {
+        surface.forEachNode((n) => {
             if (n.isOnBorder === false) {
                 let f = [0, 0, 0]
                 nodesAroundNode(n, (n1) => {

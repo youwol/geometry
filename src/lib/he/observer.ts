@@ -3,7 +3,7 @@
  * @category Halfedge
  */
 export class CombelObserver<COMBEL> {
-    notifiedRemove(c: COMBEL) {
+    notifiedRemove(_c: COMBEL) {
         /* filled by derived classes */
     }
 }
