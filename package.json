@@ -1,6 +1,6 @@
 {
     "name": "@youwol/geometry",
-    "version": "0.0.21",
+    "version": "0.0.22",
     "description": "",
     "author": "fmaerten@youwol.com",
     "keywords": [
@@ -28,8 +28,8 @@
         "@typescript-eslint/parser": "^5.33.1",
         "@youwol/dataframe": "0.x",
         "@youwol/eslint-config": "^0.0.4",
-        "@youwol/prettier-config": "^0.0.2",
         "@youwol/math": "0.x",
+        "@youwol/prettier-config": "^0.0.2",
         "eslint": "8.22.0",
         "eslint-config-prettier": "^8.4.0",
         "eslint-plugin-eslint-comments": "^3.2.0",
