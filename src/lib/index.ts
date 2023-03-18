@@ -16,6 +16,8 @@ export * from './extractSurfaceBorder'
 export * from './pointInPolygon'
 export * from './InterpolateInGrid2D'
 export * from './HarmonicDiffusion'
+export * from './AnglesToNormal'
+export * from './intersection'
 
 export * from './he'
 export * from './extrude'
