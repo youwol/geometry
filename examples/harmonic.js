@@ -22,7 +22,7 @@ laplace.maxIter = 5000
 dataframe = laplace.solve({
     name: 'P',
     record: true,
-    step: 100
+    step: 100,
 })
 
 fs.writeFileSync(
