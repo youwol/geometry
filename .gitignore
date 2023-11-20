@@ -14,3 +14,5 @@ src/auto_generated.ts
 cdn.zip
 **/.DS_Store
 *.iml
+.yw_pipeline/__pycache__/yw_pipeline.cpython-310.pyc
+.yw_pipeline/__pycache__/yw_pipeline.cpython-311.pyc

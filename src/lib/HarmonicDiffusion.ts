@@ -149,6 +149,7 @@ export class HarmonicDiffusion {
 
         while (conv > this.eps_) {
             conv = 0
+
             this.surface_.forEachNode((n) => {
                 if (this.constrainedNodes.includes(n) === false) {
                     const val = new Array(this.dataSize).fill(0)
@@ -170,6 +171,7 @@ export class HarmonicDiffusion {
                     )
                 }
             })
+
             conv = Math.sqrt(conv)
 
             if (record && step > 0 && idx % step === 0) {
@@ -185,6 +187,7 @@ export class HarmonicDiffusion {
             }
 
             idx++
+
             if (idx > this.maxIter_) {
                 break
             }
